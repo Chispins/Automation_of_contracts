@@ -2,8 +2,9 @@ import os
 import docx
 from docx.enum.section import WD_SECTION_START
 from docx.enum.style import WD_STYLE_TYPE
-wd = r"C:\Users\serco\Downloads"
-os.chdir(wd)
+from Bases import configurar_directorio_trabajo # Línea añadida
+
+configurar_directorio_trabajo() # Línea añadida
 
 doc = docx.Document()
 

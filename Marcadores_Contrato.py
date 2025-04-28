@@ -2,7 +2,9 @@ import os
 import docx
 from docx.oxml.ns import qn
 from docx.oxml.shared import OxmlElement
+from Bases import configurar_directorio_trabajo
 
+configurar_directorio_trabajo()
 
 def obtener_marcadores(documento):
     """Obtiene todos los marcadores de un documento Word."""
@@ -85,8 +87,6 @@ def modificar_texto_marcador(documento, nombre_marcador, nuevo_texto):
 
 
 # Cargar el documento
-wd = r"C:\Users\serco\Downloads"
-os.chdir(wd)
 doc = docx.Document("resolucion_numerada.docx")
 
 # Listar marcadores disponibles

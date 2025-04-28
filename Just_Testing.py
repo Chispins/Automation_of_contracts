@@ -1,8 +1,8 @@
 import docx
 import os
+from Bases import configurar_directorio_trabajo
 
-wd = r"C:\Users\serco\Downloads"
-os.chdir(wd)
+configurar_directorio_trabajo()
 
 doc = docx.Document()
 
@@ -50,3 +50,4 @@ doc.add_paragraph("Este es un ejemplo de estilo 'List Paragraph'", style="List P
 
 # Guardar documento
 doc.save("ejemplos_estilos_lista.docx")
+

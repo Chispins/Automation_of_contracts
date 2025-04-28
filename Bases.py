@@ -4,9 +4,44 @@ from docx.enum.section import WD_SECTION_START
 from docx.enum.style import WD_STYLE_TYPE
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
+import re
 
-# Función para crear numeración
-# Reemplazar la función crear_numeración con esta versión
+# Construye la ruta normalizada al directorio "Files"
+def configurar_directorio_trabajo():
+    """Configura el directorio de trabajo en la subcarpeta 'Files'."""
+    # Construye la ruta normalizada al directorio "Files"
+    cwd = os.getcwd()
+    target_dir_name = "Files"
+    wd = os.path.join(cwd, target_dir_name)
+
+    # Define el patrón específico a buscar (duplicación de \Files)
+    # Se asume separador de Windows (\). Se usan dobles barras invertidas en el patrón regex.
+    pattern = r"Files\\Files"
+
+    # Busca el patrón en la ruta generada
+    if re.search(pattern, wd):
+        # Si se encuentra, reemplaza la primera ocurrencia de la duplicación
+        wd = wd.replace(r"\Files\Files", r"\Files")
+
+    # Cambia al directorio destino, verificando primero si es un directorio válido
+    if os.path.isdir(wd):
+        os.chdir(wd)
+        print(f"Directorio de trabajo cambiado a: {wd}") # Opcional: confirmar cambio
+    else:
+        print(f"Advertencia: El directorio '{wd}' no existe o no es válido. No se cambió el directorio de trabajo.")
+        # Aquí podrías decidir crear el directorio si no existe, o manejar el error.
+        # Ejemplo para crearlo:
+        # try:
+        #     os.makedirs(wd, exist_ok=True) # Crea el directorio si no existe
+        #     os.chdir(wd)
+        #     print(f"Directorio '{wd}' creado y establecido como directorio de trabajo.")
+        # except OSError as e:
+        #     print(f"Error al crear o acceder al directorio '{wd}': {e}")
+
+# Llamar a la función para configurar el directorio de trabajo
+configurar_directorio_trabajo()
+
+
 def crear_numeracion(doc):
     """Crea un formato de numeración y devuelve su ID"""
     # Asegurarse de que exista la parte de numeración
@@ -54,9 +89,7 @@ def aplicar_numeracion(parrafo, num_id, nivel=0):
     return parrafo
 
 # Configuración del documento
-wd = r"C:\Users\serco\Downloads"
-os.chdir(wd)
-# Nombre base de base
+
 base_partida = "Base_en_Blanco.docx"
 doc = docx.Document()
 

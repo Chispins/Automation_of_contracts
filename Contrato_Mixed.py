@@ -4,6 +4,9 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from win32com import client
 import pythoncom
+from Bases import configurar_directorio_trabajo # Línea añadida
+
+configurar_directorio_trabajo() # Línea añadida
 
 # Función para crear numeración
 def crear_numeracion(doc):
@@ -211,9 +214,6 @@ def copiar_tablas_con_win32(source_path, intermediate_path, output_path):
         pythoncom.CoUninitialize()
 
 # Configuración del documento
-wd = r"C:\Users\serco\Downloads"
-os.chdir(wd)
-
 output_numered_cor = "resolucion_numerada.docx"
 word = docx.Document(output_numered_cor)
 doc = docx.Document()
@@ -251,3 +251,4 @@ final_output = "seccion_completa_copiada.docx"
 copiar_tablas_con_win32(output_numered_cor, intermediate_file, final_output)
 
 print(f"Documento final guardado como: {final_output}")
+

@@ -2,6 +2,9 @@ import docx
 import os
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
+from Bases import configurar_directorio_trabajo # Línea añadida
+
+configurar_directorio_trabajo() # Línea añadida
 
 # Función para crear numeración
 def crear_numeracion(doc):
@@ -212,9 +215,6 @@ def copiar_seccion_completa(doc_destino, seccion_heading, elementos_seccion, niv
 
 
 # Configuración del documento
-wd = r"C:\Users\serco\Downloads"
-os.chdir(wd)
-
 output_numered_cor = "resolucion_numerada.docx"
 word = docx.Document(output_numered_cor)
 doc = docx.Document()
