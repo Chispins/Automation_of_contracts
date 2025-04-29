@@ -366,8 +366,406 @@ tabla_p3_plazos.cell(8, 2).text = ""
 
 centrar_verticalmente_tabla(tabla_p3_plazos)
 
-# Guardar documento
+doc.add_heading("Consultas, Aclaraciones y modificaciones a las bases.", level=2)
+
+# Párrafo 1
+p_consultas1 = doc.add_paragraph()
+p_consultas1.add_run("Las consultas de los participantes se deberán realizar únicamente a través del portal")
+p_consultas1.add_run(" www.mercadopublico.cl").bold = True
+p_consultas1.add_run(" conforme el cronograma de actividades de esta licitación señalado en el punto 3 precedente. A su vez, las respuestas y aclaraciones estarán disponibles a través del portal de Mercado Público, en los plazos indicados en el cronograma señalado precedentemente, información que se entenderá conocida por todos los interesados desde el momento de su publicación.")
+p_consultas1.style = 'List Bullet' # Apply the bullet style
+
+# Párrafo 2 (now a list item)
+p_consultas2 = doc.add_paragraph()
+p_consultas2.add_run("No serán admitidas las consultas formuladas fuera de plazo o por un conducto diferente al señalado.").bold = True
+p_consultas2.style = 'List Bullet' # Apply the bullet style
+
+# Párrafo 3 (now a list item)
+p_consultas3 = doc.add_paragraph()
+p_consultas3.add_run("“EL HOSPITAL” realizará las aclaraciones a las Bases comunicando las respuestas a través del Portal Web de Mercado Público, sitio")
+p_consultas3.add_run(" www.mercadopublico.cl").bold = True
+p_consultas3.style = 'List Bullet' # Apply the bullet style
+
+# Párrafo 4 (now a list item)
+p_consultas4 = doc.add_paragraph()
+p_consultas4.add_run("Las aclaraciones, derivadas de este proceso de consultas, formarán parte integrante de las Bases, teniéndose por conocidas y aceptadas por todos los participantes aun cuando el oferente no las hubiere solicitado, por lo que los proponentes no podrán alegar desconocimiento de las mismas.")
+p_consultas4.style = 'List Bullet' # Apply the bullet style
+
+# Párrafo 5 (now a list item)
+p_consultas5 = doc.add_paragraph()
+p_consultas5.add_run("“EL HOSPITAL” podrá modificar las presentes bases y sus anexos previa autorización por acto administrativo, durante el periodo de presentación de las ofertas, hasta antes de fecha de cierre de recepción de ofertas. Estas modificaciones, que se llewen a cabo, serán informadas a través del portal")
+p_consultas5.add_run(" www.mercadopublico.cl").bold = True
+p_consultas5.style = 'List Bullet' # Apply the bullet style
+
+# Párrafo 6 (now a list item)
+p_consultas6 = doc.add_paragraph()
+p_consultas6.add_run("Estas consultas, aclaratorias y modificaciones formaran parte integra de las bases y estarán vigentes desde la total tramitación del acto administrativo que las apruebe. Junto con aprobar las modificaciones, deberá establecer un nuevo plazo prudencial cuando lo amerite para el cierre o recepción de las propuestas, a fin de que los potenciales oferentes puedan adecuar sus ofertas.")
+p_consultas6.style = 'List Bullet' # Apply the bullet style
+
+# Párrafo 7 (now a list item)
+p_consultas7 = doc.add_paragraph()
+p_consultas7.add_run("No se aceptarán consultas realizadas por otros medios, tales como correos electrónicos, fax u otros.")
+p_consultas7.style = 'List Bullet' # Apply the bullet style
+
+# Requisitos Participación
+# Crear IDs para numeración
+num_id_vistos = crear_numeracion(doc)
+num_id_resolucion = crear_numeracion(doc)
+num_id_bases_p1 = crear_numeracion(doc)
+# Crear un nuevo ID para la sección de consultas
+num_id_consultas = crear_numeracion(doc)
+# Crear un nuevo ID para la sección de requisitos mínimos
+num_id_requisitos = crear_numeracion(doc)
+
+# ... (código anterior para VISTOS, CONSIDERANDO, RESOLUCIÓN, BASES ADMINISTRATIVAS, CONSULTAS) ...
+
+# Requisitos Participación
+doc.add_heading("Requisitos Mínimos para Participar.", level=3)
+
+# Párrafos numerados para Requisitos Mínimos
+req_p1 = doc.add_paragraph(
+    "No haber sido condenado por prácticas antisindicales, infracción a los derechos fundamentales del trabajador o por delitos concursales establecidos en el Código Penal dentro de los dos últimos años anteriores a la fecha de presentación de la oferta, de conformidad con lo dispuesto en el artículo 4° de la ley N° 19.886."
+)
+aplicar_numeracion(req_p1, num_id_requisitos) # Aplicar numeración
+
+req_p2 = doc.add_paragraph(
+    "No haber sido condenado por el Tribunal de Defensa de la Libre Competencia a la medida dispuesta en la letra d) del artículo 26 del Decreto con Fuerza de Ley N°1, de 2004, del Ministerio de Economía, Fomento y Reconstrucción, que Fija el texto refundido, coordinado y sistematizado del Decreto Ley N° 211, de 1973, que fija normas para la defensa de la libre competencia, hasta por el plazo de cinco años contado desde que la sentencia definitiva quede ejecutoriada."
+)
+aplicar_numeracion(req_p2, num_id_requisitos) # Aplicar numeración
+
+req_p3 = doc.add_paragraph(
+    "No ser funcionario directivo de la respectiva entidad compradora; o una persona unida a aquél por los vínculos de parentesco descritos en la letra b) del artículo 54 de la ley N° 18.575; o una sociedad de personas de las que aquél o esta formen parte; o una sociedad comandita por acciones o anónima cerrada en que aquélla o esta sea accionista; o una sociedad anónima abierta en que aquél o esta sean dueños de acciones que representen el 10% o más del capital; o un gerente, administrador, representante o director de cualquiera de las sociedades antedichas."
+)
+aplicar_numeracion(req_p3, num_id_requisitos) # Aplicar numeración
+
+req_p4 = doc.add_paragraph(
+    "Tratándose exclusivamente de una persona jurídica, no haber sido condenada conforme a la ley N° 20.393 a la pena de prohibición de celebrar actos y contratos con el Estado, mientras esta pena esté vigente."
+)
+aplicar_numeracion(req_p4, num_id_requisitos) # Aplicar numeración
+
+req_p5 = doc.add_paragraph("A fin de acreditar el cumplimiento de dichos requisitos, los oferentes deberán presentar una “Declaración jurada de requisitos para ofertar”, la cual será generada completamente en línea a través de www.mercadopublico.cl en el módulo de presentación de las ofertas. Sin perjuicio de lo anterior, la entidad licitante podrá verificar la veracidad de la información entregada en la declaración, en cualquier momento, a través de los medios oficiales disponibles.")
+aplicar_numeracion(req_p5, num_id_requisitos) # Aplicar numeración
+
+req_p6 = doc.add_paragraph()
+req_p6.add_run("En caso de que los antecedentes administrativos solicitados en esta sección no sean entregados y/o completados en forma correcta y oportuna, se desestimará la propuesta, no será evaluada y será declarada ")
+req_p6.add_run("inadmisible").bold = True
+req_p6.add_run(".")
+aplicar_numeracion(req_p6, num_id_requisitos) # Aplicar numeración
 
 
-doc_path = 'resolucion_numerada.docx'
+
+
+
+
+from docx import Document
+
+# Assume 'doc' is an existing Document object, like:
+# doc = Document()
+
+import docx
+from docx import Document
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from Bases import configurar_directorio_trabajo, centrar_verticalmente_tabla # Assuming these are defined in Bases.py
+
+# Configure working directory (if needed)
+configurar_directorio_trabajo()
+
+# Assume 'doc' is an existing Document object or create a new one
+# doc = Document() # Uncomment if you need a new document
+
+# Add the heading before the table
+doc.add_heading("Instrucciones para la Presentación de Ofertas.", level=2)
+
+# Create a table with exactly 4 rows and 2 columns
+table = doc.add_table(rows=4, cols=2)
+table.style = 'Table Grid' # Optional: Add grid lines
+
+# --- Row 1: Header ---
+cell_r1_c1 = table.cell(0, 0)
+cell_r1_c2 = table.cell(0, 1)
+cell_r1_c1.text = "Presentar Ofertas por Sistema."
+cell_r1_c2.text = "Obligatorio."
+# Optional: Center header text if needed
+# cell_r1_c1.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+# cell_r1_c2.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+
+# --- Row 2: Anexos Administrativos ---
+# --- Row 2: Anexos Administrativos ---
+cell_r2_c1 = table.cell(1, 0)
+cell_r2_c2 = table.cell(1, 1)
+cell_r2_c1.text = "Anexos Administrativos."
+
+# Add content to the right cell (Row 2, Col 2)
+# Clear the default paragraph if it exists and is empty
+if cell_r2_c2.paragraphs and not cell_r2_c2.paragraphs[0].text:
+    p_element = cell_r2_c2.paragraphs[0]._p
+    cell_r2_c2._element.remove(p_element)
+
+
+# Item 1: Anexo N° 1
+p1 = cell_r2_c2.add_paragraph()
+p1.add_run("Anexo N° 1 Identificación del Oferente.").bold = True
+
+# Item 2: Anexo N° 2
+p2 = cell_r2_c2.add_paragraph()
+p2.add_run("Anexo N° 2 Declaración Jurada de Habilidad.").bold = True
+
+# Item 3: Anexo N° 3 (CORREGIDO)
+p3 = cell_r2_c2.add_paragraph() # Crear el párrafo primero
+p3.add_run("Anexo N° 3 Declaración Jurada de Cumplimiento de Obligaciones Laborales y Previsionales.").bold = True # Añadir run y poner en negrita
+
+# Item 4: Declaración jurada online
+p4 = cell_r2_c2.add_paragraph()
+p4.add_run("Declaración jurada online:").bold = True
+p4.add_run(" Los oferentes deberán presentar una ") # Espacio añadido al inicio
+p4.add_run("Declaración jurada de requisitos para ofertar").bold = True
+p4.add_run(", la cual será generada completamente en línea a través de www.mercadopublico.cl en el módulo de presentación de las ofertas.") # Coma y espacio añadidos
+
+# Item 5: Unión Temporal de Proveedores (UTP)
+p5 = cell_r2_c2.add_paragraph()
+p5.add_run("Unión Temporal de Proveedores (UTP):").bold = True
+p5.add_run(" Solo en el caso de que la oferta sea presentada por una unión temporal de proveedores deberán presentar obligatoriamente la siguiente documentación en su totalidad, en caso contrario, ésta no será sujeta a aclaración y la oferta será declarada ")
+p5.add_run("inadmisible").bold = True
+p5.add_run(".") # Punto añadido
+
+# Item 6: Anexo N°4 for UTP
+p6 = cell_r2_c2.add_paragraph()
+p6.add_run("Anexo N°4. Declaración para Uniones Temporales de Proveedores:").bold = True
+p6.add_run(" Debe ser presentado por el miembro de la UTP que presente la oferta en el Sistema de Información y quien realiza la declaración a través de la “Declaración jurada de requisitos para ofertar” electrónica presentada junto a la oferta.") # Espacio añadido al inicio
+
+# Item 7: UTP Offers and Apoderado
+p7 = cell_r2_c2.add_paragraph()
+p7.add_run("Las ofertas presentadas por una Unión Temporal de Proveedores (UTP) deberán contar con un apoderado, el cual debe corresponder a un integrante de la misma, ya sea persona natural o jurídica. En el caso que el apoderado sea una persona jurídica, ésta deberá actuar a través de su representante legal para ejercer sus facultades.")
+
+# Item 8: Inadmissibility condition
+p8 = cell_r2_c2.add_paragraph()
+p8.add_run("En caso de no presentarse debidamente la declaración jurada online constatando la ausencia de conflictos de interés e inhabilidades por condenas, o no presentarse el Anexo N°4, la oferta será declarada ")
+p8.add_run("inadmisible").bold = True
+p8.add_run(".") # Punto añadido
+
+# --- Row 3: Anexos Económicos ---
+cell_r3_c1 = table.cell(2, 0)
+cell_r3_c2 = table.cell(2, 1)
+cell_r3_c1.text = "Anexos\nEconómicos." # Using \n for line break in the cell text
+
+# Add content to the right cell (Row 3, Col 2)
+# Clear the default paragraph if it exists and is empty
+if cell_r3_c2.paragraphs and not cell_r3_c2.paragraphs[0].text:
+    p_element = cell_r3_c2.paragraphs[0]._p
+    cell_r3_c2._element.remove(p_element)
+
+# Item 1: Anexo N°5
+ep1 = cell_r3_c2.add_paragraph()
+ep1.add_run("Anexo N°5: Oferta económica").bold = True
+
+# Item 2: Entering via system
+ep2 = cell_r3_c2.add_paragraph()
+ep2.add_run("El anexo referido debe ser ingresado a través del sistema www.mercadopublico.cl , en la sección Anexos Económicos.")
+
+# Item 3: Inadmissibility condition
+ep3 = cell_r3_c2.add_paragraph()
+ep3.add_run("En caso de que no se presente debidamente el Anexo N°5 “Oferta económica”, la oferta será declarada ")
+ep3.add_run("inadmisible").bold = True
+
+# --- Row 4: Anexos Técnicos ---
+cell_r4_c1 = table.cell(3, 0)
+cell_r4_c2 = table.cell(3, 1)
+cell_r4_c1.text = "Anexos Técnicos." # Using \n for line break
+
+# Add content to the right cell (Row 4, Col 2)
+# Clear the default paragraph if it exists and is empty
+if cell_r4_c2.paragraphs and not cell_r4_c2.paragraphs[0].text:
+    p_element = cell_r4_c2.paragraphs[0]._p
+    cell_r4_c2._element.remove(p_element)
+
+# Item 1: Anexo N°6
+tp1 = cell_r4_c2.add_paragraph()
+tp1.add_run("Anexo N°6: Evaluación Técnica").bold = True
+
+# Item 2: Anexo N°7
+tp2 = cell_r4_c2.add_paragraph()
+tp2.add_run("Anexo N°7: Ficha Técnica").bold = True
+
+# Item 3: Anexo N°8
+tp3 = cell_r4_c2.add_paragraph()
+tp3.add_run("Anexo N°8: Plazo de Entrega").bold = True
+
+# Item 4: Anexo N°9
+tp4 = cell_r4_c2.add_paragraph()
+tp4.add_run("Anexo N°9: Servicio Post-venta").bold = True
+
+# Item 5: Entering via system
+tp5 = cell_r4_c2.add_paragraph()
+tp5.add_run("Los anexos referidos deben ser ingresados a través del sistema www.mercadopublico.cl. en la sección Anexos Técnicos.")
+
+# Item 6: Inadmissibility condition
+tp6 = cell_r4_c2.add_paragraph()
+tp6.add_run("En el caso que no se presente debidamente los Anexos N°7, N°8 y N°9 la oferta será declarada ")
+tp6.add_run("inadmisible").bold = True
+
+# Apply vertical centering to the entire table (optional, requires your function)
+centrar_verticalmente_tabla(table)
+
+# Save the document
+doc.add_heading("Observaciones", level = 3)
+parrafos_observaciones = doc.add_paragraph()
+parrafos_observaciones.add_run("Los oferentes deberán presentar su oferta a través de su cuenta en el Sistema de Información www.mercadopublico.cl. De existir discordancia entre el oferente o los antecedentes de su oferta y la cuenta a través de la cual la presenta, esta no será evaluada, siendo desestimada del proceso y declarada como")
+parrafos_observaciones.add_run(" " + "inadmisible").bold = True
+
+
+p1 = doc.add_paragraph()
+p1.add_run("Las únicas ofertas válidas serán las presentadas a través del portal")
+p1.add_run(" www.mercadopublico.cl").bold = True
+p1.add_run(", en la forma en que se solicita en estas bases. No se aceptarán ofertas que se presenten por un medio distinto al establecido en estas Bases, a menos que se acredite la indisponibilidad técnica del sistema, de conformidad con el artículo 62 del Reglamento de la Ley de Compras. Será responsabilidad de los oferentes adoptar las precauciones necesarias para ingresar oportuna y adecuadamente sus ofertas.")
+
+# Paragraph 2
+p2 = doc.add_paragraph()
+p2.add_run("Los oferentes deben constatar que el envío de su oferta a través del portal electrónico de compras públicas haya sido realizado con éxito, incluyendo el previo ingreso de todos los formularios y anexos requeridos completados de acuerdo con lo establecido en las presentes bases. Debe verificar que los archivos que se ingresen contengan efectivamente los anexos solicitados.")
+
+# Paragraph 3
+p3 = doc.add_paragraph()
+p3.add_run("Asimismo, se debe comprobar siempre, luego de que se finalice la última etapa de ingreso de la oferta respectiva, que se produzca el despliegue automático del “Comprobante de Envío de Oferta” que se entrega en dicho Sistema, el cual puede ser impreso por el proponente para su resguardo. En dicho comprobante será posible visualizar los anexos adjuntos, cuyo contenido es de responsabilidad del oferente.")
+
+# Paragraph 4
+p4 = doc.add_paragraph()
+p4.add_run("El hecho de que el oferente haya obtenido el “Comprobante de envío de ofertas” señalado, únicamente acreditará el envío de ésta a través del Sistema, pero en ningún caso certificará la integridad o la completitud de ésta, lo cual será evaluado por la comisión evaluadora. En caso de que, antes de la fecha de cierre de la licitación, un proponente edite una oferta ya enviada, deberá asegurarse de enviar nuevamente la oferta una vez haya realizado los ajustes que estime, debiendo descargar un nuevo Comprobante.")
+
+# Paragraph 5
+p5 = doc.add_paragraph()
+p5.add_run("Si la propuesta económica subida al portal, presenta diferencias entre el valor del anexo económico solicitado y el valor indicado en la línea de la plataforma")
+p5.add_run(" www.mercadopublico.cl").bold = True
+p5.add_run(", prevalecerá la oferta del anexo económico solicitado en bases. Sin embargo, el Hospital San José de Melipilla, podrá solicitar aclaraciones de las ofertas realizadas a través del portal.")
+
+
+doc.add_heading("Antecedentes legales para poder ser contratado.", level=2)
+
+
+table = doc.add_table(rows=7, cols=3)
+table.style = 'Table Grid' # Apply grid lines style
+
+# Optional: Adjust column widths for better layout
+# table.columns[0].width = Inches(1.5)
+# table.columns[1].width = Inches(4.0)
+# table.columns[2].width = Inches(1.5)
+
+# --- Section: Si el oferente es Persona Natural (Rows 0-3) ---
+start_natural_row = 0
+end_natural_row = 3 # Rows 0, 1, 2, 3 (4 rows total)
+
+# Cell (0, 0): "Si el oferente es Persona Natural" - Merged
+cell_0_0 = table.cell(start_natural_row, 0)
+# Use paragraphs and runs for better control over potential future formatting or line breaks
+p_0_0 = cell_0_0.paragraphs[0]
+p_0_0.add_run("Si el oferente\nes Persona\nNatural")
+
+# Cell (0, 2): "Acreditar en el Registro de Proveedores" - Merged
+cell_0_2 = table.cell(start_natural_row, 2)
+p_0_2 = cell_0_2.paragraphs[0]
+p_0_2.add_run("Acreditar en\nel Registro de\nProveedores")
+
+# Populate middle column (Column 1) for Persona Natural section
+# Cell (0, 1): Requirement 1
+cell_0_1 = table.cell(start_natural_row, 1)
+p_0_1 = cell_0_1.paragraphs[0]
+# Text is bold in the image for "Inscripción..." and "Registro..."
+p_0_1.add_run("Inscripción (en estado hábil) en el Registro electrónico oficial de contratistas de la Administración, en adelante “").bold = True
+p_0_1.add_run("Registro de Proveedores").bold = True
+p_0_1.add_run("”.").bold = True # The closing quote and period also appear bold
+
+
+# Cell (1, 1): Requirement 2 - Anexo N°3
+cell_1_1 = table.cell(start_natural_row + 1, 1)
+p_1_1 = cell_1_1.paragraphs[0]
+p_1_1.add_run("Anexo N°3. Declaración Jurada de Cumplimiento de Obligaciones Laborales y Previsionales.").bold = True # Whole line appears bold
+
+# Cell (2, 1): Requirement 3 - Todos los Anexos...
+cell_2_1 = table.cell(start_natural_row + 2, 1)
+cell_2_1.text = "Todos los Anexos deben ser firmados por la persona natural respectiva."
+
+# Cell (3, 1): Requirement 4 - Fotocopia...
+cell_3_1 = table.cell(start_natural_row + 3, 1)
+cell_3_1.text = "Fotocopia de su cédula de identidad."
+
+# Perform merges for the Persona Natural section
+cell_0_0.merge(table.cell(end_natural_row, 0)) # Merge column 0 (rows 0 to 3)
+cell_0_2.merge(table.cell(end_natural_row, 2)) # Merge column 2 (rows 0 to 3)
+
+
+# --- Section: Si el oferente no es Persona Natural (Rows 4-6) ---
+start_nonatural_row = end_natural_row + 1 # Starts at row 4
+end_nonatural_row = start_nonatural_row + 2 # Rows 4, 5, 6 (3 rows total)
+
+# Cell (4, 0): "Si el oferente no es Persona Natural" - Merged
+cell_4_0 = table.cell(start_nonatural_row, 0)
+p_4_0 = cell_4_0.paragraphs[0]
+p_4_0.add_run("Si el oferente\nno es\nPersona\nNatural")
+
+# Cell (4, 2): "Acreditar en el Registro de Proveedores" - Merged
+cell_4_2 = table.cell(start_nonatural_row, 2)
+p_4_2 = cell_4_2.paragraphs[0]
+p_4_2.add_run("Acreditar en\nel Registro de\nProveedores")
+
+# Populate middle column (Column 1) for Persona no Natural section
+# Cell (4, 1): Requirement 1 - Inscripción...
+cell_4_1 = table.cell(start_nonatural_row, 1)
+p_4_1 = cell_4_1.paragraphs[0]
+p_4_1.add_run("Inscripción (en estado hábil) en el Registro de Proveedores.").bold = True # Whole line appears bold
+
+# Cell (5, 1): Requirement 2 - Certificado de Vigencia...
+cell_5_1 = table.cell(start_nonatural_row + 1, 1)
+cell_5_1.text = "Certificado de Vigencia del poder del representante legal, con una antigüedad no superior a 60 días corridos, contados desde la fecha de notificación de la adjudicación, otorgado por el Conservador de Bienes Raíces correspondiente o, en los casos que resulte procedente, cualquier otro antecedente que acredite la vigencia del poder del representante legal del oferente, a la época de presentación de la oferta."
+
+# Cell (6, 1): Requirement 3 - Certificado de Vigencia de la Sociedad...
+cell_6_1 = table.cell(start_nonatural_row + 2, 1)
+cell_6_1.text = "Certificado de Vigencia de la Sociedad con una antigüedad no superior a 60 días corridos, contados desde la fecha de notificación de la" # Text cut off in image
+
+# Perform merges for the Persona no Natural section
+cell_4_0.merge(table.cell(end_nonatural_row, 0)) # Merge column 0 (rows 4 to 6)
+cell_4_2.merge(table.cell(end_nonatural_row, 2)) # Merge column 2 (rows 4 to 6)
+
+
+# Observaciones
+doc.add_heading("Observaciones", level = 3)
+doc.add_paragraph("Los antecedentes legales para poder ser contratado, sólo se requerirán respecto del adjudicatario y deberán estar disponibles en el Registro de Proveedores.")
+doc.add_paragraph("Lo señalado en el párrafo precedente no resultará aplicable a la garantía de fiel cumplimiento de contrato, la cual podrá ser entregada físicamente en los términos que indican las presentes bases en aquellos casos que aplique su entrega.")
+doc.add_paragraph("En los casos en que se otorgue de manera electrónica, deberá ajustarse a la ley N° 19.799 sobre documentos electrónicos, firma electrónica y servicios de certificación de dicha firma, y remitirse en la forma señalada en la cláusula 8.2 de estas bases.")
+observ_parafo_2 = doc.add_paragraph()
+observ_parafo_2.add_run("Si el respectivo proveedor no entrega la totalidad de los antecedentes requeridos para ser contratado, dentro del plazo fatal de 10 días hábiles administrativos contados desde la notificación de la resolución de adjudicación o no suscribe el contrato en los plazos establecidos en estas bases, la entidad licitante podrá readjudicar de conformidad a lo establecido en la")
+observ_parafo_2.add_run(" " + "cláusula 9 letra i")
+observ_parafo_2.add_run(" de las presentes bases. Además, tales incumplimientos darán origen al cobro de la garantía de seriedad de la oferta, si la hubiere.")
+
+doc.add_heading("Inscripción en el registro de proveedores", level =2 )
+doc.add_paragraph("En caso de que el proveedor que resulte adjudicado no se encuentre inscrito en el Registro Electrónico Oficial de Contratistas de la Administración (Registro de Proveedores), deberá inscribirse dentro del plazo de 15 días hábiles, contados desde la notificación de la resolución de adjudicación.")
+doc.add_paragraph("Tratándose de los adjudicatarios de una Unión Temporal de Proveedores, cada integrante de ésta deberá inscribirse en el Registro de Proveedores, dentro del plazo de 15 días hábiles, contados desde la notificación de la resolución de adjudicación. ")
+
+doc.add_heading("Naturaleza y monto de las garatías", level = 2)
+doc.add_heading("Evaluación y adjudicación de las ofertas", level = 3)
+
+
+# Nueva Lista 4
+num_id_evaluacion = crear_numeracion(doc)
+eval_p1 = doc.add_paragraph("test", style='List Number')
+aplicar_numeracion(eval_p1, num_id_evaluacion)
+
+# Elemento 2 de la lista
+eval_p2 = doc.add_paragraph("La comisión evaluadora verificará el cumplimiento de los requisitos mínimos de participación.", style='List Number')
+aplicar_numeracion(eval_p2, num_id_evaluacion)
+
+# Elemento 3 de la lista
+eval_p3 = doc.add_paragraph("Se evaluarán los criterios técnicos y económicos según la ponderación definida en las bases.", style='List Number')
+aplicar_numeracion(eval_p3, num_id_evaluacion)
+
+# Elemento 4 de la lista con negrita
+eval_p4 = doc.add_paragraph(style='List Number')
+eval_p4.add_run("La adjudicación se realizará al oferente que obtenga el ")
+eval_p4.add_run("mayor puntaje total").bold = True
+eval_p4.add_run(".")
+aplicar_numeracion(eval_p4, num_id_evaluacion)
+
+
+
+
+
+doc_path = 'resolucion_numerada.docx' # Or your desired output file name
 doc.save(doc_path)
+print(f"Documento guardado como: {doc_path}")
