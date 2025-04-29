@@ -1,5 +1,4 @@
 import docx
-import os
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from Bases import configurar_directorio_trabajo # Línea añadida

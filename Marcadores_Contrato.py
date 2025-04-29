@@ -1,4 +1,3 @@
-import os
 import docx
 from docx.oxml.ns import qn
 from docx.oxml.shared import OxmlElement
