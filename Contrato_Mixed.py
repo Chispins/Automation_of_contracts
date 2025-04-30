@@ -1,48 +1,69 @@
-import docx
 import os
+import random
+import docx
+import copy
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from win32com import client
 import pythoncom
-from Bases import configurar_directorio_trabajo # Línea añadida
+import re
 
-configurar_directorio_trabajo() # Línea añadida
 
-# Función para crear numeración
+def configurar_directorio_trabajo():
+    """Configura el directorio de trabajo en la subcarpeta 'Files'."""
+    # Construye la ruta normalizada al directorio "Files"
+    cwd = os.getcwd()
+    target_dir_name = "Files"
+    wd = os.path.join(cwd, target_dir_name)
+
+    # Define el patrón específico a buscar (duplicación de \Files)
+    # Se asume separador de Windows (\). Se usan dobles barras invertidas en el patrón regex.
+    pattern = r"Files\\Files"
+
+    # Busca el patrón en la ruta generada
+    if re.search(pattern, wd):
+        # Si se encuentra, reemplaza la primera ocurrencia de la duplicación
+        wd = wd.replace(r"\Files\Files", r"\Files")
+
+    # Cambia al directorio destino, verificando primero si es un directorio válido
+    if os.path.isdir(wd):
+        os.chdir(wd)
+        print(f"Directorio de trabajo cambiado a: {wd}")  # Opcional: confirmar cambio
+    else:
+        print(f"Advertencia: El directorio '{wd}' no existe o no es válido. No se cambió el directorio de trabajo.")
+
+
+# --- Funciones para Numeración de Párrafos ---
 def crear_numeracion(doc):
-    """Crea un formato de numeración y devuelve su ID"""
+    """Crea un formato de numeración y devuelve su ID único."""
     part = doc._part
     if not hasattr(part, 'numbering_part'):
         part._add_numbering_part()
-    import random
     num_id = random.randint(1000, 9999)
     return num_id
 
-# Función para aplicar numeración a un párrafo
+
 def aplicar_numeracion(parrafo, num_id, nivel=0):
-    """Aplica numeración a un párrafo"""
+    """
+    Aplica numeración a un párrafo con un ID y nivel específicos.
+    Elimina numeración previa si existe y ajusta la sangría.
+    """
     p = parrafo._p
     pPr = p.get_or_add_pPr()
 
-    # Eliminar numeración previa si existe
+    # Eliminar numeración previa
     for child in pPr.iterchildren():
         if child.tag.endswith('numPr'):
             pPr.remove(child)
 
-    # Crear nuevo numPr
+    # Crear nueva numeración
     numPr = OxmlElement('w:numPr')
-
-    # Establecer nivel
     ilvl = OxmlElement('w:ilvl')
     ilvl.set(qn('w:val'), str(nivel))
     numPr.append(ilvl)
-
-    # Establecer ID de numeración
     numId = OxmlElement('w:numId')
     numId.set(qn('w:val'), str(num_id))
     numPr.append(numId)
-
-    # Agregar al párrafo
     pPr.append(numPr)
 
     # Configurar sangría
@@ -53,18 +74,21 @@ def aplicar_numeracion(parrafo, num_id, nivel=0):
 
     return parrafo
 
+
+# --- Funciones para Extracción y Copia de Secciones ---
 def extraer_seccion_completa(doc_cargado, titulo_seccion):
     """
-    Extrae una sección completa incluyendo todos sus párrafos y tablas hasta el siguiente encabezado
+    Extrae una sección completa (párrafos y tablas) hasta el siguiente encabezado
     del mismo nivel o superior.
+    Retorna el encabezado, los elementos de la sección y el nivel del encabezado.
     """
     seccion_heading = None
-    elementos_seccion = []  # Lista de tuplas (tipo, elemento, indice)
+    elementos_seccion = []
     nivel_seccion = None
     indice_inicio = -1
     indice_fin = None
 
-    # Buscar el encabezado
+    # Buscar el encabezado de la sección
     for i, element in enumerate(doc_cargado.paragraphs):
         if element.style.name.startswith('Heading') and element.text.strip() == titulo_seccion:
             seccion_heading = element
@@ -72,14 +96,14 @@ def extraer_seccion_completa(doc_cargado, titulo_seccion):
             try:
                 nivel_seccion = int(element.style.name.split()[-1])
             except (ValueError, IndexError):
-                nivel_seccion = 2  # Valor por defecto
+                nivel_seccion = 2  # Nivel por defecto
             break
 
     if indice_inicio == -1:
         print(f"No se encontró la sección '{titulo_seccion}'")
         return None
 
-    # Encontrar el índice del fin de la sección
+    # Encontrar el fin de la sección
     for i in range(indice_inicio + 1, len(doc_cargado.paragraphs)):
         parrafo = doc_cargado.paragraphs[i]
         if parrafo.style.name.startswith('Heading'):
@@ -94,18 +118,16 @@ def extraer_seccion_completa(doc_cargado, titulo_seccion):
     if indice_fin is None:
         indice_fin = len(doc_cargado.paragraphs)
 
-    # Agregar párrafos (excepto encabezados) entre inicio y fin
+    # Agregar párrafos entre inicio y fin (excepto encabezados)
     for i in range(indice_inicio + 1, indice_fin):
         parrafo = doc_cargado.paragraphs[i]
         if not parrafo.style.name.startswith('Heading'):
             elementos_seccion.append(('parrafo', parrafo, i))
 
-    # Crear un mapa de la posición de cada párrafo en el documento XML
-    parrafos_posicion_xml = {}
-    for i, p in enumerate(doc_cargado.paragraphs):
-        parrafos_posicion_xml[p._p] = i
+    # Mapa de posiciones de párrafos en XML
+    parrafos_posicion_xml = {p._p: i for i, p in enumerate(doc_cargado.paragraphs)}
 
-    # Extraer la posición de cada tabla en el XML
+    # Extraer posición de tablas en XML
     tablas_posicion = []
     for i, tabla in enumerate(doc_cargado.tables):
         tabla_p = tabla._tbl
@@ -119,64 +141,97 @@ def extraer_seccion_completa(doc_cargado, titulo_seccion):
         if indice_inicio <= pos_anterior < indice_fin:
             tablas_posicion.append((i, tabla, pos_anterior + 0.5))
 
-    # Agregar las tablas que están dentro de la sección
+    # Agregar tablas a la sección
     for i, tabla, pos in tablas_posicion:
         elementos_seccion.append(('tabla', tabla, pos))
 
-    # Ordenar elementos por su posición en el documento
+    # Ordenar elementos por posición
     elementos_seccion.sort(key=lambda x: x[2])
-
-    # Eliminar los índices para el retorno
     elementos_seccion = [(tipo, elem) for tipo, elem, _ in elementos_seccion]
 
-    if seccion_heading is not None:
-        return seccion_heading, elementos_seccion, nivel_seccion
-    else:
-        return None
+    return seccion_heading, elementos_seccion, nivel_seccion if seccion_heading else None
+
 
 def copiar_seccion_completa(doc_destino, seccion_heading, elementos_seccion, nivel_seccion):
     """
-    Copia una sección completa al documento destino manteniendo una única numeración para todos los párrafos de "List Number".
-    No copia tablas en esta etapa, solo texto.
+    Copia una sección completa al documento destino manteniendo numeración única
+    para párrafos de lista y preservando marcadores (bookmarks) en encabezados y párrafos.
+    No copia tablas, solo añade un marcador de posición.
     """
     # Copiar encabezado
-    doc_destino.add_heading(seccion_heading.text, level=nivel_seccion)
+    nuevo_encabezado = doc_destino.add_heading(seccion_heading.text, level=nivel_seccion)
 
-    # Crear un único ID de numeración para toda la sección
+    # Copiar propiedades del encabezado, incluyendo marcadores si los tiene
+    if seccion_heading._p.pPr is not None:
+        nuevo_encabezado._p.append(copy.deepcopy(seccion_heading._p.pPr))
+
+    # Copiar contenido del encabezado, incluyendo marcadores
+    for child in seccion_heading._p:
+        if child.tag == qn('w:r'):
+            nuevo_encabezado._p.append(copy.deepcopy(child))
+        elif child.tag == qn('w:bookmarkStart'):
+            new_bm_start = OxmlElement('w:bookmarkStart')
+            bm_id = child.get(qn('w:id'))
+            bm_name = child.get(qn('w:name'))
+            if bm_id:
+                new_bm_start.set(qn('w:id'), bm_id)
+            if bm_name:
+                new_bm_start.set(qn('w:name'), bm_name)
+            nuevo_encabezado._p.append(new_bm_start)
+        elif child.tag == qn('w:bookmarkEnd'):
+            new_bm_end = OxmlElement('w:bookmarkEnd')
+            bm_id = child.get(qn('w:id'))
+            if bm_id:
+                new_bm_end.set(qn('w:id'), bm_id)
+            nuevo_encabezado._p.append(new_bm_end)
+
+    # ID único de numeración para la sección
     seccion_num_id = None
 
-    # Copiar cada elemento de la sección
+    # Copiar elementos de la sección
     for tipo, elemento in elementos_seccion:
         if tipo == 'parrafo':
-            parrafo = elemento
-            nuevo_parrafo = doc_destino.add_paragraph(style=parrafo.style.name)
+            parrafo_origen = elemento
+            nuevo_parrafo = doc_destino.add_paragraph(style=parrafo_origen.style.name)
 
-            # Copiar cada run con su formato
-            for run in parrafo.runs:
-                nuevo_run = nuevo_parrafo.add_run(run.text)
-                nuevo_run.bold = run.bold
-                nuevo_run.italic = run.italic
-                nuevo_run.underline = run.underline
-                if run.font.color.rgb:
-                    nuevo_run.font.color.rgb = run.font.color.rgb
-                if run.font.name:
-                    nuevo_run.font.name = run.font.name
-                if run.font.size:
-                    nuevo_run.font.size = run.font.size
+            # Copiar propiedades del párrafo (estilo, alineación, etc.)
+            if parrafo_origen._p.pPr is not None:
+                nuevo_parrafo._p.append(copy.deepcopy(parrafo_origen._p.pPr))
 
-            # Aplicar numeración solo a párrafos de tipo lista
-            if parrafo.style.name == "List Number":
+            # Copiar contenido y marcadores del párrafo
+            for child in parrafo_origen._p:
+                if child.tag == qn('w:r'):
+                    nuevo_parrafo._p.append(copy.deepcopy(child))
+                elif child.tag == qn('w:bookmarkStart'):
+                    new_bm_start = OxmlElement('w:bookmarkStart')
+                    bm_id = child.get(qn('w:id'))
+                    bm_name = child.get(qn('w:name'))
+                    if bm_id:
+                        new_bm_start.set(qn('w:id'), bm_id)
+                    if bm_name:
+                        new_bm_start.set(qn('w:name'), bm_name)
+                    nuevo_parrafo._p.append(new_bm_start)
+                elif child.tag == qn('w:bookmarkEnd'):
+                    new_bm_end = OxmlElement('w:bookmarkEnd')
+                    bm_id = child.get(qn('w:id'))
+                    if bm_id:
+                        new_bm_end.set(qn('w:id'), bm_id)
+                    nuevo_parrafo._p.append(new_bm_end)
+
+            # Aplicar numeración si el estilo es de lista
+            if parrafo_origen.style.name == "List Number":
                 if seccion_num_id is None:
                     seccion_num_id = crear_numeracion(doc_destino)
                 aplicar_numeracion(nuevo_parrafo, seccion_num_id)
 
         elif tipo == 'tabla':
-            # No copiar tablas en esta etapa, solo agregar un marcador de posición
-            doc_destino.add_paragraph(f"[[TABLE_PLACEHOLDER]]")
+            # No copiar tablas, solo añadir un marcador de posición
+            doc_destino.add_paragraph("[[TABLE_PLACEHOLDER]]")
+
 
 def copiar_tablas_con_win32(source_path, intermediate_path, output_path):
     """
-    Usa win32com para copiar las tablas del documento original al documento intermedio,
+    Usa win32com para copiar tablas del documento original al documento intermedio,
     reemplazando los marcadores de posición.
     """
     pythoncom.CoInitialize()
@@ -213,42 +268,53 @@ def copiar_tablas_con_win32(source_path, intermediate_path, output_path):
     finally:
         pythoncom.CoUninitialize()
 
-# Configuración del documento
-output_numered_cor = "resolucion_numerada.docx"
-word = docx.Document(output_numered_cor)
-doc = docx.Document()
 
-# Extraer y copiar sección VISTOS completa
-resultado_vistos = extraer_seccion_completa(word, "VISTOS")
-if resultado_vistos:
-    encabezado_vistos, parrafos_vistos, nivel_vistos = resultado_vistos
-    copiar_seccion_completa(doc, encabezado_vistos, parrafos_vistos, nivel_vistos)
+# --- Flujo Principal del Programa ---
+def main():
+    """Función principal que ejecuta el proceso de copia de secciones y tablas de un documento."""
+    # Configurar directorio de trabajo
+    configurar_directorio_trabajo()
 
-# Extraer y copiar sección CONSIDERANDO completa
-resultado_considerando = extraer_seccion_completa(word, "CONSIDERANDO")
-if resultado_considerando:
-    encabezado_cons, parrafos_cons, nivel_cons = resultado_considerando
-    copiar_seccion_completa(doc, encabezado_cons, parrafos_cons, nivel_cons)
+    # Configuración del documento original
+    input_file = "resolucion_numerada.docx"
+    intermediate_file = "onlydocx.docx"
+    final_output = "seccion_completa_copiada.docx"
 
-# Extraer y copiar sección RESOLUCIÓN completa
-resultado_resolucion = extraer_seccion_completa(word, "RESOLUCIÓN")
-if resultado_resolucion:
-    encabezado_res, parrafos_res, nivel_res = resultado_resolucion
-    copiar_seccion_completa(doc, encabezado_res, parrafos_res, nivel_res)
+    # Cargar documento original y crear documento destino
+    print("Cargando documento original...")
+    word = docx.Document(input_file)
+    doc = docx.Document()
+    print("Documento cargado.")
 
-# Extraer y copiar sección REQUISITOS completa
-resultado_requisitos = extraer_seccion_completa(word, "REQUISITOS")
-if resultado_requisitos:
-    encabezado_req, parrafos_req, nivel_req = resultado_requisitos
-    copiar_seccion_completa(doc, encabezado_req, parrafos_req, nivel_req)
+    # Lista de secciones a procesar
+    secciones = [
+        "VISTOS",
+        "CONSIDERANDO",
+        "RESOLUCIÓN",
+        "REQUISITOS"
+    ]
 
-# Guardar documento intermedio con solo texto
-intermediate_file = "onlydocx.docx"
-doc.save(intermediate_file)
+    # Extraer y copiar cada sección
+    for seccion in secciones:
+        print(f"Procesando sección {seccion}...")
+        resultado = extraer_seccion_completa(word, seccion)
+        if resultado:
+            encabezado, elementos, nivel = resultado
+            copiar_seccion_completa(doc, encabezado, elementos, nivel)
+            print(f"Sección {seccion} copiada.")
+        else:
+            print(f"Sección {seccion} no encontrada.")
 
-# Copiar tablas usando win32com
-final_output = "seccion_completa_copiada.docx"
-copiar_tablas_con_win32(output_numered_cor, intermediate_file, final_output)
+    # Guardar documento intermedio con solo texto
+    print(f"Guardando documento intermedio como: {intermediate_file}...")
+    doc.save(intermediate_file)
+    print("Documento intermedio guardado.")
 
-print(f"Documento final guardado como: {final_output}")
+    # Copiar tablas usando win32com
+    print("Copiando tablas al documento final...")
+    copiar_tablas_con_win32(input_file, intermediate_file, final_output)
+    print(f"Documento final guardado como: {final_output}")
 
+
+if __name__ == "__main__":
+    main()
