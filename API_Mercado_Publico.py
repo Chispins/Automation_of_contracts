@@ -106,19 +106,6 @@ except Exception as e:
     # Handle any other unexpected errors
     print(f"\nAn unexpected error occurred: {e}")
 
-print("\n--- Other possible ways to query based on the documentation ---")
-print("1. By Date (ddmmaaaa): Use params = {'fecha': '02022014', 'ticket': ACCESS_TICKET}")
-print("   - Returns basic info for tenders PUBLISHED on that date.")
-print("2. By State for a Date: Use params = {'fecha': '02022014', 'estado': 'adjudicada', 'ticket': ACCESS_TICKET}")
-print("   - States: Publicada, Cerrada, Desierta, Adjudicada, Revocada, Suspendida, Todos, activas")
-print("3. By Organism Code for a Date: Use params = {'fecha': '02022014', 'CodigoOrganismo': '6945', 'ticket': ACCESS_TICKET}")
-print("4. By Provider Code for a Date: Use params = {'fecha': '02022014', 'CodigoProveedor': '17793', 'ticket': ACCESS_TICKET}")
-print("   - Note: Queries by date, state, organism, or provider return basic info and require a date.")
-
-
-
-
-
 
 import requests
 from bs4 import BeautifulSoup
