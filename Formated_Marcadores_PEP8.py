@@ -155,7 +155,7 @@ def main():
         print("No se encontraron marcadores en el documento.")
 
     marcadores_a_modificar = {
-        "qwerty": "ahhh",
+        "QWERTY": "Ejemplo",
         "asdf": "ahhh"
     }
 
