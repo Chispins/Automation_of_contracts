@@ -278,7 +278,7 @@ def main():
     # Configuración del documento original
     input_file = "resolucion_numerada.docx"
     intermediate_file = "onlydocx.docx"
-    final_output = "seccion_completa_copiada.docx"
+    final_output = "contrato_sin_cambios.docx"
 
     # Cargar documento original y crear documento destino
     print("Cargando documento original...")
