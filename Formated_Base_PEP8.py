@@ -1038,8 +1038,125 @@ def main():
 
     # Entrega de Muestras
     doc.add_heading("Entrega de Muestras", level = 4)
-    entrega_muestras_p1 = doc.add_paragraph()
+    entrega_muestras_p1 = doc.add_paragraph(style = "List Bullet")
+    entrega_muestras_p1.add_run("Presentar muestras de los insumos y equipo en comodato para evaluación es de carácter ")
+    entrega_muestras_p1.add_run("OBLIGATORIO").bold = True
 
+    entrega_muestras_p2 = doc.add_paragraph(style = "List Bullet")
+    entrega_muestras_p2.add_run("Se debe presentar muestras de todos los insumos solicitados. En caso de no presentar muestras su propuesta podrá ser declarada ")
+    entrega_muestras_p2.add_run("inadmisible").bold = True
+
+    entrega_muestras_p3 = doc.add_paragraph(style = "List Bullet")
+    entrega_muestras_p3.add_run("Cada muestra debe indicar nombre del proveedor, número de licitación y N° de línea del producto. ")
+
+    entrega_muestras_p4 = doc.add_paragraph(style = "List Bullet")
+    entrega_muestras_p4.add_run("Las muestras en ningún caso generarán costo para el Hospital y NO podrán ser devueltas a los oferentes, ya que serán utilizados para realizar pruebas de parte de los referentes técnicos para su evaluación.")
+
+    entrega_muestras_p5 = doc.add_paragraph(style = "List Bullet")
+    entrega_muestras_p5.add_run("El oferente deberá permitir la apertura de cajas/bolsas de las muestras presentadas para una correcta recepción de estas.")
+
+    entrega_muestras_p6 = doc.add_paragraph(style = "List Bullet")
+    entrega_muestras_p6.add_run("El oferente deberá entregar las muestras a la ")
+    entrega_muestras_p6.add_run("UNIDAD DE ABASTECIMIENTO DEL HOSPITAL SAN JOSE DE MELIPILLA, ").bold = True
+    entrega_muestras_p6.add_run("ubicada en Calle O’Higgins N.º 551, Comuna de Melipilla hasta el cierre de la licitación")
+    entrega_muestras_p6.add_run("La no entrega de muestras en la forma y plazos establecidos en bases facultará al establecimiento a dejar inadmisible la oferta.").bold = True
+
+    entrega_muestras_p7 = doc.add_paragraph(style = "List Bullet")
+    entrega_muestras_p7.add_run("Toda muestra deberá ser acompañados de una guía de despacho o acta de recepción, la que será completada (firmada y timbrada) por Unidad de Abastecimiento. Este documento será el que respaldará la recepción de las muestras.")
+
+
+    doc.add_heading("Sobre los equipos solicitados en comodato para el uso de insumos condición obligatoria", level = 4)
+    doc.add_paragraph("Para ejecutar el suministro, es obligatorio para el proveedor adjudicado, la entrega en comodato, a las unidades clínicas del hospital que lo soliciten, de los siguientes equipos médicos:")
+
+    datos_tabla_equipos = [
+        ["NOMBRE EQUIPOS", "CANTIDAD ESTIMADA"],
+        ["EQUIPO PARA TERAPIA PRESIÓN NEGATIVA INTRAHOSPITALARIO", "12"],
+        ["EQUIPO PARA TERAPIA PRESIÓN NEGATIVA AMBULATORIO - DOMICILIARIO", "4"]
+    ]
+
+    # Crear la tabla de equipos
+    tabla_equipos = crear_tabla(doc, datos_tabla_equipos, estilo='Table Grid', centrar=True)
+
+    doc.add_paragraph("La cantidad de equipos es estimada, tiene un carácter referencial. Debe adjuntar ficha técnica de los dispositivos. Estas cantidades podrán variar de acuerdo a la demanda interna, para lo cual el oferente adjudicado deberá dar respuesta las necesidades del hospital, máximo 10 días hábiles desde la adjudicación.")
+
+    doc.add_paragraph("El proveedor que se adjudique, deberá entregar en comodato, a unidades clínicas del Hospital, Equipo para terapia presión negativa intrahospitalario y Equipo para terapia presión negativa ambulatorio compatibles con los insumos ofertados. Junto con la entrega en comodato, el proveedor se obliga a realizar la mantención preventiva y correctiva de los equipos. En caso de falla, se obliga a facilitar al Hospital, sin costo para este, equipos de similares características, mientras se entrega un nuevo equipo en comodato")
+
+    datos_tabla_caracteristicas = [
+        ["CARACTERISTICAS GENERALES OBLIGATORIAS DE LOS EQUIPOS EN COMODATO"],
+        ["Consolas con botón de encendido y apagado."],
+        ["Rangos de presión de -25 a -200 mmHg"],
+        [
+            "Terapias integradas en el mismo equipo .terapias de presión negativa estándar, manejo de abdomen abierto, prevención de dehiscencia de suturas e instilación"],
+        [
+            "Compatibilidad con contendor de 1000, 500 y 300 ml para uso intrahospitalario y contendor de 300 para uso ambulatorio-domiciliario"],
+        ["Sistema de alarma de contenedor en su capacidad máxima y botón para liberación de contenedor"],
+        ["Sistema de alarma de baja presión, terapia interrumpida u obstrucción."],
+        ["Sistema de alarmas para nivel crítico de batería."],
+        ["Cable para alimentación de corriente eléctrica o baterías en caso de equipo portátil."],
+        ["Memoria de uso de consola"],
+        [
+            "Autonomía de la batería de al menos 6 horas para equipo de uso hospitalario y 10 horas para equipo de uso domiciliario."]
+    ]
+
+    # Crear la tabla de características de equipos
+    tabla_caracteristicas = crear_tabla(doc, datos_tabla_caracteristicas, estilo='Table Grid',
+                                        centrar=False)  # Centrar=False o True según preferencia
+
+    doc.add_heading("Entrega y Recepción", level=4)  # Asumiendo level 4, ajustar si es necesario
+
+    entrega_recepcion_items = [
+        "La adquisición de estos productos será de forma parcializada según la cantidad y periocidad que el hospital considere necesario.",
+        "El proveedor deberá despachar los productos señalando explícitamente Nombre del producto, Identificación del Proveedor y N° de Guía/Factura, Modelo (solo cuando corresponda), N° de Lote/Serie, Fecha de Vencimiento, de acuerdo a Norma Técnica de Minsal °226/22.",
+        "Los productos deberán ser entregado en las dependencias del Hospital de Melipilla, considerando el traslado carga y descarga.",
+        "La propuesta deberá contemplar todos los costos de trasporte para el despacho de los productos. El Hospital no cancelará ningún costo asociado a esta temática.",
+        "Desde el requerimiento, el proveedor tendrá un máximo 7 días corridos para entregar los productos, siempre respetando los plazos ofertados según anexo Plazo de Entrega.",
+        "El proveedor deberá realizar los cambios de los productos que no se ajusten a las bases técnicas y/o presenten deterioros en un plazo no mayor a 48 horas, con previo requerimiento del administrador del contrato.",
+        "Los productos despachados que no se ajusten a la calidad ofertada serán rechazados e informado vía correo electrónico, para solicitar el cambio.",
+        "El gasto que eventualmente se genere por artículos rechazados será de cargo a la empresa adjudicada.",
+        "El embalaje deberá ser suficiente para soportar, sin límites, la manipulación brusca y descuidada durante el tránsito y la exposición a temperaturas extremas.",
+        "El proveedor deberá permitir la apertura de cajas, bolsas, etc., para la correcta revisión de los productos entregados al Hospital por el personal de Bodega del Establecimiento para así dar una correcta recepción conforme.",
+        "En los casos que los productos sean despachados por empresas de transporte estos deberán permitir la revisión de los productos, en caso contrario los productos serán rechazados."
+    ]
+
+    for item_text in entrega_recepcion_items:
+        p = doc.add_paragraph(style='List Bullet')
+        p.add_run(item_text)
+
+    # Último ítem con parte en negrita
+    p_ultimo = doc.add_paragraph(style='List Bullet')
+    p_ultimo.add_run("Los productos deberán ser entregados en ")
+    p_ultimo.add_run("Bodega de Farmacia").bold = True
+    p_ultimo.add_run(
+        " del Hospital San José de Melipilla ubicada en calle O’Higgins #551, en los siguientes horarios: lunes a viernes de 8:00 a 14:00 horas")
+
+
+    doc.add_heading("MOTIVOS DE RECHAZO POR OBSERVACIÓN FÍSICA (ya iniciado en contrato):", level=4)
+
+    motivos_rechazo_items = [
+        "Empaques deteriorados o visiblemente sucios, manchados, húmedos, etc.",
+        "Cajas colectivas sin identificación de su contenido o leyendas ilegibles.",
+        "Diferentes lotes no señalizados, Incluidos en un empaque colectivo.",
+        "Textos o leyendas equivocadas, que puedan inducir a error.",
+        "Envases con etiquetas e impresiones ilegibles o sin ellas.",
+        "Discordancia entre envases ya sea colectivo, primarios o secundarios.",
+        "Acondicionamiento inadecuado dentro de los envases primarios o secundarios.",
+        "Envases vacíos o adulterados.",
+        "Número de lote o fecha de vencimiento equivocada o ausente.",
+        "Caja o etiqueta incorrecta, leyendas incompletas o ausentes.",
+        "Sello violado o mal colocado.",
+        "Contenido incorrecto, diferente o menor al etiquetado.",
+        "Envases aplastados o deteriorados con motivo del traslado.",
+        "Contaminación visible.",
+        "Coloración no homogénea (intra o inter lote).",
+        "Partículas extrañas observadas a simple vista o contraluz.",
+        "Los insumos no deberán tener un vencimiento inferior a 2 año desde la fecha de recepción."
+    ]
+
+    for item_text in motivos_rechazo_items:
+        p = doc.add_paragraph(style='List Bullet')
+        # El carácter '' se reemplaza por una viñeta estándar de Word.
+        # Si necesitas específicamente ese carácter, tendrías que agregarlo manualmente al inicio de cada string.
+        p.add_run(item_text)
 
     # Guardar el documento
     doc_path = 'resolucion_numerada.docx'

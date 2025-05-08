@@ -167,13 +167,13 @@ def copiar_seccion_completa(doc_destino, seccion_heading, elementos_seccion, niv
     para párrafos de lista y preservando marcadores (bookmarks).
     """
     # Copiar encabezado
-    nuevo_encabezado = doc_destino.add_heading(seccion_heading.text, level=nivel_seccion)
+    nuevo_encabezado = doc_destino.add_heading(level=nivel_seccion)
     if seccion_heading._p.pPr is not None:
         nuevo_encabezado._p.append(copy.deepcopy(seccion_heading._p.pPr))
 
     # Copiar contenido y marcadores del encabezado
     for child in seccion_heading._p:
-        if child.tag == qn('w:r'):
+        if child.tag in (qn('w:r'), qn('w:bookmarkStart'), qn('w:bookmarkEnd')):
             nuevo_encabezado._p.append(copy.deepcopy(child))
         elif child.tag == qn('w:bookmarkStart'):
             new_bm_start = OxmlElement('w:bookmarkStart')
@@ -297,11 +297,9 @@ def main():
 
     # Lista de secciones a procesar
     secciones = [
-        "VISTOS",
-        "CONSIDERANDO",
-        "RESOLUCIÓN",
-        "REQUISITOS",
-        "Instrucciones para la Presentación de Ofertas."
+        "BASES ADMINISTRATIVAS PARA EL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA",
+        "Condiciones Contractuales, Vigencia de las Condiciones Comerciales, Operatoria de la Licitación y Otras Cláusulas:",
+        "BASES TECNICAS PARA EL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA"
     ]
 
     # Extraer y copiar cada sección
