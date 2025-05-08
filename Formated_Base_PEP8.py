@@ -880,6 +880,167 @@ def main():
     doc.add_heading("Constancia", level=2)
     agregar_parrafo_con_texto(doc, "Se deja expresa constancia que todas y cada una de las cláusulas contenidas en las presentes Bases, Anexos y aclaratorias, se entienden incorporadas sin necesidad de mención expresa en el correspondiente contrato que se materialice con el adjudicado y éste se hace responsable del cumplimiento de las obligaciones de tales documentos, Bases Administrativas y Contrato que se deriven.")
 
+    # Ahora la sección Bases Ténicas para BASES TECNICAS PARA EL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA
+
+    doc.add_heading("BASES TECNICAS PARA EL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA", level = 1)
+    doc.add_heading("Requisitos para adjudicarse disposiciones generales", level=2)
+
+    doc.add_paragraph("Para adjudicarse el presente proceso de licitación, los oferentes participantes deberán cumplir con lo siguiente:")
+    for texto in ["Haber llenado y presentado los Anexos Administrativos N°1, N°2, N°3, N°4, el presentar estos anexos habilita al proveedor a participar en la presente licitación.",
+                  "Deben presentar el Económico N°5 y los Anexos Técnicos N°7, N°8 y N°9 con toda la información requerida, debidamente firmados por el representante legal de la empresa o la persona natural, según corresponda.",
+                  "Deberán entregar toda la información necesaria para poder evaluar a la empresa en cada uno de los ítems de los Criterios de Evaluación.",
+                  "Deberán dar respuesta a los requisitos generados por foro inverso en los plazos y/o periodos establecidos en las presentes Bases de Licitación.",
+                  "Presentar ficha técnica y certificados de los productos ofertados.",
+                  "Entregar muestras de los productos solicitados y comodato ofertado.",
+                  "Entregar garantías de la oferta."]:
+        agregar_parrafo_con_texto(doc, texto, estilo="List Bullet")
+
+    parrafo_nuevo = doc.add_paragraph()
+    parrafo_nuevo.add_run("Nota:").bold = True
+    parrafo_nuevo.add_run("Los oferentes que no cumplan con estos requisitos no serán evaluados, declarándose inadmisible su oferta.")
+
+    doc.add_heading("Disposiciones de la Licitación", level=2)
+    doc.add_paragraph("Determinar las directrices y características técnicas necesarias para el suministro de insumos y accesorios para terapia de presión negativa con equipos en comodato.")
+
+    doc.add_heading("GENERALIDADES:", level = 3)
+
+    generalidades_lista = doc.add_paragraph(style="List Bullet")
+    generalidades_lista.add_run("La Licitación será adjudicada por la totalidad").bold = True
+    generalidades_lista.add_run(
+        " y se podrá aumentar o disminuir hasta un 30% por cada línea adjudicada sin superar el monto total presupuestado para la Licitación.")
+
+    gen_p1 = doc.add_paragraph(
+        "La propuesta deberá contemplar todos los costos de trasporte para el despacho de los productos. El Hospital no cancelará ningún costo asociado a esta temática.",
+        style="List Bullet")
+
+    gen_p2 = doc.add_paragraph(
+        "El proveedor deberá mantener la calidad de los productos ofertados para cada solicitud de compra bajo esta Licitación, situación que será constantemente evaluada por el administrador del contrato.",
+        style="List Bullet")
+
+    gen_p3 = doc.add_paragraph(
+        "El proveedor deberá permitir la revisión de los productos entregados al Hospital por el personal que se disponga por parte del Establecimiento, para así dar una correcta recepción conforme.",
+        style="List Bullet")
+
+    gen_p4 = doc.add_paragraph(
+        "En los casos que los productos sean despachados por empresas de transporte estos deberán permitir la revisión de los productos, en caso contrario los productos serán rechazados.",
+        style="List Bullet")
+
+    gen_p5 = doc.add_paragraph(
+        "Toda entrega deberá adjuntar un documento que acredite la compra (Guía de despacho, Factura u Orden de Compra).",
+        style="List Bullet")
+
+    gen_p6 = doc.add_paragraph(style="List Bullet")
+    gen_p6.add_run("La adquisición de estos productos será de forma parcializada durante un periodo máximo de ")
+    gen_p6.add_run("36 meses").bold = True
+    gen_p6.add_run(" o hasta la duración del monto estipulado en base.")
+
+    gen_p7 = doc.add_paragraph(
+        "Deberán entregar toda la información necesaria para poder evaluar a la empresa en cada uno de los ítems de los Criterios de Evaluación.",
+        style="List Bullet")
+
+    gen_p8 = doc.add_paragraph(
+        "El administrador técnico del contrato será la Enfermera Supervisora de Pabellón y el encargado en aspectos administrativos será el Jefe de Farmacia o quien lo subrogue.",
+        style="List Bullet")
+
+    # Los productos
+    doc.add_heading("De los Productos", level = 4)
+    de_productos = doc.add_paragraph("La presente licitación pública, se enfoca en la adquisición de los productos que se presentan en el cuadro siguiente, se evaluaran técnicamente cada producto. La adjudicación será por la totalidad.", style = "List Number")
+    de_productos = doc.add_paragraph("La siguiente tabla presenta cantidades de consumo referenciales, la que se utilizara solo para términos de evaluación.", style = "List Number")
+
+    # Data para la tabla de Insumos (extraída de la imagen original + nuevos ítems)
+    insumos_header = ["ITEM", "INSUMOS", "UD", "MONTO MÁXIMO A PAGAR"]
+
+    insumos_data = [
+        ["1",
+         "Recolector de contenido y exudado de herida con gel de 300 ml para presión negativa con conexión que mide 1,20 mt aprox., circuito cerrado, clamp integrado y filtro de carbón. Desechable.",
+         "UD", "$150.000"],
+        ["2",
+         "Recolector de contenido y exudado de herida con gel de 500 ml para ser utilizado con presión negativa, con conexión que mide 1,80 mt aprox., circuito cerrado, clamp integrado y filtro de carbón. Desechable.",
+         "UD", "$180.000"],
+        ["3",
+         "Recolector de contenido y exudado de herida con gel de 1000 ml para ser utilizado con presión negativa con conexión que mide 1,80 mt aprox., circuito cerrado, clamp integrado y filtro de carbón. Desechable.",
+         "UD", "$220.000"],
+        ["4",
+         "Kit de apósito espuma negra en forma ovalada 26 cm x15cm x3.2 cm aprox. tamaño LARGE, con láminas adhesivas transparentes, conector de succión de silicona flexible de 90 cm aprox., conector luer-lock, clamp y regla desechable.",
+         "UD", "$100.000"],
+        ["S5",
+         "Kit de apósito espuma negra pre cortada en forma ovalada 60 cm x30cm x1.8 cm aprox. tamaño extra large, con láminas adhesivas transparentes, conector de succión de silicona flexible de 90 cm aprox., conector luer-lock, clamp, desechable.",
+         "UD", "$370.000"],
+        ["6",
+         "Kit de apósito espuma negra pre cortada en forma de espiral 11.3 cm x 7.7cm x 1.75cm aprox. tamaño small con láminas adhesivas transparentes, conector de succión de silicona flexible de 90 cm, conector luer-lock, clamp, desechable.",
+         "UD", "$100.000"],
+        ["7",
+         "Kit de apósito espuma negra pre cortada en forma de espiral 17.4cm x14.7cm x1.75 cm aprox. tamaño medium, con láminas adhesivas transparentes, conector de succión de silicona flexible de 90 cm, conector luer-lock, clamp, desechable.",
+         "UD", "$120.000"],
+        ["8",
+         "Apósito de espuma blanca de alcohol polivinílico humedecido con agua estéril, hidrofílica, DE 10 CM X 10CM X 1 cm aprox. tamaño small",
+         "UD", "$60.000"],
+        ["9",
+         "Apósito de espuma blanca de alcohol polivinílico humedecido con agua estéril, hidrofílica, DE 10 CM X 15CM X 1 cm aprox. Tamaño Large (L)",
+         "UD", "$70.000"],
+        ["10",
+         "Kit de apósito espuma hidrofóbica color gris de eter de poliuretano con plata metálica 10 cm x7.5 cm x3.2 cm aprox. tamaño small.",
+         "UD", "$120.000"],
+        ["11",
+         "Kit de apósito espuma hidrofóbica color gris de eter de poliuretano con plata metálica 18cm x12.5 cmx3.2 cm aprox. tamaño medio",
+         "UD", "$130.000"],
+        ["12",
+         "Kit de apósito espuma hidrofóbica color gris de eter de poliuretano con plata metálica 26 cm x15cm x3.2 cm aprox. tamaño large.",
+         "UD", "$230.000"],
+        ["13",
+         "Kit de apósito abdominal para manejo de abdomen abierto con presión negativa, con lámina protectora visceral de poliuretano, láminas adhesivas transparentes, conector de succión de silicona flexible de 90 cm aprox., conector luer-lock y clamp, desechable",
+         "UD", "$550.000"],
+        ["14",
+         "Kit de apósito para incisiones lineales 90 cm aprox. con espuma de poliuretano, láminas adhesivas transparentes y un conector de succión de silicona flexible de 90 cm aprox., conector luer-lock y clamp y desechable.",
+         "UD", "$420.000"],
+        ["15",
+         "Kit de apósito para incisiones lineales 20 cm aprox. con espuma de poliuretano, láminas adhesivas transparentes y un conector de succión de silicona flexible de 90 cm aprox., conector luer-lock y clamp y desechable.",
+         "UD", "$300.000"],
+        # Nuevos ítems añadidos
+        ["16",
+         "Kit de apósito para incisiones lineales 13 cm aprox. con espuma de poliuretano, laminas adhesivas transparentes y un conector de succión de silicona flexible de 90 cm aprox., conector luer-lock y clamp y desechable.",
+         "UD", "$250.000"],
+        ["17",
+         "Kit de apósito para incisiones lineales 35 cm aprox. con espuma de poliuretano, laminas adhesivas transparentes y un conector de succión de silicona flexible de 90 cm aprox., conector luer-lock y clamp y desechable.",
+         "UD", "$400.000"],
+        ["18",
+         "Lámina adhesiva transparente, hipoalergénica, semipermeable para realizar el sello de la terapia de presión negativa",
+         "UD", "$50.000"],
+        ["19",
+         "Conector de succión de silicona flexible de 90 cm aprox. con sensores externos de luz de monitoreo continuo de la presión, sistema de detección de obstrucciones y sistema de ráfagas de aire cada 5 min para ayudar a reducir los bloqueos, conector luer-lock y clamp.",
+         "UD", "$50.000"],
+        ["20",
+         "Kit de apósito para terapia de instilación tamaño médium, espuma de ester de poliuretano y reticulada con 3 capas: 1 capa en contacto con la herida que tiene orificios de 5 mm, una segunda capa fina de 8 mm y una tercera capa gruesa de 16 mm.",
+         "UD", "$200.000"],
+        ["21", "Cassete para conectar la solución para la terapia de instilación.", "UD", "$110.000"]
+    ]
+
+    # Resto del código para crear y formatear la tabla (sin cambios)
+    # ... (código para crear la tabla usando crear_tabla o directamente)
+    # ... (código para formatear encabezado y celdas de datos)
+    # ... (código para centrar verticalmente la tabla si es necesario)
+    # Añadir una tabla para los insumos
+    # Número de filas = 1 (encabezado) + número de filas de datos
+    num_rows_insumos = len(insumos_data) + 1
+    num_cols_insumos = len(insumos_header)
+    # Usa tu función existente 'crear_tabla' o añade la tabla directamente
+    # Aquí usamos la función crear_tabla que ya definiste
+    tabla_insumos = crear_tabla(doc, [insumos_header] + insumos_data, estilo='Table Grid',
+                                centrar=False)  # Centrar verticalmente después si es necesario
+
+    parte_c_generalidades = doc.add_paragraph(style = "List Number")
+    parte_c_generalidades.add_run("La adjudicación se realizará por valor unitario y tendrá una duración de 36 meses o hasta agotar el presupuesto, lo que ocurra primero, sin obligar al hospital a comprar una cantidad mínima establecida.")
+
+    parte_d_generalidades = doc.add_paragraph(style = "List Number")
+    parte_d_generalidades.add_run("se considera causal")
+    parte_d_generalidades.add_run(" admisibilidad").bold = True
+    parte_d_generalidades.add_run("que el proveedor adjunte ficha técnica en español de todos los productos solicitados al portal de Mercado Público.")
+
+    # Entrega de Muestras
+    doc.add_heading("Entrega de Muestras", level = 4)
+    entrega_muestras_p1 = doc.add_paragraph()
+
+
     # Guardar el documento
     doc_path = 'resolucion_numerada.docx'
     doc.save(doc_path)
