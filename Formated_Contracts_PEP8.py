@@ -130,8 +130,7 @@ def extraer_seccion_completa(doc_cargado, titulo_seccion):
     # Agregar párrafos entre inicio y fin (excepto encabezados)
     for i in range(indice_inicio + 1, indice_fin):
         parrafo = doc_cargado.paragraphs[i]
-        if not parrafo.style.name.startswith('Heading'):
-            elementos_seccion.append(('parrafo', parrafo, i))
+        elementos_seccion.append(('parrafo', parrafo, i))
 
     # Mapa de posiciones de párrafos en XML
     parrafos_posicion_xml = {p._p: i for i, p in enumerate(doc_cargado.paragraphs)}
@@ -196,71 +195,51 @@ def copiar_seccion_completa(doc_destino, seccion_heading, elementos_seccion, niv
     # Copiar elementos de la sección
     for tipo, elemento in elementos_seccion:
         if tipo == 'parrafo':
-            parrafo_origen = elemento
-            nuevo_parrafo = doc_destino.add_paragraph()
-            if parrafo_origen._p.pPr is not None:
-                nuevo_parrafo._p.append(copy.deepcopy(parrafo_origen._p.pPr))
+            origen = elemento
+            # Encabezados
+            if origen.style.name.startswith('Heading'):
+                nivel = int(origen.style.name.split()[-1])
+                destino = doc_destino.add_heading(level=nivel)
+                if origen._p.pPr is not None:
+                    destino._p.append(copy.deepcopy(origen._p.pPr))
+                for child in origen._p:
+                    if child.tag in (qn('w:r'), qn('w:bookmarkStart'), qn('w:bookmarkEnd')):
+                        destino._p.append(copy.deepcopy(child))
+                continue
 
-            # Copiar contenido y marcadores del párrafo
-            for child in parrafo_origen._p:
-                if child.tag == qn('w:r'):
-                    nuevo_parrafo._p.append(copy.deepcopy(child))
-                elif child.tag == qn('w:bookmarkStart'):
-                    new_bm_start = OxmlElement('w:bookmarkStart')
-                    bm_id, bm_name = child.get(qn('w:id')), child.get(qn('w:name'))
-                    if bm_id:
-                        new_bm_start.set(qn('w:id'), bm_id)
-                    if bm_name:
-                        new_bm_start.set(qn('w:name'), bm_name)
-                    nuevo_parrafo._p.append(new_bm_start)
-                elif child.tag == qn('w:bookmarkEnd'):
-                    new_bm_end = OxmlElement('w:bookmarkEnd')
-                    bm_id = child.get(qn('w:id'))
-                    if bm_id:
-                        new_bm_end.set(qn('w:id'), bm_id)
-                    nuevo_parrafo._p.append(new_bm_end)
+            # Párrafos normales
+            nuevo = doc_destino.add_paragraph(style=origen.style.name)
+            if origen._p.pPr is not None:
+                nuevo._p.append(copy.deepcopy(origen._p.pPr))
+            for child in origen._p:
+                if child.tag in (qn('w:r'), qn('w:bookmarkStart'), qn('w:bookmarkEnd')):
+                    nuevo._p.append(copy.deepcopy(child))
 
-            # Aplicar numeración si el estilo es de lista
-            if parrafo_origen.style and parrafo_origen.style.name == "List Number":
+            # Lista numerada
+            if origen.style.name == 'List Number':
                 if seccion_num_id is None:
                     seccion_num_id = crear_numeracion(doc_destino)
-                aplicar_numeracion(nuevo_parrafo, seccion_num_id)
+                aplicar_numeracion(nuevo, seccion_num_id)
 
         elif tipo == 'tabla':
             tabla = elemento
-            filas, columnas = len(tabla.rows), len(tabla.columns)
-            nueva_tabla = doc_destino.add_table(rows=filas, cols=columnas)
+            filas, cols = len(tabla.rows), len(tabla.columns)
+            nueva_tabla = doc_destino.add_table(rows=filas, cols=cols)
             if tabla.style:
                 nueva_tabla.style = tabla.style
 
-            # Copiar contenido y formato de celdas
             for i, fila in enumerate(tabla.rows):
                 for j, celda in enumerate(fila.cells):
-                    nueva_celda = nueva_tabla.cell(i, j)
-                    for p in nueva_celda.paragraphs:
+                    destino_celda = nueva_tabla.cell(i, j)
+                    for p in destino_celda.paragraphs:
                         p.clear()
-                    for p_origen_celda in celda.paragraphs:
-                        nuevo_p_celda = nueva_celda.add_paragraph()
-                        if p_origen_celda._p.pPr is not None:
-                            nuevo_p_celda._p.append(copy.deepcopy(p_origen_celda._p.pPr))
-                        for child in p_origen_celda._p:
-                            if child.tag == qn('w:r'):
-                                nuevo_p_celda._p.append(copy.deepcopy(child))
-                            elif child.tag == qn('w:bookmarkStart'):
-                                new_bm_start = OxmlElement('w:bookmarkStart')
-                                bm_id, bm_name = child.get(qn('w:id')), child.get(qn('w:name'))
-                                if bm_id:
-                                    new_bm_start.set(qn('w:id'), bm_id)
-                                if bm_name:
-                                    new_bm_start.set(qn('w:name'), bm_name)
-                                nuevo_p_celda._p.append(new_bm_start)
-                            elif child.tag == qn('w:bookmarkEnd'):
-                                new_bm_end = OxmlElement('w:bookmarkEnd')
-                                bm_id = child.get(qn('w:id'))
-                                if bm_id:
-                                    new_bm_end.set(qn('w:id'), bm_id)
-                                nuevo_p_celda._p.append(new_bm_end)
-
+                    for p_origen in celda.paragraphs:
+                        nuevo_p = destino_celda.add_paragraph()
+                        if p_origen._p.pPr is not None:
+                            nuevo_p._p.append(copy.deepcopy(p_origen._p.pPr))
+                        for child in p_origen._p:
+                            if child.tag in (qn('w:r'), qn('w:bookmarkStart'), qn('w:bookmarkEnd')):
+                                nuevo_p._p.append(copy.deepcopy(child))
 
 # --- Flujo Principal del Programa ---
 def main():
