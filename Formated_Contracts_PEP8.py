@@ -286,7 +286,11 @@ def main():
         "Entrega y Recepción",
         "MOTIVOS DE RECHAZO POR OBSERVACIÓN FÍSICA (ya iniciado en contrato):",
         "Documentos integrantes",
-        "Condiciones Contractuales, Vigencia de las Condiciones Comerciales, Operatoria de la Licitación y Otras Cláusulas:"
+        "Modificación del Contrato",
+        "Gastos e Impuestos",
+        "Efectos derivados de Incumplimiento del proveedor"
+        "Garantía de Seriedad de la Oferta",
+
     ]
         #"Entrega y Recepción",
         #"Documentos integrantes",

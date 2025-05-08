@@ -442,6 +442,7 @@ def main():
         if style == "bold":
             run.bold = True
 
+
     parrafos_garantia = ["La(s) garantía(s) deberá(n) tener como vigencia mínima 120 días corridos desde el cierre y apertura de la oferta. ",
                          "Toda oferta que no acompañe la garantía de seriedad, en la forma y términos expresados, será rechazada por el Hospital San José de Melipilla.",
                          "Será responsabilidad del oferente mantener vigente la(s) garantía(s), debiendo reemplazarla si por razones sobrevinientes a su presentación, deja de cubrir la vigencia mínima exigida en esta cláusula, como por ejemplo ampliación de fecha de cierre de la licitación o del proceso de evaluación.",
@@ -462,6 +463,30 @@ def main():
                  "Por la no presentación oportuna de la garantía de fiel cumplimiento del contrato, en el caso del proveedor adjudicado."]
     for texto in elementos:
         doc.add_paragraph(texto, style = "List Number")
+
+    doc.add_heading("Forma y oportunidad de restitución de la garantía de la seriedad de la oferta", level = 2)
+    agregar_parrafo_con_texto(doc, "En el caso del oferente adjudicado, la garantía de seriedad de la oferta estará disponible una vez tramitada completamente la firma del contrato, veinte (20) días hábiles después de adjudicada la Licitación y contra entrega de la garantía de fiel cumplimiento del contrato.")
+    agregar_parrafo_con_texto(doc, "En caso del oferente no adjudicado, la garantía de seriedad de la oferta estará disponible previa solicitud vía correo electrónico a: garantias.hsjm@hospitaldemelipilla.cl, con copia a : manuel.lara@hospitaldemelipilla.cl para su retiro en el departamento de tesorería del Hospital San José de Melipilla, en el siguiente horario: de lunes a viernes desde las 09:00 a 13:00 horas.")
+    agregar_parrafo_con_texto(doc, "Para el retiro de la garantía deberá presentarse poder simple timbrado por la persona natural o jurídica, fotocopia de la cédula de identidad de la persona que retira y el Rut la persona natural o jurídica.")
+
+    doc.add_heading("Garantía de Fiel Cumplimiento de Contrato.", level = 2)
+    loop_fiel = ["Para garantizar el fiel y oportuno cumplimiento del contrato, el adjudicado debe presentar una o más garantías de la misma naturaleza, equivalentes en total al porcentaje del 5% del valor total del contrato adjudicado.",
+                 "La(s) garantía(s) debe(n) ser entregada(s) en la dirección de la entidad licitante indicada: Oficina de Partes del Hospital San José de Melipilla, ubicado en calle O’Higgins Nº 551 comuna de Melipilla, Región Metropolitana, dentro de los 10 días hábiles contados desde la notificación de la adjudicación en horario de 8:00 a 14:00 horas.",
+                 "Si la(s) garantía(s) fuera(n) en soporte electrónico (garantía emitida por las instituciones de Garantía recíproca (IGR), Internacionalmente conocidas como SGR), se deberá enviar al correo electrónico garantias.hsjm@hospitaldemelipilla.cl, si no se presenta esta garantía en tiempo y forma, el Hospital San José de Melipilla  podrá hacer efectiva la garantía de seriedad de la oferta y dejar sin efecto administrativamente la adjudicación, sin perjuicio de otros derechos."
+                 ]
+    for texto in loop_fiel:
+        doc.add_paragraph(texto)
+    parrafo_loop_fiel = doc.add_paragraph()
+    lista_loop_fiel = [("Se aceptará cualquier tipo de instrumento de garantía que asegure su cobro de manera rápida y efectiva, pagadera a la vista y con el carácter de irrevocable, y siempre que cumpla con los requisitos dispuestos por el artículo 68 del reglamento de la ley N°19.886. El instrumento deberá incluir la glosa: Para garantizar el fiel cumplimiento del contrato denominado: ", ""),
+                       ("ADQUISICIÓN DE SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA ID _________________", "bold"),
+                       ("y/o de las obligaciones laborales y sociales del adjudicatario”. En caso de que el instrumento no permita la inclusión de la glosa señalada, el oferente deberá dar cumplimiento a la incorporación de ésta en forma manuscrita en el mismo instrumento, o bien, mediante un documento anexo a la garantía. Como ejemplos de garantías se pueden mencionar los siguientes instrumentos: Boleta de Garantía, Certificado de Fianza a la Vista, Vale Vista o Póliza de Seguro, entre otros. ", "")
+                       ]
+    for texto, style in lista_loop_fiel:
+        run = parrafo_loop_fiel.add_run(texto)
+        if style == "bold":
+            run.bold = True
+
+
 
 
     doc.add_heading("Evaluación y adjudicación de las ofertas", level=2)
