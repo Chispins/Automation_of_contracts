@@ -136,8 +136,8 @@ def crear_nuevo_documento_con_marcadores(marcadores_a_modificar, output_path_nue
 
 def main():
     configurar_directorio_trabajo()
-    doc_path = "contrato_sin_cambios.docx"
-    output_path = "contrato_con_cambio_marcadores.docx"
+    doc_path = "base_automatizada.docx"
+    output_path = "contrato_automatizado_con_marcadores.docx"
     print(f"Cargando documento: {doc_path}")
 
     try:
@@ -155,7 +155,7 @@ def main():
         print("No se encontraron marcadores en el documento.")
 
     marcadores_a_modificar = {
-        "QWERTY": "Ejemplo",
+        "qwerty": "Ejemplo",
         "asdf": "ahhh"
     }
 
@@ -182,3 +182,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+

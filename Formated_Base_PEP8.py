@@ -426,8 +426,45 @@ def main():
         agregar_parrafo_con_texto(doc, texto)
 
     # Naturaleza y monto de las garantías
-    doc.add_heading("Naturaleza y monto de las garatías", level=2)
-    doc.add_heading("Evaluación y adjudicación de las ofertas", level=3)
+    doc.add_heading("Naturaleza y monto de las garantías", level=2)
+    doc.add_heading("Garantía de Seriedad de la Oferta.", level = 3)
+    agregar_parrafo_con_texto(doc, "El oferente deberá presentar junto a su oferta una o más garantías, equivalentes en total, al monto que indique la entidad licitante, la que corresponde al monto de $200.000. Si el oferente presenta más de una propuesta, cada una de ellas deberá estar debidamente caucionada, en los términos indicados en la presente cláusula, mediante instrumentos separados.")
+    agregar_parrafo_con_texto(doc, "La(s) garantía(s) debe(n) ser entregada(s) en Oficina de Partes del Hospital San José de Melipilla, ubicada en calle O’Higgins Nº 551 comuna de Melipilla, Región Metropolitana, dentro del plazo para presentación de ofertas, si fueran en soporte de papel, en el horario hábil de atención de 8:00 a 15:00 horas. De igual manera deberán publicar en su oferta copia de la garantía con el timbre de recepción de oficina de partes del Hospital San José de Melipilla.")
+    agregar_parrafo_con_texto(doc, "Si la(s) garantía(s) fuera(n) es obtenida de manera electrónica (garantía emitida por las instituciones de Garantía recíproca (IGR), Internacionalmente conocidas como SGR), se debe(n) presentar en el portal www.mercadopublico.cl, hasta la hora del cierre de la licitación.")
+    runs = [("Se aceptará cualquier tipo de instrumento de garantía que asegure su cobro de manera rápida y efectiva, pagadera a la vista y con el carácter de irrevocable, y siempre que cumpla con los requisitos dispuestos por el artículo 31 del reglamento de la ley N° 19.886 El instrumento deberá incluir la glosa que se indica ", ""),
+            ("“PARA GARANTIZAR LA SERIEDAD DE LA OFERTA EN LA LICITACIÓN  PÚBLICA ID ____________ PARA LA ADQUISICIÓN DE SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA ", "bold"),
+            ("que señala que se otorga para garantizar la seriedad de la oferta, singularizando el respectivo proceso de compra. En caso de que el instrumento no permita la inclusión de la glosa señalada, el oferente deberá dar cumplimiento a la incorporación de ésta en forma manuscrita en el mismo instrumento, o bien, mediante un documento anexo a la garantía. Como ejemplos de garantías se pueden mencionar los siguientes instrumentos: Boleta de Garantía, Certificado de Fianza a la Vista, Vale Vista o Póliza de Seguro, entre otros.", "")
+            ]
+    parrafo_loop = doc.add_paragraph()
+    for text, style in runs:
+        # It's usually better practice to add the paragraph first, then the run
+        run = parrafo_loop.add_run(text)
+        if style == "bold":
+            run.bold = True
+
+    parrafos_garantia = ["La(s) garantía(s) deberá(n) tener como vigencia mínima 120 días corridos desde el cierre y apertura de la oferta. ",
+                         "Toda oferta que no acompañe la garantía de seriedad, en la forma y términos expresados, será rechazada por el Hospital San José de Melipilla.",
+                         "Será responsabilidad del oferente mantener vigente la(s) garantía(s), debiendo reemplazarla si por razones sobrevinientes a su presentación, deja de cubrir la vigencia mínima exigida en esta cláusula, como por ejemplo ampliación de fecha de cierre de la licitación o del proceso de evaluación.",
+                         "Como beneficiario del instrumento debe figurar la razón social y RUT de la entidad licitante, indicadas en la presente licitación, numeral N°1.",
+                         "Si el instrumento que se presenta expresa su monto en unidades de fomento (UF), se considerará para determinar su equivalente en pesos chilenos (CLP), el valor de la UF a la fecha en que se realice la apertura de la oferta, considerando las variaciones en el mercado monto que debe ser detallado en peso en el mismo documento de garantía. ",
+                         "Esta(s) garantía(s) se otorgará(n) para caucionar la seriedad de la oferta, pudiendo ser ejecutada unilateralmente por vía administrativa por la entidad licitante, siempre que los incumplimientos sean imputables al proveedor, en los siguientes casos:"
+                         ]
+
+    for texto in parrafos_garantia:
+        doc.add_paragraph(texto)
+
+    incumplimientos_casos = doc.add_paragraph()
+    elementos = ["Por no suscripción del contrato definitivo o se rechace la orden de compra por parte del proveedor adjudicado, si corresponde;",
+                 "Por la no entrega de los antecedentes requeridos para la elaboración del contrato, de acuerdo con las presentes bases, si corresponde;",
+                 "Por el desistimiento de la oferta dentro de su plazo de validez establecido en las presentes bases;",
+                 "Por la presentación de una oferta no fidedigna, manifiestamente errónea o conducente a error, y que así se justifique mediante resolución fundada del órgano comprador.",
+                 "Por la no inscripción en el Registro de Proveedores dentro de los plazos establecidos en las presentes bases;",
+                 "Por la no presentación oportuna de la garantía de fiel cumplimiento del contrato, en el caso del proveedor adjudicado."]
+    for texto in elementos:
+        doc.add_paragraph(texto, style = "List Number")
+
+
+    doc.add_heading("Evaluación y adjudicación de las ofertas", level=2)
 
     comis_eval_p1 = doc.add_paragraph()
     comis_eval_p1.add_run("Comisión Evaluadora: ").bold = True
@@ -1159,7 +1196,7 @@ def main():
         p.add_run(item_text)
 
     # Guardar el documento
-    doc_path = 'resolucion_numerada.docx'
+    doc_path = 'base_automatizada.docx'
     doc.save(doc_path)
     print(f"Documento guardado como: {doc_path}")
 

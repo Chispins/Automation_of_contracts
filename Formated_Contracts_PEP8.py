@@ -256,7 +256,7 @@ def main():
     print(f"Directorio temporal creado: {temp_dir}")
 
     # Definir archivo original y copia temporal
-    original_file = "resolucion_numerada.docx"
+    original_file = "base_automatizada.docx"
     original_path = os.path.join(current_dir, original_file)
     temp_file = os.path.join(temp_dir, f"temp_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{original_file}")
 
@@ -275,11 +275,29 @@ def main():
     print("Documento temporal cargado.")
 
     # Lista de secciones a procesar
-    secciones = [
+    """secciones = [
         "BASES ADMINISTRATIVAS PARA EL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA",
         "Condiciones Contractuales, Vigencia de las Condiciones Comerciales, Operatoria de la Licitación y Otras Cláusulas:",
         "BASES TECNICAS PARA EL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA"
+    ]"""
+    secciones = [
+        "De los Productos",
+        "Sobre los equipos solicitados en comodato para el uso de insumos condición obligatoria",
+        "Entrega y Recepción",
+        "MOTIVOS DE RECHAZO POR OBSERVACIÓN FÍSICA (ya iniciado en contrato):",
+        "Documentos integrantes",
+        "Condiciones Contractuales, Vigencia de las Condiciones Comerciales, Operatoria de la Licitación y Otras Cláusulas:"
     ]
+        #"Entrega y Recepción",
+        #"Documentos integrantes",
+        #"Modificación del Contrato",
+    # Documentos Integrantes, es Tercero
+    # Modificación del Contrato, Cuarto
+    # Gastos e Impuestos, Quinto
+    # Efectos derivados de Incumplimiento del proveedor, Sexto
+    # Garantía de Seriedad de la Oferta, Séptimo
+
+
 
     # Extraer y copiar cada sección
     for seccion in secciones:
@@ -293,7 +311,7 @@ def main():
             print(f"Sección {seccion} no encontrada.")
 
     # Guardar documento resultante
-    output_file = f"contrato_sin_cambios.docx"
+    output_file = f"contrato_automatizado.docx"
     output_path = os.path.join(current_dir, output_file)
     print(f"Guardando documento nuevo como: {output_path}...")
     doc.save(output_path)
@@ -310,3 +328,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
