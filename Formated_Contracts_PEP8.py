@@ -288,8 +288,28 @@ def main():
         "Documentos integrantes",
         "Modificación del Contrato",
         "Gastos e Impuestos",
-        "Efectos derivados de Incumplimiento del proveedor"
+        "Efectos derivados de Incumplimiento del proveedor",
         "Garantía de Seriedad de la Oferta",
+        "Garantía de Fiel Cumplimiento de Contrato.",
+        "Cobro de la Garantía de Fiel Cumplimiento de Contrato",
+        "Término anticipado del contrato",
+        "Resciliación de Mutuo Acuerdo",
+        "Procedimiento para Aplicación de Medidas derivadas de incumplimientos",
+        "Emisión de la Orden de Compra",
+        "Del Pago",
+        "Vigencia del Contrato",
+        "Administrador del Contrato y/o Referente Técnico.",
+        "Pacto de Integridad",
+        "Comportamiento ético del Adjudicatario.",
+        "Auditorías",
+        "Confidencialidad",
+        "Propiedad de la información",
+        "Saldos insolutos de remuneraciones o cotizaciones de seguridad social.",
+        "Normas Laborales Aplicables",
+        "Cambio de personal del proveedor adjudicado.",
+        "Cesión y subcontratación.",
+        "Discrepancias",
+        "Constancia",
 
     ]
         #"Entrega y Recepción",
@@ -304,13 +324,15 @@ def main():
 
 
     # Extraer y copiar cada sección
+    # Extraer y copiar cada sección
     for seccion in secciones:
         print(f"Procesando sección {seccion}...")
         resultado = extraer_seccion_completa(word, seccion)
         if resultado:
-            encabezado, elementos, nivel = resultado
-            copiar_seccion_completa(doc, encabezado, elementos, nivel)
-            print(f"Sección {seccion} copiada.")
+            encabezado, elementos, _ = resultado  # Ignoramos el nivel original de la sección
+            # Forzamos el nivel 2 para el encabezado principal de la sección
+            copiar_seccion_completa(doc, encabezado, elementos, 2)
+            print(f"Sección {seccion} copiada como Nivel 2.")
         else:
             print(f"Sección {seccion} no encontrada.")
 

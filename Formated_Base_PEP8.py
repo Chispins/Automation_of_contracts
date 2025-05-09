@@ -191,6 +191,7 @@ def main():
     aplicar_numeracion(resolucion_p3, num_id_resolucion)
 
     # Sección BASES ADMINISTRATIVAS
+    doc.add_section()
     doc.add_heading("BASES ADMINISTRATIVAS PARA EL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA", level=1)
     doc.add_heading("Antecedentes  y Plazos", level=2)
     agregar_parrafo_con_texto(doc, "En Santiago, a 1 de enero de 2023, se resuelve lo siguiente:")
@@ -615,8 +616,8 @@ def main():
     doc.add_heading("Readjudicación", level=3)
     agregar_parrafo_con_texto(doc, "Si el adjudicatario se desistiere de firmar el contrato o de aceptar la orden de compra, o no cumpliese con las demás condiciones y requisitos establecidos en las presentes bases para la suscripción o aceptación de los referidos documentos, la entidad licitante podrá, junto con dejar sin efecto la adjudicación original, adjudicar la licitación al oferente que le seguía en puntaje, o a los que le sigan sucesivamente, dentro del plazo de 60 días corridos contados desde la publicación de la adjudicación original.")
 
-    # doc.add_section()
-    doc.add_heading("Condiciones Contractuales, Vigencia de las Condiciones Comerciales, Operatoria de la Licitación y Otras Cláusulas:", level=2)
+    doc.add_section()
+    doc.add_heading("Condiciones Contractuales, Vigencia de las Condiciones Comerciales, Operatoria de la Licitación y Otras Cláusulas:", level=1)
     doc.add_heading("Documentos integrantes", level=2)
     agregar_parrafo_con_texto(doc, "La relación contractual que se genere entre la entidad licitante y el adjudicatario se ceñirá a los siguientes documentos:")
     for texto in [
@@ -717,7 +718,7 @@ def main():
     ]:
         agregar_parrafo_con_texto(doc, texto)
 
-    doc.add_heading("Cobro de la Garantía de Fiel Cumplimiento de Contrato", level=3)
+    doc.add_heading("Cobro de la Garantía de Fiel Cumplimiento de Contrato", level=2)
     agregar_parrafo_con_texto(doc, "Al Adjudicatario le podrá ser aplicada la medida de cobro de la Garantía por Fiel Cumplimiento del Contrato por la entidad licitante, en los siguientes casos:")
     for texto in [
         "No pago de multas dentro de los plazos establecidos en las presentes bases y/o el respectivo contrato.",
@@ -726,7 +727,7 @@ def main():
     ]:
         agregar_parrafo_con_texto(doc, texto, estilo='List Bullet')
 
-    doc.add_heading("Término anticipado del contrato", level=3)
+    doc.add_heading("Término anticipado del contrato", level=2)
     agregar_parrafo_con_texto(doc, "El hospital está facultado para declarar administrativamente mediante resolución fundada el término anticipado del contrato, en cualquier momento, sin derecho a indemnización alguna para el adjudicado, si concurre alguna de las causales que se señalan a continuación:")
 
     termino_contrato_items = [
@@ -805,7 +806,7 @@ def main():
     ]:
         agregar_parrafo_con_texto(doc, texto)
 
-    doc.add_heading("Emisión de la Orden de Compra", level=3)
+    doc.add_heading("Emisión de la Orden de Compra", level=2)
     for texto in [
         "Las órdenes de compra se emitirán previa solicitud del administrador del contrato, quien, en función de la necesidad y demanda del servicio, realizara los pedidos correspondientes.",
         "La orden de compra sólo se emitirá en los casos que el proveedor este en estado hábil para ser contratado por el Estado de Chile y sólo se emitirá el documento a nombre del proveedor adjudicado por el Hospital.",
@@ -874,7 +875,7 @@ def main():
         p = agregar_parrafo_con_texto(doc, texto)
         aplicar_numeracion(p, pacto_integridad_id)
 
-    doc.add_heading("Comportamiento ético del Adjudicatario.", level=3)
+    doc.add_heading("Comportamiento ético del Adjudicatario.", level=2)
     agregar_parrafo_con_texto(doc, "El adjudicatario que preste los servicios deberá observar, durante toda la época de ejecución del contrato, el más alto estándar ético exigible a los funcionarios públicos. Tales estándares de probidad deben entenderse equiparados a aquellos exigidos a los funcionarios de la Administración Pública, en conformidad con el Título III de la ley N° 18.575, Orgánica Constitucional de Bases Generales de la Administración del Estado.")
 
     doc.add_heading("Auditorías", level=2)
@@ -939,6 +940,7 @@ def main():
 
     # Ahora la sección Bases Ténicas para BASES TECNICAS PARA EL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA
 
+    doc.add_section()
     doc.add_heading("BASES TECNICAS PARA EL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA", level = 1)
     doc.add_heading("Requisitos para adjudicarse disposiciones generales", level=2)
 
@@ -1221,7 +1223,141 @@ def main():
         # Si necesitas específicamente ese carácter, tendrías que agregarlo manualmente al inicio de cada string.
         p.add_run(item_text)
 
+    doc.add_section()
+
+    p1 = doc.add_heading("Anexos", level=1)
+    p1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+
+    p1_nexo1 = doc.add_heading("Anexo N°1", level=2)
+    p1_nexo1.allignment = WD_ALIGN_PARAGRAPH.CENTER
+
+    p2 = doc.add_paragraph()
+    p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p2.add_run("IDENTIFICACIÓN DEL OFERENTE")
+
+    p3 = doc.add_paragraph()
+    p3.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p3.add_run("PROPUESTA PÚBLICA: PARA EL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE "
+               "PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA.")
+
+    # REMOVED: doc.add_paragraph()  # Removed the extra space before the table
+
+    # --- Table Data ---
+    # Structure: (Text for cell 1, Text for cell 2, Does cell 1 span both columns?)
+    table_data = [
+        ("IDENTIFICACIÓN DEL OFERENTE", "", True),
+        ("R.U.T. DEL OFERENTE", "", False),
+        ("SIGLA PARA EL CASO DE EMPRESAS (Nombre de Fantasía)", "", False),
+        ("DIRECCIÓN OFERENTE", "", False),
+        ("CIUDAD", "", False),
+        ("COMUNA", "", False),
+        ("TELÉFONOS", "", False),
+        ("", "", True),  # This was the blue separator row, now just a spanned empty row
+        ("NOMBRE DEL REPRESENTANTE LEGAL", "", False),
+        ("RUT DEL REPRESENTANTE LEGAL", "", False),
+        ("NOMBRE DE LA NOTARIA", "", False),
+        (
+            "FECHA DONDE SE SEÑALA LA PERSONERIA DEL REPRESENTANTE LEGAL (adjuntar documento si no se encuentra actualizado en portal de Mercado Público)",
+            "", False),
+        ("NOMBRE DEL CONTACTO COMERCIAL (ADMINISTRADOR EXTERNO DEL CONTRATO)", "", False),
+        ("CARGO DEL CONTACTO COMERCIAL", "", False),
+        ("RUBRO COMERCIAL", "", False),
+        ("E-MAIL", "", False),
+        ("NOMBRE DEL CONTACTO PARA EL SERVICIO", "", False),
+        ("TELEFONO", "", False),
+        ("E-MAIL", "", False),
+        ("CELULAR", "", False),
+        ("HORARIO DE ATENCION", "", False),
+    ]
+
+    num_rows = len(table_data)
+    num_cols = 2
+    table = doc.add_table(rows=num_rows, cols=num_cols)
+    table.style = 'TableGrid'  # This will add basic borders
+
+    # Populate table
+    for i, (text1, text2, span) in enumerate(table_data):
+        row_cells = table.rows[i].cells
+        cell1 = row_cells[0]
+        cell2 = row_cells[1]
+
+        if span:
+            cell1.merge(cell2)
+            cell1.text = text1
+            if text1 == "IDENTIFICACIÓN DEL OFERENTE":  # Center this specific header
+                cell1.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.CENTER
+        else:
+            cell1.text = text1
+            cell2.text = text2
+
+    # --- Footer Text ---
+    doc.add_paragraph()  # Keep this space after the table
+
+    # Add the underline for the signature line BEFORE the signature text
+    pf_signature_line = doc.add_paragraph()
+    pf_signature_line.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    # Adjust the number of underscores as needed for desired length
+    pf_signature_line.add_run("____________________________________")
+
+    pf1 = doc.add_paragraph()
+    pf1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    pf1.add_run("FIRMA Y TIMBRE OFERENTE O REPRESENTANTE LEGAL")
+
+    doc.add_paragraph()
+
+    pf2 = doc.add_paragraph()
+    pf2.add_run("Fecha: ____________________________________")
     # Guardar el documento
+
+    anexo2_header = doc.add_heading("ANEXO N° 2", level=2 )
+
+    # Add DECLARACION JURADA Header as a paragraph
+    declaracion_header = doc.add_paragraph()
+    declaracion_header.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    declaracion_header.add_run("DECLARACION JURADA DE HABILIDAD")
+
+    # Add the Proposal Title again as a paragraph
+    title_anexo2 = doc.add_paragraph()
+    title_anexo2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    title_anexo2.add_run("PROPUESTA PÚBLICA: PARA EL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE "
+                         "PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA.")
+
+    # Add the declaration paragraphs
+    para1 = doc.add_paragraph()
+    para1.add_run(
+        "Por la presente, el Oferente, <<NOMBRE PERSONA NATURAL O NOMBRE PERSONA JURIDICA>>, declara bajo juramento que no ha sido sancionado con la pena de prohibición perpetua o temporal (esta última vigente) para contratar con el Estado, por lavado de activos, financiamiento del terrorismo y cohecho, en virtud de lo dispuesto en los artículos 8° N°2 y N°10 de la Ley N°20.393.")
+
+
+    para2 = doc.add_paragraph()
+    para2.add_run(
+        "Asimismo, declara bajo juramento, sea persona natural o jurídica que no le afecta ninguna de las inhabilidades previstas en los incisos primero y sexto del artículo 4° de la Ley N°19.886, además, las previstas en el artículo 26 letra D del Decreto Ley N°211, que se transcriben en su parte pertinente:")
+
+    para3 = doc.add_paragraph()
+    para3.add_run(
+        "“(...) Quedarán excluidos quienes, dentro de los dos años anteriores al momento de la presentación de la oferta, de la formulación de la propuesta o de la suscripción de la convención, según se trate de licitaciones públicas, privadas o contratación directa, hayan sido condenados por prácticas antisindicales o infracción a los derechos fundamentales del trabajador, o por delitos concursales establecidos en el Código Penal” (inciso primero).")
+
+    para4 = doc.add_paragraph()
+    para4.add_run(
+        "“Ningún órgano de la Administración del Estado y de las empresas y corporaciones del Estado o en que éste tenga participación, podrá suscribir contratos administrativos de provisión de bienes o prestación de servicios con los funcionarios directivos del mismo órgano o empresa, ni con personas unidas a ellos por los vínculos o parentescos descritos en la letra b) del artículo 54 de la ley N°18.575, ley Orgánica Constitucional de Bases Generales de la Administración del Estado, ni con sociedades de personas de las que aquéllos o éstas formen parte, ni con sociedades comandita por acciones o anónimas cerradas en que aquéllos o estas sean accionistas, ni con sociedades anónimas abiertas en que aquéllos o estas sean dueños de acciones que representen el 10% o más del capital, ni con los gerentes, administradores, representantes o directores de cualquiera de las sociedades antedichas” (inciso sexto).")
+
+    para5 = doc.add_paragraph()
+    para5.add_run(
+        "En el caso de las conductas previstas en la letra a) del artículo 3°, podrá imponer, además, la prohibición de contratar a cualquier título con órganos de la administración centralizada o descentralizada del Estado, con organismos autónomos o con instituciones, organismos, empresas o servicios en los que el Estado efectúe aportes, con el Congreso Nacional y el Poder Judicial, así como la prohibición de adjudicarse cualquier concesión otorgada por el Estado, hasta el plazo de cinco años contado desde que la sentencia definitiva quede ejecutoriada.")
+
+    # Add the underline for the signature line BEFORE the signature text
+    pf_signature_line = doc.add_paragraph()
+    pf_signature_line.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    # Adjust the number of underscores as needed for desired length
+    pf_signature_line.add_run("____________________________________")
+
+    pf1 = doc.add_paragraph()
+    pf1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    pf1.add_run("FIRMA Y TIMBRE OFERENTE O REPRESENTANTE LEGAL")
+
+
+    pf2 = doc.add_paragraph()
+    pf2.add_run("Fecha: ____________________________________")
+
     doc_path = 'base_automatizada.docx'
     doc.save(doc_path)
     print(f"Documento guardado como: {doc_path}")
