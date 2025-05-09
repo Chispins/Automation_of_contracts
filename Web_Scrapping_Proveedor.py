@@ -391,7 +391,7 @@ if __name__ == "__main__":
 
     # Your list of RUT numbers
     rut_numbers = [
-        "78.615.850-8",  # Example RUT from the image
+        "8.046.185-2",  # Example RUT from the image
         "76.012.419-6",
         "78.612.480-7",
         # Add all the RUT numbers you want to process here
@@ -412,7 +412,7 @@ if __name__ == "__main__":
                 rut,
                 driver,
                 DOWNLOAD_DIRECTORY,
-                num_click_attempts=3,  # Try clicking 3 times
+                num_click_attempts=10,  # Try clicking 3 times
                 click_delay_secs=2     # Wait 2 seconds between click attempts
             )
             download_results[rut] = downloaded_file_path

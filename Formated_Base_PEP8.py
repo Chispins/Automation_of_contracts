@@ -8,6 +8,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_PARAGRAPH_ALIGNMENT
 from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
+from docx.enum.text import WD_BREAK
 
 
 def configurar_directorio_trabajo():
@@ -124,7 +125,7 @@ def agregar_contenido_celda(tabla, fila, columna, contenidos):
 
 def main():
     configurar_directorio_trabajo()
-    doc = Document()
+    doc = Document("portada_melipilla.docx")
     list_style = 'List Number'
     if list_style not in doc.styles:
         doc.styles.add_style(list_style, WD_STYLE_TYPE.PARAGRAPH)
@@ -139,7 +140,18 @@ def main():
     pacto_integridad_id = crear_numeracion(doc)
 
     # Títulos y secciones principales
-    doc.add_heading("RESOLUCIÓN EXENTA Nº1", level=0)
+    heading_paragraph = doc.add_heading('', level=0)
+
+    # Add the first part of the text as a run
+    run1 = heading_paragraph.add_run("RESOLUCIÓN EXENTA Nº1")
+
+    # Add a line break
+    run1.add_break(WD_BREAK.LINE)
+
+    # Add the second part of the text as another run
+    run2 = heading_paragraph.add_run("MELIPILLA")
+    heading_paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+
     doc.add_heading("VISTOS", level=2)
     agregar_parrafo_con_texto(doc, "Lo dispuesto en la Ley Nº 19.886 de Bases sobre Contratos Administrativos de Suministro y Prestación de Servicios; el Decreto Supremo Nº 250 /04 modificado por los Decretos Supremos Nº 1763/09, 1383/11 y 1410/14 todos del Ministerio de Hacienda; D. S. 38/2005, Reglamento Orgánico de los Establecimientos de Menor Complejidad y de los Establecimientos de Autogestión en Red; en uso de las atribuciones que me confieren el D.F.L. Nº 1/2.005, en virtud del cual se fija el texto refundido, coordinado y sistematizado del D.L. 2.763/79 y de las leyes 18.933 y 18.469; lo establecido en los Decretos Supremos Nos 140/04, Reglamento Orgánico de los Servicios de Salud; la Resolución Exenta RA 116395/343/2024 de fecha 12/08/2024 del SSMOCC., la cual nombra Director del Hospital San José de Melipilla al suscrito; lo dispuesto por las Resoluciones 10/2017, 7/2019 y 8/2019 ambas de la Contraloría General de la República, y,")
 
@@ -377,7 +389,7 @@ def main():
     ])
 
     # Antecedentes legales para poder ser contratado
-    doc.add_heading("Antecedentes legales para poder ser contratado.", level=2)
+    doc.add_heading("Antecedentes legales para poder ser contratado.", level=3)
     tabla_legal = doc.add_table(rows=7, cols=3, style='Table Grid')
 
     start_natural_row = 0
@@ -405,7 +417,7 @@ def main():
     centrar_verticalmente_tabla(tabla_legal)
 
     # Observaciones (continuación)
-    doc.add_heading("Observaciones", level=3)
+    doc.add_heading("Observaciones", level=4)
     for texto in [
         "Los antecedentes legales para poder ser contratado, sólo se requerirán respecto del adjudicatario y deberán estar disponibles en el Registro de Proveedores.",
         "Lo señalado en el párrafo precedente no resultará aplicable a la garantía de fiel cumplimiento de contrato, la cual podrá ser entregada físicamente en los términos que indican las presentes bases en aquellos casos que aplique su entrega.",
@@ -419,7 +431,7 @@ def main():
     observ_parafo_2.add_run(" de las presentes bases. Además, tales incumplimientos darán origen al cobro de la garantía de seriedad de la oferta, si la hubiere.")
 
     # Inscripción en el Registro de Proveedores
-    doc.add_heading("Inscripción en el registro de proveedores", level=3)
+    doc.add_heading("Inscripción en el registro de proveedores", level=4)
     for texto in [
         "En caso de que el proveedor que resulte adjudicado no se encuentre inscrito en el Registro Electrónico Oficial de Contratistas de la Administración (Registro de Proveedores), deberá inscribirse dentro del plazo de 15 días hábiles, contados desde la notificación de la resolución de adjudicación.",
         "Tratándose de los adjudicatarios de una Unión Temporal de Proveedores, cada integrante de ésta deberá inscribirse en el Registro de Proveedores, dentro del plazo de 15 días hábiles, contados desde la notificación de la resolución de adjudicación."
