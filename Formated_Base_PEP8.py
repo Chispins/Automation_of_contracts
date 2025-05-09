@@ -146,9 +146,9 @@ def main():
     # Sección CONSIDERANDO
     doc.add_heading("CONSIDERANDO", level=2)
     vistos_items = [
-        ("Visto: La Ley N° 19.880, de 2003, que establece normas sobre los actos administrativos...", list_style),
-        ("Que, el Hospital de San José de Melipilla perteneciente a la red de salud...", list_style),
-        ("Que, dada la naturaleza del Establecimiento...", list_style),
+        ("Que dada la alta complejidad que caracteriza al Hospital San José de Melipilla, obliga a efectuar mejoras constantes y permanentes a fin de brindar a toda nuestra comunidad el desarrollo de diversas funciones con alta calidad que el sistema público puede brindar.", list_style),
+        ("Que, el Hospital de San José de Melipilla perteneciente a la red de salud del Servicio de Salud Metropolitano Occidente, tiene como misión otorgar una atención integral, oportuna y resolutiva a las personas y familias de la provincia de Melipilla y sus alrededores, con un equipo de salud competente, comprometido y solidario, entregando un servicio de calidad y seguridad, en coordinación con la red asistencial;", list_style),
+        ("3)	Que, dada la naturaleza del Establecimiento, la atención de los beneficiarios requiere una oportuna e inmediata resolución, que no puede en caso alguno diferirse en el tiempo, lo que nos compromete a disponer en forma constante, continua y permanente de los servicios necesarios para responder adecuadamente a la demanda asistencial y administrativa a su población beneficiaria.", list_style),
     ]
     for texto, estilo in vistos_items:
         p = agregar_parrafo_con_texto(doc, texto, estilo)
@@ -158,14 +158,14 @@ def main():
     vistos_p4.add_run("Que, existe la necesidad ")
     run_bold = vistos_p4.add_run("suministro de insumos y accesorios para terapia de presión negativa con equipos en comodato")
     run_bold.bold = True
-    vistos_p4.add_run(", a fin de entregar una prestación de salud integral y oportuna...")
+    vistos_p4.add_run(", a fin de entregar una prestación de salud integral y oportuna a los usuarios del Hospital de San José de Melipilla, y de esta manera dar cumplimiento con el tratamiento de los pacientes.")
     aplicar_numeracion(vistos_p4, num_id_vistos)
 
     for texto in [
-        "Que corresponde asegurar la transparencia en este proceso...",
-        "Que, considerando los montos de la contratación...",
-        "Que revisado el catálogo de bienes y servicios...",
-        "Que, en consecuencia y en mérito de lo expuesto...",
+        "Que corresponde asegurar la transparencia en este proceso y conocer las condiciones de oferta imperantes en el mercado bajo la modalidad de la licitación pública en el sistema de compras y contratación públicas establecido en la Ley Nº 19.886 y su Reglamento.",
+        "Que, considerando los montos de la contratación y en virtud de lo establecido en las resoluciones N°7/2019 y 16/2020 de la Contraloría General de la República, la presenta contratación no está sometida al trámite de toma de razón.",
+        "Que revisado el catálogo de bienes y servicios ofrecidos en el sistema de información Mercado Público, se ha verificado la ausencia de contratos marcos vigentes para el servicio antes mencionado.",
+        "Que, en consecuencia y en mérito de lo expuesto, para esta contratación se requiere llamar a licitación pública, debiendo esta regularse por la Bases Administrativas, Técnicas, Formularios y Anexos que se aprueban a través del presente acto administrativo.",
         "Que, en razón de lo expuesto y la normativa vigente;"
     ]:
         p = agregar_parrafo_con_texto(doc, texto, list_style)
@@ -192,7 +192,7 @@ def main():
 
     # Sección BASES ADMINISTRATIVAS
     doc.add_heading("BASES ADMINISTRATIVAS PARA EL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA", level=1)
-    doc.add_heading("REQUISITOS", level=2)
+    doc.add_heading("Antecedentes  y Plazos", level=2)
     agregar_parrafo_con_texto(doc, "En Santiago, a 1 de enero de 2023, se resuelve lo siguiente:")
 
     bases_p1 = doc.add_paragraph(style=list_style)
@@ -293,7 +293,7 @@ def main():
         [("No se aceptarán consultas realizadas por otros medios, tales como correos electrónicos, fax u otros.", "")]
     ]
     for item in consultas_items:
-        p = agregar_parrafo_con_runs(doc, item, estilo='List Bullet')
+        p = agregar_parrafo_con_runs(doc, item)
 
     # Requisitos Mínimos para Participar
     doc.add_heading("Requisitos Mínimos para Participar.", level=3)
