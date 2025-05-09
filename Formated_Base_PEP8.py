@@ -148,7 +148,7 @@ def main():
     vistos_items = [
         ("Que dada la alta complejidad que caracteriza al Hospital San José de Melipilla, obliga a efectuar mejoras constantes y permanentes a fin de brindar a toda nuestra comunidad el desarrollo de diversas funciones con alta calidad que el sistema público puede brindar.", list_style),
         ("Que, el Hospital de San José de Melipilla perteneciente a la red de salud del Servicio de Salud Metropolitano Occidente, tiene como misión otorgar una atención integral, oportuna y resolutiva a las personas y familias de la provincia de Melipilla y sus alrededores, con un equipo de salud competente, comprometido y solidario, entregando un servicio de calidad y seguridad, en coordinación con la red asistencial;", list_style),
-        ("3)	Que, dada la naturaleza del Establecimiento, la atención de los beneficiarios requiere una oportuna e inmediata resolución, que no puede en caso alguno diferirse en el tiempo, lo que nos compromete a disponer en forma constante, continua y permanente de los servicios necesarios para responder adecuadamente a la demanda asistencial y administrativa a su población beneficiaria.", list_style),
+        ("Que, dada la naturaleza del Establecimiento, la atención de los beneficiarios requiere una oportuna e inmediata resolución, que no puede en caso alguno diferirse en el tiempo, lo que nos compromete a disponer en forma constante, continua y permanente de los servicios necesarios para responder adecuadamente a la demanda asistencial y administrativa a su población beneficiaria.", list_style),
     ]
     for texto, estilo in vistos_items:
         p = agregar_parrafo_con_texto(doc, texto, estilo)
@@ -296,7 +296,7 @@ def main():
         p = agregar_parrafo_con_runs(doc, item)
 
     # Requisitos Mínimos para Participar
-    doc.add_heading("Requisitos Mínimos para Participar.", level=3)
+    doc.add_heading("Requisitos Mínimos para Participar.", level=2)
     requisitos_items = [
         "No haber sido condenado por prácticas antisindicales, infracción a los derechos fundamentales del trabajador o por delitos concursales establecidos en el Código Penal dentro de los dos últimos años anteriores a la fecha de presentación de la oferta, de conformidad con lo dispuesto en el artículo 4° de la ley N° 19.886.",
         "No haber sido condenado por el Tribunal de Defensa de la Libre Competencia a la medida dispuesta en la letra d) del artículo 26 del Decreto con Fuerza de Ley N°1, de 2004, del Ministerio de Economía, Fomento y Reconstrucción, que Fija el texto refundido, coordinado y sistematizado del Decreto Ley N° 211, de 1973, que fija normas para la defensa de la libre competencia, hasta por el plazo de cinco años contado desde que la sentencia definitiva quede ejecutoriada.",
@@ -315,7 +315,7 @@ def main():
     aplicar_numeracion(req_p6, num_id_requisitos)
 
     # Instrucciones para la Presentación de Ofertas
-    doc.add_heading("Instrucciones para la Presentación de Ofertas.", level=2)
+    doc.add_heading("Instrucciones para la Presentación de Ofertas.", level=3)
     tabla_ofertas = doc.add_table(rows=4, cols=2, style='Table Grid')
     tabla_ofertas.cell(0, 0).text = "Presentar Ofertas por Sistema."
     tabla_ofertas.cell(0, 1).text = "Obligatorio."
@@ -418,7 +418,7 @@ def main():
     observ_parafo_2.add_run(" de las presentes bases. Además, tales incumplimientos darán origen al cobro de la garantía de seriedad de la oferta, si la hubiere.")
 
     # Inscripción en el Registro de Proveedores
-    doc.add_heading("Inscripción en el registro de proveedores", level=2)
+    doc.add_heading("Inscripción en el registro de proveedores", level=3)
     for texto in [
         "En caso de que el proveedor que resulte adjudicado no se encuentre inscrito en el Registro Electrónico Oficial de Contratistas de la Administración (Registro de Proveedores), deberá inscribirse dentro del plazo de 15 días hábiles, contados desde la notificación de la resolución de adjudicación.",
         "Tratándose de los adjudicatarios de una Unión Temporal de Proveedores, cada integrante de ésta deberá inscribirse en el Registro de Proveedores, dentro del plazo de 15 días hábiles, contados desde la notificación de la resolución de adjudicación."
@@ -454,7 +454,6 @@ def main():
     for texto in parrafos_garantia:
         doc.add_paragraph(texto)
 
-    incumplimientos_casos = doc.add_paragraph()
     elementos = ["Por no suscripción del contrato definitivo o se rechace la orden de compra por parte del proveedor adjudicado, si corresponde;",
                  "Por la no entrega de los antecedentes requeridos para la elaboración del contrato, de acuerdo con las presentes bases, si corresponde;",
                  "Por el desistimiento de la oferta dentro de su plazo de validez establecido en las presentes bases;",
@@ -464,12 +463,12 @@ def main():
     for texto in elementos:
         doc.add_paragraph(texto, style = "List Number")
 
-    doc.add_heading("Forma y oportunidad de restitución de la garantía de la seriedad de la oferta", level = 2)
+    doc.add_heading("Forma y oportunidad de restitución de la garantía de la seriedad de la oferta", level = 3)
     agregar_parrafo_con_texto(doc, "En el caso del oferente adjudicado, la garantía de seriedad de la oferta estará disponible una vez tramitada completamente la firma del contrato, veinte (20) días hábiles después de adjudicada la Licitación y contra entrega de la garantía de fiel cumplimiento del contrato.")
     agregar_parrafo_con_texto(doc, "En caso del oferente no adjudicado, la garantía de seriedad de la oferta estará disponible previa solicitud vía correo electrónico a: garantias.hsjm@hospitaldemelipilla.cl, con copia a : manuel.lara@hospitaldemelipilla.cl para su retiro en el departamento de tesorería del Hospital San José de Melipilla, en el siguiente horario: de lunes a viernes desde las 09:00 a 13:00 horas.")
     agregar_parrafo_con_texto(doc, "Para el retiro de la garantía deberá presentarse poder simple timbrado por la persona natural o jurídica, fotocopia de la cédula de identidad de la persona que retira y el Rut la persona natural o jurídica.")
 
-    doc.add_heading("Garantía de Fiel Cumplimiento de Contrato.", level = 2)
+    doc.add_heading("Garantía de Fiel Cumplimiento de Contrato.", level = 3)
     loop_fiel = ["Para garantizar el fiel y oportuno cumplimiento del contrato, el adjudicado debe presentar una o más garantías de la misma naturaleza, equivalentes en total al porcentaje del 5% del valor total del contrato adjudicado.",
                  "La(s) garantía(s) debe(n) ser entregada(s) en la dirección de la entidad licitante indicada: Oficina de Partes del Hospital San José de Melipilla, ubicado en calle O’Higgins Nº 551 comuna de Melipilla, Región Metropolitana, dentro de los 10 días hábiles contados desde la notificación de la adjudicación en horario de 8:00 a 14:00 horas.",
                  "Si la(s) garantía(s) fuera(n) en soporte electrónico (garantía emitida por las instituciones de Garantía recíproca (IGR), Internacionalmente conocidas como SGR), se deberá enviar al correo electrónico garantias.hsjm@hospitaldemelipilla.cl, si no se presenta esta garantía en tiempo y forma, el Hospital San José de Melipilla  podrá hacer efectiva la garantía de seriedad de la oferta y dejar sin efecto administrativamente la adjudicación, sin perjuicio de otros derechos."
@@ -496,15 +495,11 @@ def main():
     comis_eval_p1.add_run("La Dirección del Hospital San José de Melipilla designa como integrantes de la Comisión de Evaluación de la propuesta a los siguientes funcionarios: el Subdirector(a) Administrativo, Subdirector(a) Médico de Atención Abierta, Subdirector(a) Médico de Atención Cerrada, Subdirector(a) de Gestión del Cuidado de Enfermería, Subdirector(a) de Gestión y Desarrollo de las Personas, Subdirector(a) de Matronería, Subdirector(a) de Análisis de Información para la Gestión, Subdirector(a) de Apoyo Clínico o sus subrogantes. Para los efectos del quórum para sesionar se requerirá un mínimo de tres miembros. Lo anterior en conformidad con lo dispuesto en el artículo 37 del Decreto Nº 250 que establece el Reglamento de la Ley Nº 19.886.Los miembros de la Comisión Evaluadora no podrán:")
 
     for texto, estilo in [
-        ("La comisión evaluadora verificará el cumplimiento de los requisitos mínimos de participación.", 'List Bullet'),
-        ("Se evaluarán los criterios técnicos y económicos según la ponderación definida en las bases.", 'List Bullet')
+        ("Tener contactos con los oferentes, salvo en cuanto proceda alguno de mecanismos regulados por los artículos 27, 39 y 40 del reglamento de la ley N° 19.886.", 'List Bullet'),
+        ("Aceptar solicitudes de reunión, de parte de terceros, sobre asuntos vinculados directa o indirectamente con esta licitación, mientras integren la Comisión Evaluadora.", 'List Bullet'),
+        ("Aceptar ningún donativo de parte de terceros. Entiéndase como terceros, entre otros, a las empresas que prestan servicios de asesoría, o bien, sociedades consultoras, asociaciones, gremios o corporaciones. La misma Comisión estudiará los antecedentes de la Propuesta y elaborará un informe fundado para el Director de este Establecimiento, quien podrá declarar, mediante resolución fundada, admisible aquellas ofertas que cumplan con los requisitos establecidos en las bases de licitación, como también podrá declarar, mediante resolución fundada, inadmisible aquellas ofertas que no cumplan los requisitos establecidos en las bases. En caso de no presentarse oferentes o cuando las ofertas no resulten convenientes para los intereses del Establecimiento, podrá declarar desierta la licitación, fundándose en razones objetivas y no discriminatorias. Esta Comisión Evaluadora podrá invitar a profesionales técnicos para colaborar en el proceso de adjudicación.", "List Bullet")
     ]:
         agregar_parrafo_con_texto(doc, texto, estilo)
-
-    eval_p3 = doc.add_paragraph(style='List Bullet')
-    eval_p3.add_run("La adjudicación se realizará al oferente que obtenga el ")
-    eval_p3.add_run("mayor puntaje total").bold = True
-    eval_p3.add_run(".")
 
     agregar_parrafo_con_texto(doc, "La misma Comisión estudiará los antecedentes de la Propuesta y elaborará un informe fundado para el Director de este Establecimiento, quien podrá declarar, mediante resolución fundada, admisible aquellas ofertas que cumplan con los requisitos establecidos en las bases de licitación, como también podrá declarar, mediante resolución fundada, inadmisible aquellas ofertas que no cumplan los requisitos establecidos en las bases. En caso de no presentarse oferentes o cuando las ofertas no resulten convenientes para los intereses del Establecimiento, podrá declarar desierta la licitación, fundándose en razones objetivas y no discriminatorias.Esta Comisión Evaluadora podrá invitar a profesionales técnicos para colaborar en el proceso de adjudicación")
 
@@ -520,7 +515,7 @@ def main():
 
     subsan_err_p1 = doc.add_paragraph()
     subsan_err_p1.add_run("Subsanación de errores u omisiones formales: ").bold = True
-    subsan_err_p1.add_run("vicios u omisiones no les confieran a esos oferentes una situación de privilegio respecto de los demás competidores, esto es, en tanto no se afecten los principios de estricta sujeción a las bases y de igualdad de los oferentes, y se informe de dicha solicitud al resto de los oferentes, a través del Sistema de Información")
+    subsan_err_p1.add_run("Una vez realizada la apertura electrónica de las ofertas, la entidad licitante podrá solicitar a los oferentes que salven errores u omisiones formales, siempre y cuando las rectificaciones de dichos vicios u omisiones no les confieran a esos oferentes una situación de privilegio respecto de los demás competidores, esto es, en tanto no se afecten los principios de estricta sujeción a las bases y de igualdad de los oferentes, y se informe de dicha solicitud al resto de los oferentes, a través del Sistema de Información")
     subsan_err_p1.add_run("www.mercadopublico.cl.").bold = True
 
     agregar_parrafo_con_texto(doc, "El plazo que tendrán los oferentes, en este caso para dar cumplimiento a lo solicitado por el mandante, no será inferior a las 24 horas, contadas desde la fecha de publicación de la solicitud por parte del Hospital, la que se informará a través del Sistema de información www.mercadopublico.cl. La responsabilidad de revisar oportunamente dicho sistema durante el período de evaluación recae exclusivamente en los respectivos oferentes.")
@@ -581,13 +576,13 @@ def main():
         agregar_parrafo_con_texto(doc, texto)
 
     # Criterios de evaluación
-    doc.add_heading("Criterios de evaluación", level=2)
-    doc.add_heading("Criterios Económicos", level=3)
+    doc.add_heading("Criterios de evaluación", level=3)
+    doc.add_heading("Criterios Económicos", level=4)
     crit_econ = doc.add_paragraph()
     crit_econ.add_run("OFERTA ECONÓMICA 60%").bold = True
     agregar_parrafo_con_texto(doc, "Valor ítem ofertado. Para calcular el puntaje correspondiente al precio se utilizará la siguiente fórmula: A este puntaje se le aplicará la ponderación del 60 %. El oferente deberá declarar en Anexo N°5, los valores ofertados considerando todos los gastos involucrados e impuestos que apliquen.")
 
-    doc.add_heading("Criterios Técnicos", level=3)
+    doc.add_heading("Criterios Técnicos", level=4)
     crit_tecn_para = doc.add_paragraph(style="List Bullet")
     crit_tecn_run = crit_tecn_para.add_run("EVALUACIÓN TÉCNICA 20%: ")
     crit_tecn_run.bold = True
@@ -604,24 +599,24 @@ def main():
     serv_post_venta_para.add_run("Se evaluará según información presentada en el Anexo N° 9 de la presente base de licitación.")
 
     # Adjudicación y otras secciones
-    doc.add_heading("Adjudicación", level=2)
+    doc.add_heading("Adjudicación", level=3)
     agregar_parrafo_con_texto(doc, "Se adjudicará al oferente que obtenga el mayor puntaje, en los términos descritos en las presentes bases. La presente licitación se adjudicará a través de una resolución dictada por la autoridad competente, la que será publicada en www.mercadopublico.cl, una vez que se encuentre totalmente tramitada.")
 
-    doc.add_heading("Mecanismo de Resolución de empates.", level=2)
+    doc.add_heading("Mecanismo de Resolución de empates.", level=3)
     agregar_parrafo_con_texto(doc, "En el evento de que, una vez culminado el proceso de evaluación de ofertas, hubiese dos o más proponentes que hayan obtenido el mismo puntaje en la evaluación final, quedando más de uno en condición de resultar adjudicado, se optará por aquella oferta que cuente con un mayor puntaje de acuerdo con la secuencia de los criterios que resulten aplicables, de acuerdo al siguiente orden: EVALUACION TECNICA, seguido por PLAZO DE ENTREGA, seguido por SERVICIO POST-VENTA, seguido por CRITERIO ECONOMICO. Finalmente, de mantenerse la igualdad, se adjudicará a aquel oferente que haya ingresado primero su propuesta en el portal Mercado Público considerándose la hora en que aquello se efectúe.")
 
-    doc.add_heading("Resolución de consultas respecto de la Adjudicación.", level=2)
+    doc.add_heading("Resolución de consultas respecto de la Adjudicación.", level=3)
     resolucion_consultas_par = doc.add_paragraph()
     resolucion_consultas_par.add_run("Las consultas sobre la adjudicación deberán realizarse dentro del plazo fatal de 5 días hábiles contados desde la publicación de la resolución en el Sistema de Información ")
     resolucion_consultas_par.add_run("www.mercadopublico.cl").bold = True
     resolucion_consultas_par.add_run("a través del siguiente enlace: ")
     resolucion_consultas_par.add_run("http://ayuda.mercadopublico.cl ").bold = True
 
-    doc.add_heading("Readjudicación", level=2)
+    doc.add_heading("Readjudicación", level=3)
     agregar_parrafo_con_texto(doc, "Si el adjudicatario se desistiere de firmar el contrato o de aceptar la orden de compra, o no cumpliese con las demás condiciones y requisitos establecidos en las presentes bases para la suscripción o aceptación de los referidos documentos, la entidad licitante podrá, junto con dejar sin efecto la adjudicación original, adjudicar la licitación al oferente que le seguía en puntaje, o a los que le sigan sucesivamente, dentro del plazo de 60 días corridos contados desde la publicación de la adjudicación original.")
 
-    doc.add_section()
-    doc.add_heading("Condiciones Contractuales, Vigencia de las Condiciones Comerciales, Operatoria de la Licitación y Otras Cláusulas:", level=1)
+    # doc.add_section()
+    doc.add_heading("Condiciones Contractuales, Vigencia de las Condiciones Comerciales, Operatoria de la Licitación y Otras Cláusulas:", level=2)
     doc.add_heading("Documentos integrantes", level=2)
     agregar_parrafo_con_texto(doc, "La relación contractual que se genere entre la entidad licitante y el adjudicatario se ceñirá a los siguientes documentos:")
     for texto in [
@@ -1006,8 +1001,12 @@ def main():
 
     # Los productos
     doc.add_heading("De los Productos", level = 4)
-    de_productos = doc.add_paragraph("La presente licitación pública, se enfoca en la adquisición de los productos que se presentan en el cuadro siguiente, se evaluaran técnicamente cada producto. La adjudicación será por la totalidad.", style = "List Number")
-    de_productos = doc.add_paragraph("La siguiente tabla presenta cantidades de consumo referenciales, la que se utilizara solo para términos de evaluación.", style = "List Number")
+    num_id_productos = crear_numeracion(doc)
+
+    de_productos_p1 = doc.add_paragraph("La presente licitación pública, se enfoca en la adquisición de los productos que se presentan en el cuadro siguiente, se evaluaran técnicamente cada producto. La adjudicación será por la totalidad.", style = "List Number")
+    de_productos_p2 = doc.add_paragraph("La siguiente tabla presenta cantidades de consumo referenciales, la que se utilizara solo para términos de evaluación.", style = "List Number")
+    aplicar_numeracion(de_productos_p1, num_id_productos)
+    aplicar_numeracion(de_productos_p2, num_id_productos)
 
     # Data para la tabla de Insumos (extraída de la imagen original + nuevos ítems)
     insumos_header = ["ITEM", "INSUMOS", "UD", "MONTO MÁXIMO A PAGAR"]
@@ -1025,7 +1024,7 @@ def main():
         ["4",
          "Kit de apósito espuma negra en forma ovalada 26 cm x15cm x3.2 cm aprox. tamaño LARGE, con láminas adhesivas transparentes, conector de succión de silicona flexible de 90 cm aprox., conector luer-lock, clamp y regla desechable.",
          "UD", "$100.000"],
-        ["S5",
+        ["5",
          "Kit de apósito espuma negra pre cortada en forma ovalada 60 cm x30cm x1.8 cm aprox. tamaño extra large, con láminas adhesivas transparentes, conector de succión de silicona flexible de 90 cm aprox., conector luer-lock, clamp, desechable.",
          "UD", "$370.000"],
         ["6",
@@ -1090,13 +1089,15 @@ def main():
     tabla_insumos = crear_tabla(doc, [insumos_header] + insumos_data, estilo='Table Grid',
                                 centrar=False)  # Centrar verticalmente después si es necesario
 
-    parte_c_generalidades = doc.add_paragraph(style = "List Number")
-    parte_c_generalidades.add_run("La adjudicación se realizará por valor unitario y tendrá una duración de 36 meses o hasta agotar el presupuesto, lo que ocurra primero, sin obligar al hospital a comprar una cantidad mínima establecida.")
+    de_productos_p3 = doc.add_paragraph("La adjudicación se realizará por valor unitario y tendrá una duración de 36 meses o hasta agotar el presupuesto, lo que ocurra primero, sin obligar al hospital a comprar una cantidad mínima establecida.")
+    aplicar_numeracion(de_productos_p3, num_id_productos)
+
 
     parte_d_generalidades = doc.add_paragraph(style = "List Number")
     parte_d_generalidades.add_run("se considera causal")
     parte_d_generalidades.add_run(" admisibilidad").bold = True
     parte_d_generalidades.add_run("que el proveedor adjunte ficha técnica en español de todos los productos solicitados al portal de Mercado Público.")
+    aplicar_numeracion(parte_d_generalidades, num_id_productos)
 
     # Entrega de Muestras
     doc.add_heading("Entrega de Muestras", level = 4)
