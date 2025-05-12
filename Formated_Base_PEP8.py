@@ -9,6 +9,7 @@ from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.enum.text import WD_BREAK
+from docx.shared import Pt
 
 
 def configurar_directorio_trabajo():
@@ -122,6 +123,40 @@ def agregar_contenido_celda(tabla, fila, columna, contenidos):
                 else:
                     # If it's not a tuple or has unexpected length, treat it as plain text
                     run = p.add_run(str(item))
+
+# Formated_Base_PEP8.py
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+
+from docx.shared import Pt
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+
+def aplicar_formato_global(doc):
+    """Aplica Calibri Light 11 y justificado, excepto portada y título principal."""
+    # 1) Detectar hasta dónde llega la portada
+    limite_portada = 0
+    for i, paragraph in enumerate(doc.paragraphs):
+        # lógica original para fijar límite_portada
+        ...
+
+    # 2) Estilos a excluir del justificado
+    excluded_styles = ['Title']
+
+    # 3) Aplicar formato al resto
+    for i, paragraph in enumerate(doc.paragraphs):
+        if i <= limite_portada or paragraph.style.name in excluded_styles:
+            continue
+        paragraph.style.font.name = 'Calibri Light'
+        paragraph.style.font.size = Pt(11)
+        paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+
+    # 4) Justificar también el contenido de tablas
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                for p in cell.paragraphs:
+                    if p.style.name in excluded_styles:
+                        continue
+                    p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
 
 def main():
     configurar_directorio_trabajo()
@@ -740,62 +775,96 @@ def main():
         agregar_parrafo_con_texto(doc, texto, estilo='List Bullet')
 
     doc.add_heading("Término anticipado del contrato", level=2)
-    agregar_parrafo_con_texto(doc, "El hospital está facultado para declarar administrativamente mediante resolución fundada el término anticipado del contrato, en cualquier momento, sin derecho a indemnización alguna para el adjudicado, si concurre alguna de las causales que se señalan a continuación:")
+    agregar_parrafo_con_texto(doc,
+                              "El hospital está facultado para declarar administrativamente mediante resolución fundada el término anticipado del contrato, en cualquier momento, sin derecho a indemnización alguna para el adjudicado, si concurre alguna de las causales que se señalan a continuación:")
 
-    termino_contrato_items = [
-        "Por incumplimiento grave de las obligaciones contraídas por el proveedor adjudicado, cuando sea imputable a éste. Se entenderá por incumplimiento grave la no ejecución o la ejecución parcial por parte del adjudicatario de las obligaciones contractuales, descritas en las presentes Bases, sin que exista alguna causal que le exima de responsabilidad, y cuando dicho incumplimiento le genere al hospital un perjuicio en el cumplimiento de sus funciones. Alguno de estos motivos puede ser:",
+    # Items principales con numeración
+    num_id_termino = crear_numeracion(doc)
+
+    # Primer ítem con viñetas internas
+    termino_p1 = doc.add_paragraph(style=list_style)
+    termino_p1.add_run(
+        "Por incumplimiento grave de las obligaciones contraídas por el proveedor adjudicado, cuando sea imputable a éste. Se entenderá por incumplimiento grave la no ejecución o la ejecución parcial por parte del adjudicatario de las obligaciones contractuales, descritas en las presentes Bases, sin que exista alguna causal que le exima de responsabilidad, y cuando dicho incumplimiento le genere al hospital un perjuicio en el cumplimiento de sus funciones. Alguno de estos motivos puede ser:")
+    aplicar_numeracion(termino_p1, num_id_termino)
+
+    # Subitems para el primer ítem (viñetas)
+    subitems_1 = [
+        "Entrega injustificada fuera de los plazos convenidos.",
+        "La imposibilidad fundada de entregar los productos en los plazos comprometidos, en más de 2 oportunidades.",
+        "Por entregar productos no solicitados."
+    ]
+
+    for subitem in subitems_1:
+        p_sub = doc.add_paragraph(subitem, style="List Bullet")
+        # Aumentar sangría para mostrar que pertenece al ítem numerado
+        p_sub.paragraph_format.left_indent = Pt(72)
+
+    # Ítems 2 a 6 sin viñetas internas
+    for i, texto in enumerate([
         "Si el adjudicado se encuentra en estado de notoria insolvencia o fuere declarado deudor en un procedimiento concursal de liquidación. En el caso de una UTP, aplica para cualquiera de sus integrantes. En este caso no procederá el término anticipado si se mejoran las cauciones entregadas o las existentes sean suficientes para garantizar el cumplimiento del contrato.",
         "Por exigirlo la necesidad del servicio, el interés público o la seguridad nacional.",
         "Registrar, a la mitad del período de ejecución contractual, con un máximo de seis meses, saldos insolutos de remuneraciones o cotizaciones de seguridad social con sus actuales trabajadores o con trabajadores contratados en los últimos 2 años.",
         "Si se disuelve la sociedad o empresa adjudicada, o en caso de fallecimiento del contratante, si se trata de una persona natural.",
-        "Incumplimiento de uno o más de los compromisos asumidos por los adjudicatarios, en virtud del “Pacto de integridad\" contenido en estas bases. Cabe señalar que en el caso que los antecedentes den cuenta de una posible afectación a la libre competencia, el organismo licitante pondrá dichos antecedentes en conocimiento de la Fiscalía Nacional Económica.",
-        "Sin perjuicio de lo señalado en el “Pacto de integridad”, si el adjudicatario, sus representantes, o el personal dependiente de aquél, no observaren el más alto estándar ético exigible, durante la ejecución de la licitación, y propiciaren prácticas corruptas, tales como:",
+        "Incumplimiento de uno o más de los compromisos asumidos por los adjudicatarios, en virtud del \"Pacto de integridad\" contenido en estas bases. Cabe señalar que en el caso que los antecedentes den cuenta de una posible afectación a la libre competencia, el organismo licitante pondrá dichos antecedentes en conocimiento de la Fiscalía Nacional Económica."
+    ]):
+        p = doc.add_paragraph(style=list_style)
+        p.add_run(texto)
+        aplicar_numeracion(p, num_id_termino)
+
+    # Séptimo ítem con subitems
+    termino_p7 = doc.add_paragraph(style=list_style)
+    termino_p7.add_run("Sin perjuicio de lo señalado en el Pacto de integridad, si el adjudicatario, sus representantes, o el personal dependiente de aquél, no observaren el más alto estándar ético exigible, durante la ejecución de la licitación, y propiciaren prácticas corruptas, tales como:")
+    aplicar_numeracion(termino_p7, num_id_termino)
+
+    # Subitems para el séptimo ítem
+    subitems_7 = [
+        "Dar u ofrecer obsequios, regalías u ofertas especiales al personal de la entidad licitante, que pudiere implicar un conflicto de intereses, presente o futuro, entre el respectivo adjudicatario y la entidad licitante.",
+        "Efectuar reuniones en dependencias del organismo comprador, con el objeto de solicitar beneficios económicos respecto de la presente licitación.",
+        "Efectuar contactos con funcionarios de la entidad compradora, fuera de la plataforma www.mercadopublico.cl, con el objeto de participar u obtener información de la presente licitación."
+    ]
+
+    for subitem in subitems_7:
+        p_sub = doc.add_paragraph(subitem, style="List Bullet")
+        p_sub.paragraph_format.left_indent = Pt(72)
+
+    # Items 8 y 9 sin viñetas internas
+    for texto in [
         "No renovación oportuna de la Garantía de Fiel Cumplimiento, según lo establecido en la cláusula 8.2 de las bases de licitación cuando aplique.",
         "La comprobación de la falta de idoneidad, de fidelidad o de completitud de los antecedentes aportados por el proveedor adjudicado, para efecto de ser adjudicado o contratado.",
-        "La comprobación de que el adjudicatario, al momento de presentar su oferta contaba con información o antecedentes relacionados con el proceso de diseño de las bases, encontrándose a consecuencia de ello en una posición de privilegio en relación al resto de los oferentes, ya sea que dicha información hubiese sido conocida por el proveedor en razón de un vínculo laboral o profesional entre éste y las entidades compradoras, o bien, como resultado de prácticas contrarias al ordenamiento jurídico.",
-        "En caso de ser el adjudicatario de una Unión Temporal de Proveedores (UTP):",
-        "En caso de infracción de lo dispuesto en la cláusula sobre “Cesión de contrato y Subcontratación”",
+        "La comprobación de que el adjudicatario, al momento de presentar su oferta contaba con información o antecedentes relacionados con el proceso de diseño de las bases, encontrándose a consecuencia de ello en una posición de privilegio en relación al resto de los oferentes, ya sea que dicha información hubiese sido conocida por el proveedor en razón de un vínculo laboral o profesional entre éste y las entidades compradoras, o bien, como resultado de prácticas contrarias al ordenamiento jurídico."
+    ]:
+        p = doc.add_paragraph(style=list_style)
+        p.add_run(texto)
+        aplicar_numeracion(p, num_id_termino)
+
+    # Item 11 con subitems
+    termino_p11 = doc.add_paragraph(style=list_style)
+    termino_p11.add_run("En caso de ser el adjudicatario de una Unión Temporal de Proveedores (UTP):")
+    aplicar_numeracion(termino_p11, num_id_termino)
+
+    # Subitems para el ítem 11
+    subitems_11 = [
+        "Concurra alguna de las causales de término respecto de cualquiera de sus integrantes.",
+        "La UTP no ha cumplido con su obligación de informar a la entidad licitante sobre cambios de sus integrantes."
+    ]
+
+    for subitem in subitems_11:
+        p_sub = doc.add_paragraph(subitem, style="List Bullet")
+        p_sub.paragraph_format.left_indent = Pt(72)
+
+    # Items restantes sin viñetas internas
+    for texto in [
+        "En caso de infracción de lo dispuesto en la cláusula sobre Cesión de contrato y Subcontratación",
         "En caso de que las multas cursadas, en total, sobrepasen el 20 % del valor total contratado con impuestos incluidos o se apliquen más de 6 multas totalmente tramitadas en un periodo de 6 meses consecutivos.",
         "Por el no pago de las multas aplicadas.",
         "Por la aplicación de dos multas graves en que incurra el adjudicatario en virtud del incumplimiento de las obligaciones reguladas en las bases y del presente contrato.",
         "Si el Hospital San José de Melipilla cesara su funcionamiento en lugar de origen por cambio de ubicación de sus dependencias.",
         "Por la comprobación de la inhabilidad del adjudicatario para contratar con la Administración del Estado en portal de mercado público, durante la ejecución del presente contrato. Solo en el caso que el proveedor desde la notificación de esta situación no regularice su registro en un plazo superior a 15 días hábiles.",
         "Por incumplimiento de obligaciones de confidencialidad establecidas en las respectivas Bases."
-    ]
-    for texto in termino_contrato_items:
-        p = agregar_parrafo_con_texto(doc, texto, estilo='List Number')
-        aplicar_numeracion(p, num_id_consultas, nivel=0)
-
-    # Sub-items para ciertos puntos
-    subitems_1 = [
-        "La aplicación de dos o más Multas Graves en un periodo de seis meses móviles.",
-        "Si el proveedor fuese condenado a algún delito que tuviera pena aflictiva o tratándose de una empresa, sus socios, o en el caso de una sociedad anónima, algunos de los miembros del directorio o el gerente de la sociedad.",
-        "Si el proveedor delega, cede, aporta o transfiere el presente convenio a cualquier título efectúa asociaciones u otorga concesiones o subconcesiones.",
-        "Si la sociedad se disolviere por Quiebra o cesación de pagos del proveedor."
-    ]
-    for texto in subitems_1:
-        p = agregar_parrafo_con_texto(doc, texto, estilo='List Number')
-        aplicar_numeracion(p, num_id_consultas, nivel=1)
-
-    subitems_7 = [
-        "Dar u ofrecer obsequios, regalías u ofertas especiales al personal del hospital, que pudiere implicar un conflicto de intereses, presente o futuro, entre el respectivo adjudicatario y el servicio hospitalario.",
-        "Dar u ofrecer cualquier cosa de valor con el fin de influenciar la actuación de un funcionario público durante la relación contractual objeto de la presente licitación.",
-        "Tergiversar hechos, con el fin de influenciar decisiones de la entidad licitante."
-    ]
-    for texto in subitems_7:
-        p = agregar_parrafo_con_texto(doc, texto, estilo='List Number')
-        aplicar_numeracion(p, num_id_consultas, nivel=1)
-
-    subitems_11 = [
-        "Inhabilidad sobreviniente de uno de los integrantes de la UTP en el Registro de Proveedores, que signifique que la UTP no pueda continuar ejecutando el contrato con los restantes miembros en los mismos términos adjudicados.",
-        "De constatarse que los integrantes de la UTP constituyeron dicha figura con el objeto de vulnerar la libre competencia. En este caso, deberán remitirse los antecedentes pertinentes a la Fiscalía Nacional Económica.",
-        "Retiro de algún integrante de la UTP que hubiere reunido una o más características objeto de la evaluación de la oferta.",
-        "Cuando el número de integrantes de una UTP sea inferior a dos y dicha circunstancia ocurre durante la ejecución del contrato.",
-        "Disolución de la UTP."
-    ]
-    for texto in subitems_11:
-        p = agregar_parrafo_con_texto(doc, texto, estilo='List Number')
-        aplicar_numeracion(p, num_id_consultas, nivel=1)
+    ]:
+        p = doc.add_paragraph(style=list_style)
+        p.add_run(texto)
+        aplicar_numeracion(p, num_id_termino)
 
     for texto in [
         "De concurrir cualquiera de las causales anteriormente señaladas como término anticipado del contrato, exceptuando las causales número 3 y número 16, se procederá al cobro de la garantía de fiel cumplimiento del contrato, siempre y cuando se hubiere exigido dicha caución en las Bases.",
@@ -1039,7 +1108,7 @@ def main():
          "Kit de apósito espuma negra en forma ovalada 26 cm x15cm x3.2 cm aprox. tamaño LARGE, con láminas adhesivas transparentes, conector de succión de silicona flexible de 90 cm aprox., conector luer-lock, clamp y regla desechable.",
          "UD", "$100.000"],
         ["5",
-         "Kit de apósito espuma negra pre cortada en forma ovalada 60 cm x30cm x1.8 cm aprox. tamaño extra large, con láminas adhesivas transparentes, conector de succión de silicona flexible de 90 cm aprox., conector luer-lock, clamp, desechable.",
+         "Kit de apósito espuma negra pre cortada en forma ovalada 60 cm x30cm x1.8 cm aprox. tamaño extra large, con láminas adhesivas transparentes, conector de succi��n de silicona flexible de 90 cm aprox., conector luer-lock, clamp, desechable.",
          "UD", "$370.000"],
         ["6",
          "Kit de apósito espuma negra pre cortada en forma de espiral 11.3 cm x 7.7cm x 1.75cm aprox. tamaño small con láminas adhesivas transparentes, conector de succión de silicona flexible de 90 cm, conector luer-lock, clamp, desechable.",
@@ -1370,10 +1439,12 @@ def main():
     pf2 = doc.add_paragraph()
     pf2.add_run("Fecha: ____________________________________")
 
-    doc_path = 'base_automatizada.docx'
+    # Aplicar formato global
+    aplicar_formato_global(doc)
+
+    doc_path = 'base_automatizada1.docx'
     doc.save(doc_path)
     print(f"Documento guardado como: {doc_path}")
 
 if __name__ == "__main__":
     main()
-
