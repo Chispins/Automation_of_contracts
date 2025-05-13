@@ -179,6 +179,7 @@ def main():
 
     # Add the first part of the text as a run
     run1 = heading_paragraph.add_run("RESOLUCIÓN EXENTA Nº1")
+    run1.font.size = Pt(11)
 
     # Add a line break
     run1.add_break(WD_BREAK.LINE)
@@ -186,6 +187,7 @@ def main():
     # Add the second part of the text as another run
     run2 = heading_paragraph.add_run("MELIPILLA")
     heading_paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+    run2.font.size = Pt(11)
 
     doc.add_heading("VISTOS", level=2)
     agregar_parrafo_con_texto(doc, "Lo dispuesto en la Ley Nº 19.886 de Bases sobre Contratos Administrativos de Suministro y Prestación de Servicios; el Decreto Supremo Nº 250 /04 modificado por los Decretos Supremos Nº 1763/09, 1383/11 y 1410/14 todos del Ministerio de Hacienda; D. S. 38/2005, Reglamento Orgánico de los Establecimientos de Menor Complejidad y de los Establecimientos de Autogestión en Red; en uso de las atribuciones que me confieren el D.F.L. Nº 1/2.005, en virtud del cual se fija el texto refundido, coordinado y sistematizado del D.L. 2.763/79 y de las leyes 18.933 y 18.469; lo establecido en los Decretos Supremos Nos 140/04, Reglamento Orgánico de los Servicios de Salud; la Resolución Exenta RA 116395/343/2024 de fecha 12/08/2024 del SSMOCC., la cual nombra Director del Hospital San José de Melipilla al suscrito; lo dispuesto por las Resoluciones 10/2017, 7/2019 y 8/2019 ambas de la Contraloría General de la República, y,")
@@ -240,7 +242,7 @@ def main():
     # Sección BASES ADMINISTRATIVAS
     doc.add_section()
     doc.add_heading("BASES ADMINISTRATIVAS PARA EL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA", level=1)
-    doc.add_heading("Antecedentes  y Plazos", level=2)
+    doc.add_heading("Antecedentes y Plazos", level=2)
     agregar_parrafo_con_texto(doc, "En Santiago, a 1 de enero de 2023, se resuelve lo siguiente:")
 
     bases_p1 = doc.add_paragraph(style=list_style)
@@ -284,7 +286,7 @@ def main():
     definiciones = [
         ("Proponente u oferente:", "El proveedor o prestador que participa en el proceso de licitación mediante la presentación de una propuesta, en la forma y condiciones establecidas en las Bases.", "List Number 3"),
         ("Administrador o coordinador Externo del Contrato", "Persona designada por el oferente adjudicado, quien actuará como contraparte ante el Hospital.", "List Number 3"),
-        ("Dias Hábiles:", "Son todos los días de la semana, excepto los sábados, domingos y festivos.", "List Number 3"),
+        ("Días Hábiles:", "Son todos los días de la semana, excepto los sábados, domingos y festivos.", "List Number 3"),
         ("Días Corridos:", "Son los días de la semana que se computan uno a uno en forma correlativa. Salvo que se exprese lo contrario, los plazos de días señalados en las presentes bases de licitación son días corridos. En caso que el plazo expire en días sábados, domingos o festivos se entenderá prorrogados para el día hábil siguiente.", "List Number 3"),
         ("Administrador del Contrato y/o Referente Técnico:", "Es el funcionario designado por el Hospital para supervisar la correcta ejecución del contrato, solicitar órdenes de compra, validar prefacturas, gestionar multas y/o toda otra labor que guarde relación con la ejecución del contrato.", "List Number 3"),
         ("Gestor de Contrato:", "Es el funcionario a cargo de la ejecución del presente proceso de Licitación, desde la publicación de las Bases hasta la generación del contrato en formato documental, como la elaboración de ficha en la plataforma “gestor de contrato” en el portal de mercado público, además de ser el responsable de dar seguimiento y cumplimiento a los procesos y plazos establecidos.", "List Number 3")
@@ -329,7 +331,7 @@ def main():
     doc.add_heading("Consultas, Aclaraciones y modificaciones a las bases.", level=2)
     consultas_items = [
         [("Las consultas de los participantes se deberán realizar únicamente a través del portal ", ""),
-         (" www.mercadopublico.cl", "bold"),
+         ("www.mercadopublico.cl", "bold"),
          (" conforme el cronograma de actividades de esta licitación señalado en el punto 3 precedente. A su vez, las respuestas y aclaraciones estarán disponibles a través del portal de Mercado Público, en los plazos indicados en el cronograma señalado precedentemente, información que se entenderá conocida por todos los interesados desde el momento de su publicación.", "")],
         [("No serán admitidas las consultas formuladas fuera de plazo o por un conducto diferente al señalado.", "bold")],
         [("“EL HOSPITAL” realizará las aclaraciones a las Bases comunicando las respuestas a través del Portal Web de Mercado Público, sitio", ""),
@@ -519,7 +521,7 @@ def main():
     doc.add_heading("Garantía de Fiel Cumplimiento de Contrato.", level = 3)
     loop_fiel = ["Para garantizar el fiel y oportuno cumplimiento del contrato, el adjudicado debe presentar una o más garantías de la misma naturaleza, equivalentes en total al porcentaje del 5% del valor total del contrato adjudicado.",
                  "La(s) garantía(s) debe(n) ser entregada(s) en la dirección de la entidad licitante indicada: Oficina de Partes del Hospital San José de Melipilla, ubicado en calle O’Higgins Nº 551 comuna de Melipilla, Región Metropolitana, dentro de los 10 días hábiles contados desde la notificación de la adjudicación en horario de 8:00 a 14:00 horas.",
-                 "Si la(s) garantía(s) fuera(n) en soporte electrónico (garantía emitida por las instituciones de Garantía recíproca (IGR), Internacionalmente conocidas como SGR), se deberá enviar al correo electrónico garantias.hsjm@hospitaldemelipilla.cl, si no se presenta esta garantía en tiempo y forma, el Hospital San José de Melipilla  podrá hacer efectiva la garantía de seriedad de la oferta y dejar sin efecto administrativamente la adjudicación, sin perjuicio de otros derechos."
+                 "Si la(s) garantía(s) fuera(n) en soporte electrónico (garantía emitida por las instituciones de Garantía recíproca (IGR), Internacionalmente conocidas como SGR), se deberá enviar al correo electrónico garantias.hsjm@hospitaldemelipilla.cl, si no se presenta esta garantía en tiempo y forma, el Hospital San José de Melipilla podrá hacer efectiva la garantía de seriedad de la oferta y dejar sin efecto administrativamente la adjudicación, sin perjuicio de otros derechos."
                  ]
     for texto in loop_fiel:
         doc.add_paragraph(texto)
@@ -540,7 +542,7 @@ def main():
 
     comis_eval_p1 = doc.add_paragraph()
     comis_eval_p1.add_run("Comisión Evaluadora: ").bold = True
-    comis_eval_p1.add_run("La Dirección del Hospital San José de Melipilla designa como integrantes de la Comisión de Evaluación de la propuesta a los siguientes funcionarios: el Subdirector(a) Administrativo, Subdirector(a) Médico de Atención Abierta, Subdirector(a) Médico de Atención Cerrada, Subdirector(a) de Gestión del Cuidado de Enfermería, Subdirector(a) de Gestión y Desarrollo de las Personas, Subdirector(a) de Matronería, Subdirector(a) de Análisis de Información para la Gestión, Subdirector(a) de Apoyo Clínico o sus subrogantes. Para los efectos del quórum para sesionar se requerirá un mínimo de tres miembros. Lo anterior en conformidad con lo dispuesto en el artículo 37 del Decreto Nº 250 que establece el Reglamento de la Ley Nº 19.886.Los miembros de la Comisión Evaluadora no podrán:")
+    comis_eval_p1.add_run("La Dirección del Hospital San José de Melipilla designa como integrantes de la Comisión de Evaluación de la propuesta a los siguientes funcionarios: el Subdirector(a) Administrativo, Subdirector(a) Médico de Atención Abierta, Subdirector(a) Médico de Atención Cerrada, Subdirector(a) de Gestión del Cuidado de Enfermería, Subdirector(a) de Gestión y Desarrollo de las Personas, Subdirector(a) de Matronería, Subdirector(a) de Análisis de Información para la Gestión, Subdirector(a) de Apoyo Clínico o sus subrogantes. Para los efectos del quórum para sesionar se requerirá un mínimo de tres miembros. Lo anterior en conformidad con lo dispuesto en el artículo 37 del Decreto Nº 250 que establece el Reglamento de la Ley Nº 19.886. Los miembros de la Comisión Evaluadora no podrán:")
 
     for texto, estilo in [
         ("Tener contactos con los oferentes, salvo en cuanto proceda alguno de mecanismos regulados por los artículos 27, 39 y 40 del reglamento de la ley N° 19.886.", 'List Bullet'),
@@ -572,7 +574,7 @@ def main():
     inadmisibilidad_p1.add_run("Inadmisibilidad de las ofertas y declaración de desierta de la licitación: ").bold = True
     inadmisibilidad_p1.add_run("La entidad licitante declarará inadmisible las ofertas presentadas que no cumplan los requisitos mínimos establecidos en los Anexos N°5, N°6, N°7, N°8 y N°9 y/o las condiciones establecidas en las presentes bases de licitación, sin perjuicio de la facultad para solicitar a los oferentes que salven errores u omisiones formales de acuerdo con lo establecido en las presentes bases.")
 
-    agregar_parrafo_con_texto(doc, "La entidad licitante podrá, además, declarar desierta la licitación cuando no se presenten ofertas o cuando éstas no resulten convenientes a sus intereses.Dichas declaraciones deberán materializarse a través de la dictación de una resolución fundada y no darán derecho a indemnización alguna a los oferentes.")
+    agregar_parrafo_con_texto(doc, "La entidad licitante podrá, además, declarar desierta la licitación cuando no se presenten ofertas o cuando éstas no resulten convenientes a sus intereses. Dichas declaraciones deberán materializarse a través de la dictación de una resolución fundada y no darán derecho a indemnización alguna a los oferentes.")
 
     criterios_eval_p1 = doc.add_paragraph()
     criterios_eval_p1.add_run("Criterios de evaluación y procedimientos de las ofertas: ").bold = True
@@ -581,7 +583,7 @@ def main():
     criterios_eval_p2 = doc.add_paragraph()
     criterios_eval_p2.add_run("La evaluación de las ofertas presentadas para el ")
     criterios_eval_p2.add_run("SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA, ")
-    criterios_eval_p2.add_run(" se regirá por las siguientes ponderaciones y criterios a evaluar:")
+    criterios_eval_p2.add_run("se regirá por las siguientes ponderaciones y criterios a evaluar:")
 
     # Tabla de criterios de evaluación
     tabla_criterios_datos = [
@@ -639,12 +641,12 @@ def main():
     plazo_entrega_para = doc.add_paragraph(style="List Bullet")
     plazo_entrega_run = plazo_entrega_para.add_run("PLAZO DE ENTREGA 10%: ")
     plazo_entrega_run.bold = True
-    plazo_entrega_para.add_run("Se evaluará según información presentada en el Anexo N° 8 de la presente base de licitación.")
+    plazo_entrega_para.add_run("Se evaluará según información presentada en el Anexo N°8 de la presente base de licitación.")
 
     serv_post_venta_para = doc.add_paragraph(style="List Bullet")
     serv_post_venta_run = serv_post_venta_para.add_run("Servicio Post-Venta 10%: ")
     serv_post_venta_run.bold = True
-    serv_post_venta_para.add_run("Se evaluará según información presentada en el Anexo N° 9 de la presente base de licitación.")
+    serv_post_venta_para.add_run("Se evaluará según información presentada en el Anexo N°9 de la presente base de licitación.")
 
     # Adjudicación y otras secciones
     doc.add_heading("Adjudicación", level=3)
@@ -694,7 +696,7 @@ def main():
         agregar_parrafo_con_texto(doc, texto)
 
     doc.add_heading("Modificación del Contrato", level=2)
-    agregar_parrafo_con_texto(doc, "Las partes de común acuerdo podrán modificar el contrato aumentando o disminuyendo los Bienes o servicios licitados, como también se podrán pactar nuevos bienes o servicios que no alteren la naturaleza del contrato. Estas modificaciones podrán ser hasta un 30% el presupuesto disponible estipulado en las presentes bases de licitación. En el caso de aumentar los bienes o servicios contratados, la garantía fiel cumplimiento de contrato también podrá readecuarse en proporción al monto de la modificación que se suscriba según aquellos casos que apliquen. En caso de aumentar o disminuir los bienes o servicios contratados, los valores a considerar, serán aquellos ofertados en el anexo oferta económica.Con todo, las eventuales modificaciones que se pacten no producirán efecto alguno sino desde la total tramitación del acto administrativo que las apruebe.")
+    agregar_parrafo_con_texto(doc, "Las partes de común acuerdo podrán modificar el contrato aumentando o disminuyendo los Bienes o servicios licitados, como también se podrán pactar nuevos bienes o servicios que no alteren la naturaleza del contrato. Estas modificaciones podrán ser hasta un 30% el presupuesto disponible estipulado en las presentes bases de licitación. En el caso de aumentar los bienes o servicios contratados, la garantía fiel cumplimiento de contrato también podrá readecuarse en proporción al monto de la modificación que se suscriba según aquellos casos que apliquen. En caso de aumentar o disminuir los bienes o servicios contratados, los valores a considerar, serán aquellos ofertados en el anexo oferta económica. Con todo, las eventuales modificaciones que se pacten no producirán efecto alguno sino desde la total tramitación del acto administrativo que las apruebe.")
 
     doc.add_heading("Gastos e Impuestos", level=2)
     agregar_parrafo_con_texto(doc, "Todos los gastos e impuestos que se generen o produzcan por causa o con ocasión de este Contrato, tales como los gastos notariales de celebración de contratos y/o cualesquiera otros que se originen en el cumplimiento de obligaciones que, según las Bases, ha contraído el oferente adjudicado, serán de cargo exclusivo de éste.")
@@ -898,7 +900,7 @@ def main():
     doc.add_heading("Del Pago", level=2)
     for texto in [
         "El pago se efectuará una vez que el “Hospital” haya recibido oportunamente y a su entera satisfacción dichos bienes o servicios y desde la recepción conforme de la factura u otro instrumento de cobro.",
-        "El pago será efectuado dentro de los 30 días corridos siguientes, contados desde la recepción de la factura respectiva, salvo las excepciones indicadas en el artículo 79 bis del Reglamento de la Ley N° 19.886.",
+        "El pago será efectuado dentro de los 30 días corridos siguientes, contados desde la recepción de la factura respectiva, salvo las excepciones indicadas en el artículo 79 bis del Reglamento de la Ley N°19.886.",
         "El proveedor solo podrá facturar los bienes o servicios efectivamente entregados y recibidos conforme por este organismo comprador, una vez que el administrador del contrato por parte del organismo comprador autorice la facturación en virtud de la recepción conforme de los bienes o servicios. “El Hospital” rechazará todas las facturas que hayan sido emitidas sin contar con la recepción conforme de los bienes o servicios y la autorización expresa de facturar por parte de éste.",
         "Para efectos del pago, el proveedor adjudicado deberá indicar en la factura el número de orden de compra, además, no podrá superar el monto de la orden de compra, de lo contrario, se cancelará la factura por “forma”."
     ]:
@@ -925,7 +927,7 @@ def main():
     agregar_parrafo_con_texto(doc, "Con el objeto de supervisar y verificar el cumplimiento materia de la presente licitación, El Hospital designará a (la) Enfermera Supervisora(o) del Servicio de Pabellón y al Jefe(a) de Farmacia o su subrogante, para coordinar y fiscalizar la efectiva ejecución del contrato en términos administrativos.")
 
     administrado_contrato = doc.add_paragraph()
-    administrado_contrato.add_run("El adjudicatario").bold = True
+    administrado_contrato.add_run("El adjudicatario ").bold = True
     administrado_contrato.add_run("deberá nombrar un coordinador del contrato, cuya identidad deberá ser informada al Hospital.")
     agregar_parrafo_con_texto(doc, "En el desempeño de su cometido, el coordinador del contrato deberá, a lo menos:")
 
@@ -957,7 +959,7 @@ def main():
         aplicar_numeracion(p, pacto_integridad_id)
 
     doc.add_heading("Comportamiento ético del Adjudicatario.", level=2)
-    agregar_parrafo_con_texto(doc, "El adjudicatario que preste los servicios deberá observar, durante toda la época de ejecución del contrato, el más alto estándar ético exigible a los funcionarios públicos. Tales estándares de probidad deben entenderse equiparados a aquellos exigidos a los funcionarios de la Administración Pública, en conformidad con el Título III de la ley N° 18.575, Orgánica Constitucional de Bases Generales de la Administración del Estado.")
+    agregar_parrafo_con_texto(doc, "El adjudicatario que preste los servicios deberá observar, durante toda la época de ejecución del contrato, el más alto estándar ético exigible a los funcionarios públicos. Tales estándares de probidad deben entenderse equiparados a aquellos exigidos a los funcionarios de la Administración Pública, en conformidad con el Título III de la ley N°18.575, Orgánica Constitucional de Bases Generales de la Administración del Estado.")
 
     doc.add_heading("Auditorías", level=2)
     agregar_parrafo_con_texto(doc, "El adjudicatario podrá ser sometido a auditorías externas, contratadas por la entidad licitante a empresas auditoras independientes, con la finalidad de velar por el cumplimiento de las obligaciones contractuales y de las medidas de seguridad comprometidas por el adjudicatario en su oferta. Si el resultado de estas auditorías evidencia incumplimientos contractuales por parte del adjudicatario, el proveedor quedará sujeto a las medidas que corresponda aplicar la entidad licitante, según las presentes bases.")
@@ -1005,7 +1007,7 @@ def main():
         "La infracción de esta prohibición será causal inmediata de término del contrato, sin perjuicio de las acciones legales que procedan ante esta situación.",
         "Durante la ejecución del contrato, y previa autorización por escrito del Hospital, el adjudicatario sólo podrá efectuar aquellas subcontrataciones que sean indispensables para la realización de tareas específicas, todo lo cual será calificado por el coordinador del contrato. En todo caso, el adjudicatario seguirá siendo el único responsable de las obligaciones contraídas en virtud del respectivo contrato suscrito con el Hospital.",
         "Así mismo, el subcontratista debe encontrarse hábil en el registro de Proveedores del Estado y tratándose de servicios, acreditar el cumplimiento de obligaciones laborales, conforme lo establece el artículo 4° inciso 2° de la Ley N°19.886.",
-        "En todos los casos es el oferente y eventual adjudicatario el único responsable del pleno cumplimiento de lo señalado en estas bases (Art. N° 76, Reglamento de la Ley N° 19.886)."
+        "En todos los casos es el oferente y eventual adjudicatario el único responsable del pleno cumplimiento de lo señalado en estas bases (Art. N° 76, Reglamento de la Ley N°19.886)."
     ]:
         agregar_parrafo_con_texto(doc, texto)
 
@@ -1037,7 +1039,7 @@ def main():
 
     parrafo_nuevo = doc.add_paragraph()
     parrafo_nuevo.add_run("Nota:").bold = True
-    parrafo_nuevo.add_run("Los oferentes que no cumplan con estos requisitos no serán evaluados, declarándose inadmisible su oferta.")
+    parrafo_nuevo.add_run(" Los oferentes que no cumplan con estos requisitos no serán evaluados, declarándose inadmisible su oferta.")
 
     doc.add_heading("Disposiciones de la Licitación", level=2)
     doc.add_paragraph("Determinar las directrices y características técnicas necesarias para el suministro de insumos y accesorios para terapia de presión negativa con equipos en comodato.")
@@ -1204,7 +1206,7 @@ def main():
     entrega_muestras_p6 = doc.add_paragraph(style = "List Bullet")
     entrega_muestras_p6.add_run("El oferente deberá entregar las muestras a la ")
     entrega_muestras_p6.add_run("UNIDAD DE ABASTECIMIENTO DEL HOSPITAL SAN JOSE DE MELIPILLA, ").bold = True
-    entrega_muestras_p6.add_run("ubicada en Calle O’Higgins N.º 551, Comuna de Melipilla hasta el cierre de la licitación")
+    entrega_muestras_p6.add_run("ubicada en Calle O’Higgins N.º 551, Comuna de Melipilla hasta el cierre de la licitación ")
     entrega_muestras_p6.add_run("La no entrega de muestras en la forma y plazos establecidos en bases facultará al establecimiento a dejar inadmisible la oferta.").bold = True
 
     entrega_muestras_p7 = doc.add_paragraph(style = "List Bullet")
@@ -1232,7 +1234,7 @@ def main():
         ["Consolas con botón de encendido y apagado."],
         ["Rangos de presión de -25 a -200 mmHg"],
         [
-            "Terapias integradas en el mismo equipo .terapias de presión negativa estándar, manejo de abdomen abierto, prevención de dehiscencia de suturas e instilación"],
+            "Terapias integradas en el mismo equipo. Terapias de presión negativa estándar, manejo de abdomen abierto, prevención de dehiscencia de suturas e instilación"],
         [
             "Compatibilidad con contendor de 1000, 500 y 300 ml para uso intrahospitalario y contendor de 300 para uso ambulatorio-domiciliario"],
         ["Sistema de alarma de contenedor en su capacidad máxima y botón para liberación de contenedor"],
@@ -1442,7 +1444,7 @@ def main():
     # Aplicar formato global
     aplicar_formato_global(doc)
 
-    doc_path = 'base_automatizada1.docx'
+    doc_path = 'base_automatizada.docx'
     doc.save(doc_path)
     print(f"Documento guardado como: {doc_path}")
 
