@@ -42,8 +42,6 @@ def configurar_directorio_trabajo():
         # except OSError as e:
         #     print(f"Error al crear o acceder al directorio '{wd}': {e}")
 
-
-# --- Funciones para Numeración de Párrafos ---
 def crear_numeracion(doc):
     """Crea un formato de numeración y devuelve su ID único."""
     part = doc._part
@@ -162,15 +160,10 @@ def extraer_seccion_completa(doc_cargado, titulo_seccion):
 
 
 def copiar_seccion_completa(doc_destino, seccion_heading, elementos_seccion, nivel_seccion):
-    """
-    Copia una sección completa al documento destino, manteniendo numeración única
-    para párrafos de lista y preservando marcadores (bookmarks).
-    """
     # Copiar encabezado
     nuevo_encabezado = doc_destino.add_heading(level=nivel_seccion)
     if seccion_heading._p.pPr is not None:
         nuevo_encabezado._p.append(copy.deepcopy(seccion_heading._p.pPr))
-
     # Copiar contenido y marcadores del encabezado
     for child in seccion_heading._p:
         if child.tag in (qn('w:r'), qn('w:bookmarkStart'), qn('w:bookmarkEnd')):
@@ -192,8 +185,7 @@ def copiar_seccion_completa(doc_destino, seccion_heading, elementos_seccion, niv
 
     # ID único de numeración para la sección
     seccion_num_id = None
-
-    # Copiar elementos de la sección
+    # Copiar elementos de la sección ( resto del código sin cambios )
     for tipo, elemento in elementos_seccion:
         if tipo == 'parrafo':
             origen = elemento

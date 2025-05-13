@@ -26,6 +26,25 @@ def configurar_directorio_trabajo():
     else:
         print(f"Advertencia: El directorio '{wd}' no existe o no es válido.")
 
+def agregar_bookmark(parrafo, bookmark_id, bookmark_name):
+    """
+    Agrega un bookmark a un párrafo específico.
+    :param parrafo: El párrafo al que se le añadirá el bookmark.
+    :param bookmark_id: ID único para el bookmark.
+    :param bookmark_name: Nombre del bookmark.
+    """
+    p = parrafo._p
+    # Crear elemento de inicio del bookmark
+    bookmark_start = OxmlElement('w:bookmarkStart')
+    bookmark_start.set(qn('w:id'), str(bookmark_id))
+    bookmark_start.set(qn('w:name'), bookmark_name)
+    p.append(bookmark_start)
+
+    # Crear elemento de fin del bookmark (después del contenido del párrafo)
+    bookmark_end = OxmlElement('w:bookmarkEnd')
+    bookmark_end.set(qn('w:id'), str(bookmark_id))
+    p.append(bookmark_end)
+
 def crear_numeracion(doc):
     """Crea un formato de numeración y devuelve su ID."""
     part = doc._part
