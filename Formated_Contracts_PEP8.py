@@ -8,6 +8,7 @@ from datetime import datetime
 from docx import Document
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
+from Formated_Base_PEP8 import aplicar_formato_global
 
 
 def configurar_directorio_trabajo():
@@ -335,6 +336,8 @@ def main():
             print(f"Sección {seccion} copiada como Nivel 2.")
         else:
             print(f"Sección {seccion} no encontrada.")
+
+    aplicar_formato_global(doc)
 
     # Guardar documento resultante
     output_file = f"contrato_automatizado.docx"

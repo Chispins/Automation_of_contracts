@@ -673,6 +673,7 @@ def main():
         "Bases de licitación y sus anexos.",
         "Aclaraciones, respuestas y modificaciones a las Bases, si las hubiere.",
         "Oferta.",
+        "El presente contrato",
         "Orden de compra"
     ]:
         agregar_parrafo_con_texto(doc, texto, estilo="List Bullet")
@@ -696,7 +697,9 @@ def main():
         agregar_parrafo_con_texto(doc, texto)
 
     doc.add_heading("Modificación del Contrato", level=2)
-    agregar_parrafo_con_texto(doc, "Las partes de común acuerdo podrán modificar el contrato aumentando o disminuyendo los Bienes o servicios licitados, como también se podrán pactar nuevos bienes o servicios que no alteren la naturaleza del contrato. Estas modificaciones podrán ser hasta un 30% el presupuesto disponible estipulado en las presentes bases de licitación. En el caso de aumentar los bienes o servicios contratados, la garantía fiel cumplimiento de contrato también podrá readecuarse en proporción al monto de la modificación que se suscriba según aquellos casos que apliquen. En caso de aumentar o disminuir los bienes o servicios contratados, los valores a considerar, serán aquellos ofertados en el anexo oferta económica. Con todo, las eventuales modificaciones que se pacten no producirán efecto alguno sino desde la total tramitación del acto administrativo que las apruebe.")
+    agregar_parrafo_con_texto(doc, "Las partes de común acuerdo podrán modificar el contrato aumentando o disminuyendo los Bienes o servicios licitados, como también se podrán pactar nuevos bienes o servicios que no alteren la naturaleza del contrato. Estas modificaciones podrán ser hasta un 30% el presupuesto disponible estipulado en las presentes bases de licitación.")
+    agregar_parrafo_con_texto(doc ,"En el caso de aumentar los bienes o servicios contratados, la garantía fiel cumplimiento de contrato también podrá readecuarse en proporción al monto de la modificación que se suscriba según aquellos casos que apliquen. En caso de aumentar o disminuir los bienes o servicios contratados, los valores a considerar, serán aquellos ofertados en el anexo oferta económica. ")
+    agregar_parrafo_con_texto(doc ,"Con todo, las eventuales modificaciones que se pacten no producirán efecto alguno sino desde la total tramitación del acto administrativo que las apruebe.")
 
     doc.add_heading("Gastos e Impuestos", level=2)
     agregar_parrafo_con_texto(doc, "Todos los gastos e impuestos que se generen o produzcan por causa o con ocasión de este Contrato, tales como los gastos notariales de celebración de contratos y/o cualesquiera otros que se originen en el cumplimiento de obligaciones que, según las Bases, ha contraído el oferente adjudicado, serán de cargo exclusivo de éste.")
@@ -1279,6 +1282,11 @@ def main():
 
 
     doc.add_heading("MOTIVOS DE RECHAZO POR OBSERVACIÓN FÍSICA (ya iniciado en contrato):", level=4)
+
+    rechazo_p = doc.add_paragraph()
+    rechazo_p.add_run("Los artículos requeridos en la presente licitación podrán ser rechazados, al momento de la recepción en ")
+    rechazo_p.add_run("Bodega de Farmacia").bold = True
+    rechazo_p.add_run(", por los siguientes motivos:")
 
     motivos_rechazo_items = [
         "Empaques deteriorados o visiblemente sucios, manchados, húmedos, etc.",
