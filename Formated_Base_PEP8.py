@@ -209,7 +209,9 @@ def main():
     run2.font.size = Pt(11)
 
     doc.add_heading("VISTOS", level=2)
-    agregar_parrafo_con_texto(doc, "Lo dispuesto en la Ley Nº 19.886 de Bases sobre Contratos Administrativos de Suministro y Prestación de Servicios; el Decreto Supremo Nº 250 /04 modificado por los Decretos Supremos Nº 1763/09, 1383/11 y 1410/14 todos del Ministerio de Hacienda; D. S. 38/2005, Reglamento Orgánico de los Establecimientos de Menor Complejidad y de los Establecimientos de Autogestión en Red; en uso de las atribuciones que me confieren el D.F.L. Nº 1/2.005, en virtud del cual se fija el texto refundido, coordinado y sistematizado del D.L. 2.763/79 y de las leyes 18.933 y 18.469; lo establecido en los Decretos Supremos Nos 140/04, Reglamento Orgánico de los Servicios de Salud; la Resolución Exenta RA 116395/343/2024 de fecha 12/08/2024 del SSMOCC., la cual nombra Director del Hospital San José de Melipilla al suscrito; lo dispuesto por las Resoluciones 10/2017, 7/2019 y 8/2019 ambas de la Contraloría General de la República, y,")
+    agregar_parrafo_con_texto(doc, "Lo dispuesto en la Ley Nº 19.886 de Bases sobre Contratos Administrativos de Suministro y Prestación de Servicios; el Decreto Supremo Nº 250 /04 modificado por los Decretos Supremos Nº 1763/09, 1383/11 y 1410/14 todos del Ministerio de Hacienda; D. S. 38/2005, Reglamento Orgánico de los Establecimientos de Menor Complejidad y de los Establecimientos de Autogestión en Red; en uso de las atribuciones que me confieren el D.F.L. Nº 1/2.005, en virtud del cual se fija el texto refundido, coordinado y sistematizado del D.L. 2.763/79 y de las leyes 18.933 y 18.469; lo establecido en los Decretos Supremos Nos 140/04, Reglamento Orgánico de los Servicios de Salud; {{ director }}; lo dispuesto por las Resoluciones 10/2017, 7/2019 y 8/2019 ambas de la Contraloría General de la República, y,")
+    # la Resolución Exenta RA 116395/343/2024 de fecha 12/08/2024 del SSMOCC., la cual nombra Director del Hospital San José de Melipilla al suscrito
+    # la Resolución Exenta RA 116395/343/2024 de fecha 12/08/2024 del SSMOCC., la cual nombra Director del Hospital San José de Melipilla al suscrito
 
     # Sección CONSIDERANDO
     doc.add_heading("CONSIDERANDO", level=2)
@@ -224,7 +226,7 @@ def main():
 
     vistos_p4 = doc.add_paragraph(style=list_style)
     vistos_p4.add_run("Que, existe la necesidad ")
-    run_bold = vistos_p4.add_run("suministro de insumos y accesorios para terapia de presión negativa con equipos en comodato")
+    run_bold = vistos_p4.add_run("{{ nombre_adquisicion }}")
     run_bold.bold = True
     vistos_p4.add_run(", a fin de entregar una prestación de salud integral y oportuna a los usuarios del Hospital de San José de Melipilla, y de esta manera dar cumplimiento con el tratamiento de los pacientes.")
     aplicar_numeracion(vistos_p4, num_id_vistos)
@@ -244,7 +246,7 @@ def main():
     resolucion_p1 = doc.add_paragraph(style=list_style)
     resolucion_p1.add_run("LLÁMASE ").bold = True
     resolucion_p1.add_run("a Licitación Pública Nacional a través del Portal Mercado Público, para la compra de ")
-    resolucion_p1.add_run("Suministro de Insumos y Accesorios para Terapia de Presión Negativa con Equipos en Comodato ").bold = True
+    resolucion_p1.add_run("{{ nombre_adquisicion }}").bold = True
     resolucion_p1.add_run("para el Hospital San José de Melipilla.")
     aplicar_numeracion(resolucion_p1, num_id_resolucion)
 
@@ -254,13 +256,17 @@ def main():
     aplicar_numeracion(resolucion_p2, num_id_resolucion)
 
     resolucion_p3 = doc.add_paragraph(style=list_style)
-    resolucion_p3.add_run("APRUÉBENSE las bases administrativas, técnicas y anexos N.º 1, 2, 3, 4, 5, 6, 7, 8 y 9 ").bold = True
+    resolucion_p3.add_run("APRUÉBENSE las bases administrativas, técnicas y anexos N.º 1, 2, 3, 4, 5 {{ cantidad_anexos }}").bold = True
     resolucion_p3.add_run("desarrollados para efectuar el llamado a licitación, que se transcriben a continuación:")
     aplicar_numeracion(resolucion_p3, num_id_resolucion)
 
     # Sección BASES ADMINISTRATIVAS
     doc.add_section()
-    doc.add_heading("BASES ADMINISTRATIVAS PARA EL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA", level=1)
+    main_header = doc.add_heading("",level=1)
+    main_header.add_run("BASES ADMINISTRATIVAS PARA EL ")
+    main_header.add_run("{{ nombre_adquisicion }}").upper = True
+        #= doc.add_heading("BASES ADMINISTRATIVAS PARA EL {{ SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA }}", level=1)
+    # SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA
     doc.add_heading("Antecedentes y Plazos", level=2)
     agregar_parrafo_con_texto(doc, "En Santiago, a 1 de enero de 2023, se resuelve lo siguiente:")
 
@@ -283,14 +289,14 @@ def main():
     aplicar_numeracion(bases_p2, num_id_bases_p1)
 
     tabla_p2_datos = [
-        ["Nombre Adquisición", "Suministro de Insumos y Accesorios para Terapia de Presión Negativa con Equipos en Comodato"],
-        ["Descripción", "El Hospital requiere generar un convenio por el SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA, en adelante “EL HOSPITAL”. El convenio tendrá una vigencia de 36 meses."],
+        ["Nombre Adquisición", "{{ nombre_adquisicion }}"],
+        ["Descripción", "El Hospital requiere generar un convenio por el {{ nombre_adquisicion }}, en adelante “EL HOSPITAL”. El convenio tendrá una vigencia de {{ plazo_meses }} meses."],
         ["Tipo de Convocatoria", "Abierta"],
         ["Moneda o Unidad reajustable", "Pesos Chilenos"],
-        ["Presupuesto Referencial", "$350.000.000.- (Impuestos incluidos)"],
+        ["Presupuesto Referencial", " {{ presupuesto_con_impuestos }}.- (Impuestos incluidos)"],
         ["Etapas del Proceso de Apertura", "Una Etapa (Etapa de Apertura Técnica y Etapa de Apertura Económica en una misma instancia)."],
         ["Opciones de pago", "Transferencia Electrónica"],
-        ["Tipo de Adjudicación", "Adjudicación por la totalidad"]
+        ["Tipo de Adjudicación", "{{tipo_adjudicacion}}"]
     ]
     tabla_p2 = crear_tabla(doc, tabla_p2_datos)
 
@@ -331,14 +337,14 @@ def main():
     aplicar_numeracion(bases_p3, num_id_bases_p1)
 
     tabla_plazos_datos = [
-        ["VIGENCIA DE LA PUBLICACION 10 DIAS CORRIDOS", "", ""],
-        ["Consultas", "Hasta las 15:00 Horas de 4º (cuarto) día corrido de publicada la Licitación.", "Deben ser ingresadas al portal www.mercadopublico.cl"],
-        ["Respuestas a Consultas", "Hasta las 17:00 Horas de 7º (séptimo) día corrido de publicada la Licitación.", "Deben ser ingresadas al portal www.mercadopublico.cl"],
+        ["VIGENCIA DE LA PUBLICACION {{ dias_vigencia_publicacion }} DIAS CORRIDOS", "", ""],
+        ["Consultas", "Hasta las 15:00 Horas de {{ plazo_consultas }} día corrido de publicada la Licitación.", "Deben ser ingresadas al portal www.mercadopublico.cl"],
+        ["Respuestas a Consultas", "Hasta las 17:00 Horas de {{ plazo_respuesta }} día corrido de publicada la Licitación.", "Deben ser ingresadas al portal www.mercadopublico.cl"],
         ["Aclaratorias", "Hasta 1 días corrido antes del cierre de recepción de ofertas.", "Deben ser ingresadas al portal www.mercadopublico.cl"],
-        ["Recepción de ofertas", "Hasta las 17:00 Horas de 10º (décimo) día corrido de publicada la Licitación.", "Deben ser ingresadas al portal www.mercadopublico.cl"],
+        ["Recepción de ofertas", "Hasta las 17:00 Horas de {{ plazo_recepcion_ofertas }} día corrido de publicada la Licitación.", "Deben ser ingresadas al portal www.mercadopublico.cl"],
         ["Evaluación de las Ofertas", "Máximo 40 días corridos a partir del cierre de la Licitación.", ""],
-        ["Plazo Adjudicaciones", "Máximo 20 días corridos a partir de la fecha del acta de evaluación de las ofertas.", ""],
-        ["Suscripción de Contrato", "Máximo de 20 días hábiles desde la Adjudicación de la Licitación.", ""],
+        ["Plazo Adjudicaciones", "Máximo 20 días {{ corridos }} a partir de la fecha del acta de evaluación de las ofertas.", ""],
+        ["Suscripción de Contrato", "Máximo de {{ plazo_suscripcion }} desde la Adjudicación de la Licitación.", ""],
         ["Consideración", "Los plazos de días establecidos en la cláusula 3, Etapas y Plazos, son de días corridos, excepto el plazo para emitir la orden de compra, el que se considerará en días hábiles, entendiéndose que son inhábiles los sábados, domingos y festivos en Chile, sin considerar los feriados regionales.", ""]
     ]
     tabla_plazos = crear_tabla(doc, tabla_plazos_datos)
@@ -601,7 +607,7 @@ def main():
 
     criterios_eval_p2 = doc.add_paragraph()
     criterios_eval_p2.add_run("La evaluación de las ofertas presentadas para el ")
-    criterios_eval_p2.add_run("SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA, ")
+    criterios_eval_p2.add_run("{{ nombre_adquisicion }}").bold = True
     criterios_eval_p2.add_run("se regirá por las siguientes ponderaciones y criterios a evaluar:")
 
     # Tabla de criterios de evaluación
@@ -710,7 +716,7 @@ def main():
     for texto in [
         "Para suscribir el contrato o aceptar la orden de compra contemplada en el artículo 63 del reglamento de la Ley de Compras, el adjudicado deberá estar inscrito en el Registro de Proveedores.",
         "Para formalizar las adquisiciones de bienes y servicios regidas por la ley Nº 19.886, se requerirá la suscripción de un contrato, la que en este caso se verá reflejada por la sola aceptación de la respectiva Orden de Compras.",
-        "El respectivo contrato deberá suscribirse dentro de los 20 días hábiles siguientes a la notificación de la resolución de adjudicación totalmente tramitada. Asimismo, cuando corresponda, la orden de compra que formaliza la adquisición deberá ser aceptada por el adjudicatario dentro de ese mismo plazo.",
+        "El respectivo contrato deberá suscribirse dentro de los {{ plazo_suscripcion }} siguientes a la notificación de la resolución de adjudicación totalmente tramitada. Asimismo, cuando corresponda, la orden de compra que formaliza la adquisición deberá ser aceptada por el adjudicatario dentro de ese mismo plazo.",
         "Si por cualquier causa que no sea imputable a la entidad licitante, el contrato no se suscribe dentro de dicho plazo, o no se acepta la orden de compra que formaliza la adquisición dentro de ese mismo término, se entenderá desistimiento de la oferta, pudiendo readjudicar la licitación al oferente que le seguía en puntaje, o a los que le sigan sucesivamente."
     ]:
         agregar_parrafo_con_texto(doc, texto)
@@ -765,7 +771,7 @@ def main():
 
     for texto in [
         "Incumplimiento de la totalidad de lo requerido en la orden de compra.",
-        "Entrega de productos con atraso de más de seis (6) días hábiles, contados desde la fecha de entrega estipulada en el contrato, sin que estos se hubiesen re-pactado en su plazo de entrega.",
+        "Entrega de productos con atraso de más de  {{ atraso_para_multa_grave }}, contados desde la fecha de entrega estipulada en el contrato, sin que estos se hubiesen re-pactado en su plazo de entrega.",
         "Rechazo total de los productos por no ajustarse a las especificaciones técnicas.",
         "El incumplimiento en el recambio de los productos que presenten problemas de estabilidad, empaque, envases en mal estado, conservación inadecuada, vencida, defectuosa o dañada en un periodo máximo de cuarenta y ocho (48) horas.",
         "La acumulación de dos multas moderadas en 2 trimestres móviles",
@@ -943,10 +949,10 @@ def main():
         agregar_parrafo_con_texto(doc, texto)
 
     doc.add_heading("Vigencia del Contrato", level=2)
-    agregar_parrafo_con_texto(doc, "El contrato tendrá una duración de treinta y seis (36) meses contados desde la total tramitación del acto administrativo que aprueba la adjudicación o hasta que se cumpla con el monto estipulado en las presentes bases, lo que suceda primero y sin perjuicio, que por razones de buen servicio las prestaciones materia de la licitación podrían iniciarse desde el momento de la suscripción del mismo, sin que proceda pago alguno en el tiempo intermedio.")
+    agregar_parrafo_con_texto(doc, "El contrato tendrá una duración {{ plazo_meses }} meses contados desde la total tramitación del acto administrativo que aprueba la adjudicación o hasta que se cumpla con el monto estipulado en las presentes bases, lo que suceda primero y sin perjuicio, que por razones de buen servicio las prestaciones materia de la licitación podrían iniciarse desde el momento de la suscripción del mismo, sin que proceda pago alguno en el tiempo intermedio.")
 
     doc.add_heading("Administrador del Contrato y/o Referente Técnico.", level=2)
-    agregar_parrafo_con_texto(doc, "Con el objeto de supervisar y verificar el cumplimiento materia de la presente licitación, El Hospital designará a (la) Enfermera Supervisora(o) del Servicio de Pabellón y al Jefe(a) de Farmacia o su subrogante, para coordinar y fiscalizar la efectiva ejecución del contrato en términos administrativos.")
+    agregar_parrafo_con_texto(doc, "Con el objeto de supervisar y verificar el cumplimiento materia de la presente licitación, El Hospital designará a {{ opciones_referente_tecnico_adm }}, para coordinar y fiscalizar la efectiva ejecución del contrato en términos administrativos.")
 
     administrado_contrato = doc.add_paragraph()
     administrado_contrato.add_run("El adjudicatario ").bold = True
