@@ -555,8 +555,8 @@ def main():
         par_garantia_fiel.add_run("y/o de las obligaciones laborales y sociales del adjudicatario”. La garantía se hará efectiva ante cualquier incumplimiento a las condiciones y exigencias expuestas en las bases.")
 
         doc.add_paragraph("Se deja constancia que el proveedor adjudicatario entrega certificado de fianza de institución FINFAST como garantía de fiel cumplimiento del contrato con los siguientes datos:")
-        doc.add_paragraph("[[TABLE_PLACEHOLDER1]]")
-        doc.add_paragraph("[[TABLE_PLACEHOLDER2]]")
+        doc.add_paragraph("[[TABLE_PLACEHOLDER]]")
+        doc.add_paragraph("[[TABLE_PLACEHOLDER]]")
 
         doc.add_paragraph("Será responsabilidad del proveedor adjudicado mantener vigente la garantía de fiel cumplimiento, al menos hasta 120 días corridos después de culminado el contrato. Mientras se encuentre vigente el contrato, las renovaciones de esta garantía serán de exclusiva responsabilidad del proveedor adjudicado.")
         doc.add_paragraph("En caso de cobro de esta garantía, derivado del incumplimiento de las obligaciones contractuales del adjudicatario indicadas en las bases de licitación, éste deberá reponer la garantía por igual monto y por el mismo plazo de vigencia que la que reemplaza en un plazo de 15 días hábiles, contados desde la notificación de cobro.")

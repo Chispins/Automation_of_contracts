@@ -29,8 +29,15 @@ Datos_Javi = {
     "metodo_adjudicacion": "la totalidad",
     "administrador_tecnico_administrativo": "la Enfermera Supervisora de Pabellón y el encargado en aspectos administrativos será el Jefe de Farmacia o quien lo subrogue."
 
+}
+
+Datos_Base = {
+    "coordinador" : "deberá nombrar un coordinador del contrato, cuya identidad deberá ser informada al Hospital."
+
 
 }
+
+
 
 Datos_Contrato = {
     "espacio" : " ",
@@ -53,10 +60,18 @@ Datos_Contrato = {
     "DecimoNoveno_Confidencialidad": "DécimoNoveno",
     "Vigesimo_PropiedadDeLaInformacion": "Vigésimo",
     "VigesimoPrimero_SaldosInsolutos": "Vigésimo Primero",
-    "VigesimoSegundo_NormasLaboralesAplicable": "Vigésimo Segundo",
-    "VigesimoTercero_CambioPersonalProveedor": "Vigésimo Tercero",
+    "VigesimoSegundo_NambioPersonalProveedor": "Vigésimo Tercero",
     "VigesimoCuarto_CesionySubcontratacion": "Vigésimo Cuarto",
-    "VigesimoQuinto_Discrepancias": "Vigésimo Quinto"
+    "VigesimoQuinto_Discrepancias": "Vigésimo Quinto",
+
+    "coordinador" : "El adjudicatario nombra coordinador del contrato a",
+    "nombre_coordinador": "doña MARIA GABRIELA CARDENAS en el desempeño de su cometido, el coordinador del contrato deberá, a lo menos:",
+    "monto_contrato_garantia" : "$3.250.000",
+    "texto_gar_1" : ", es decir",
+    "texto_gar_2" :" de pesos a nombre de “EL HOSPITAL” y consigna la siguiente glosa: Para garantizar el fiel cumplimiento del contrato denominado:",
+    "texto_gar_3" : "ds",
+    "id_licitacion" : "1057480-81-LE24",
+
 
 }
 
