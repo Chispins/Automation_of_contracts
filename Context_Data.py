@@ -22,20 +22,50 @@ Datos_Javi = {
     "plazo_recepcion_ofertas": "10º (décimo)",
     "plazo_suscripcion": "20 días hábiles",
     "adjudicacion_corrido_habiles": "corridos",
-    "plazo_suscripcion": "20 días hábiles",
     "atraso_para_multa_grave": "seis(6) días hábiles",
-    "opciones_referente_tecnico_adm" : "(la) Enfermera Supervisora(o) del Servicio de Pabellón y al Jefe(a) de Farmacia o su subrogante "
+    "opciones_referente_tecnico_adm" : "(la) Enfermera Supervisora(o) del Servicio de Pabellón y al Jefe(a) de Farmacia o su subrogante ",
+    "resolucion_empates" : "EVALUACION TECNICA, seguido por PLAZO DE ENTREGA, seguido por SERVICIO POST-VENTA, seguido por CRITERIO ECONOMICO",
+    "anexos_tecnicos": "y los Anexos Técnicos N°7, N°8 y N°9",
+    "metodo_adjudicacion": "la totalidad",
+    "administrador_tecnico_administrativo": "la Enfermera Supervisora de Pabellón y el encargado en aspectos administrativos será el Jefe de Farmacia o quien lo subrogue."
+
+
 }
 
 Datos_Contrato = {
+    "espacio" : " ",
+    "Tercero_DocumentosIntegrantes" : "Tercero",
+    "Cuarto_ModificacionDelContrato" : "Cuarto",
+    "Quinto_GastoseImpuestos" : "Quinto",
+    "Sexto_EfectosDerivadosDeIncumplimiento" : "Sexto",
+    "Septimo_DeLaGarantíaFielCumplimiento": "Séptimo",
+    "Octavo_CobroDeLaGarantiaFielCumplimiento": "Octavo",
+    "Noveno_TerminoAnticipadoDelContrato": "Noveno",
+    "Decimo_ResciliacionMutuoAcuerdo": "Décimo",
+    "DecimoPrimero_ProcedimientoIncumplimiento": "Décimo Primero",
+    "DecimoSegundo_EmisionOC": "Decimo Segundo",
 
-
+    "DecimoTercero_DelPago": "Décimo Tercero",
+    "DecimoCuarto_VigenciaContrato": "Décimo Cuarto",
+    "DecimoQuinto_AdministradorContrato": "Décimo Quinto",
+    "DecimoSexto_PactoDeIntegrida": "Décimo Sexto",
+    "DecimoSeptimo_ComportamientoEticoAdjudic": "Décimo Séptimo",
+    "DecimoOctavo_Auditorias": "Décimo Octavo",
+    "DecimoNoveno_Confidencialidad": "DécimoNoveno",
+    "Vigesimo_PropiedadDeLaInformacion": "Vigésimo",
+    "VigesimoPrimero_SaldosInsolutos": "Vigésimo Primero",
+    "VigesimoSegundo_NormasLaboralesAplicable": "Vigésimo Segundo",
+    "VigesimoTercero_CambioPersonalProveedor": "Vigésimo Tercero",
+    "VigesimoCuarto_CesionySubcontratacion": "Vigésimo Cuarto",
+    "VigesimoQuinto_Discrepancias": "Vigésimo Quinto"
 
 }
+
 doc = DocxTemplate(template_path)
 
 # 2. Render the template with the context data
 doc.render(Datos_Javi)
+doc.render(Datos_Contrato)
 
 # 3. Save the generated document
 doc.save(output_path)

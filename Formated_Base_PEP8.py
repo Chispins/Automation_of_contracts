@@ -211,7 +211,6 @@ def main():
     doc.add_heading("VISTOS", level=2)
     agregar_parrafo_con_texto(doc, "Lo dispuesto en la Ley Nº 19.886 de Bases sobre Contratos Administrativos de Suministro y Prestación de Servicios; el Decreto Supremo Nº 250 /04 modificado por los Decretos Supremos Nº 1763/09, 1383/11 y 1410/14 todos del Ministerio de Hacienda; D. S. 38/2005, Reglamento Orgánico de los Establecimientos de Menor Complejidad y de los Establecimientos de Autogestión en Red; en uso de las atribuciones que me confieren el D.F.L. Nº 1/2.005, en virtud del cual se fija el texto refundido, coordinado y sistematizado del D.L. 2.763/79 y de las leyes 18.933 y 18.469; lo establecido en los Decretos Supremos Nos 140/04, Reglamento Orgánico de los Servicios de Salud; {{ director }}; lo dispuesto por las Resoluciones 10/2017, 7/2019 y 8/2019 ambas de la Contraloría General de la República, y,")
     # la Resolución Exenta RA 116395/343/2024 de fecha 12/08/2024 del SSMOCC., la cual nombra Director del Hospital San José de Melipilla al suscrito
-    # la Resolución Exenta RA 116395/343/2024 de fecha 12/08/2024 del SSMOCC., la cual nombra Director del Hospital San José de Melipilla al suscrito
 
     # Sección CONSIDERANDO
     doc.add_heading("CONSIDERANDO", level=2)
@@ -543,7 +542,7 @@ def main():
     agregar_parrafo_con_texto(doc, "En caso del oferente no adjudicado, la garantía de seriedad de la oferta estará disponible previa solicitud vía correo electrónico a: garantias.hsjm@hospitaldemelipilla.cl, con copia a : manuel.lara@hospitaldemelipilla.cl para su retiro en el departamento de tesorería del Hospital San José de Melipilla, en el siguiente horario: de lunes a viernes desde las 09:00 a 13:00 horas.")
     agregar_parrafo_con_texto(doc, "Para el retiro de la garantía deberá presentarse poder simple timbrado por la persona natural o jurídica, fotocopia de la cédula de identidad de la persona que retira y el Rut la persona natural o jurídica.")
 
-    doc.add_heading("Garantía de Fiel Cumplimiento de Contrato.", level = 3)
+    doc.add_heading("{{Septimo_DeLaGarantíaFielCumplimiento}}{{espacio}}Garantía de Fiel Cumplimiento de Contrato.", level = 3)
     loop_fiel = ["Para garantizar el fiel y oportuno cumplimiento del contrato, el adjudicado debe presentar una o más garantías de la misma naturaleza, equivalentes en total al porcentaje del 5% del valor total del contrato adjudicado.",
                  "La(s) garantía(s) debe(n) ser entregada(s) en la dirección de la entidad licitante indicada: Oficina de Partes del Hospital San José de Melipilla, ubicado en calle O’Higgins Nº 551 comuna de Melipilla, Región Metropolitana, dentro de los 10 días hábiles contados desde la notificación de la adjudicación en horario de 8:00 a 14:00 horas.",
                  "Si la(s) garantía(s) fuera(n) en soporte electrónico (garantía emitida por las instituciones de Garantía recíproca (IGR), Internacionalmente conocidas como SGR), se deberá enviar al correo electrónico garantias.hsjm@hospitaldemelipilla.cl, si no se presenta esta garantía en tiempo y forma, el Hospital San José de Melipilla podrá hacer efectiva la garantía de seriedad de la oferta y dejar sin efecto administrativamente la adjudicación, sin perjuicio de otros derechos."
@@ -678,7 +677,7 @@ def main():
     agregar_parrafo_con_texto(doc, "Se adjudicará al oferente que obtenga el mayor puntaje, en los términos descritos en las presentes bases. La presente licitación se adjudicará a través de una resolución dictada por la autoridad competente, la que será publicada en www.mercadopublico.cl, una vez que se encuentre totalmente tramitada.")
 
     doc.add_heading("Mecanismo de Resolución de empates.", level=3)
-    agregar_parrafo_con_texto(doc, "En el evento de que, una vez culminado el proceso de evaluación de ofertas, hubiese dos o más proponentes que hayan obtenido el mismo puntaje en la evaluación final, quedando más de uno en condición de resultar adjudicado, se optará por aquella oferta que cuente con un mayor puntaje de acuerdo con la secuencia de los criterios que resulten aplicables, de acuerdo al siguiente orden: EVALUACION TECNICA, seguido por PLAZO DE ENTREGA, seguido por SERVICIO POST-VENTA, seguido por CRITERIO ECONOMICO. Finalmente, de mantenerse la igualdad, se adjudicará a aquel oferente que haya ingresado primero su propuesta en el portal Mercado Público considerándose la hora en que aquello se efectúe.")
+    agregar_parrafo_con_texto(doc, "En el evento de que, una vez culminado el proceso de evaluación de ofertas, hubiese dos o más proponentes que hayan obtenido el mismo puntaje en la evaluación final, quedando más de uno en condición de resultar adjudicado, se optará por aquella oferta que cuente con un mayor puntaje de acuerdo con la secuencia de los criterios que resulten aplicables, de acuerdo al siguiente orden: {{ resolucion_desempates}}. Finalmente, de mantenerse la igualdad, se adjudicará a aquel oferente que haya ingresado primero su propuesta en el portal Mercado Público considerándose la hora en que aquello se efectúe.")
 
     doc.add_heading("Resolución de consultas respecto de la Adjudicación.", level=3)
     resolucion_consultas_par = doc.add_paragraph()
@@ -692,7 +691,7 @@ def main():
 
     doc.add_section()
     doc.add_heading("Condiciones Contractuales, Vigencia de las Condiciones Comerciales, Operatoria de la Licitación y Otras Cláusulas:", level=1)
-    doc.add_heading("Documentos integrantes", level=2)
+    doc.add_heading("{{ Tercero_DocumentosIntegrantes }}{{ espacio }}Documentos integrantes", level=2)
     agregar_parrafo_con_texto(doc, "La relación contractual que se genere entre la entidad licitante y el adjudicatario se ceñirá a los siguientes documentos:")
     for texto in [
         "Bases de licitación y sus anexos.",
@@ -721,15 +720,15 @@ def main():
     ]:
         agregar_parrafo_con_texto(doc, texto)
 
-    doc.add_heading("Modificación del Contrato", level=2)
+    doc.add_heading("{{ Cuarto_ModificacionDelContrato }}{{ espacio }}Modificación del Contrato", level=2)
     agregar_parrafo_con_texto(doc, "Las partes de común acuerdo podrán modificar el contrato aumentando o disminuyendo los Bienes o servicios licitados, como también se podrán pactar nuevos bienes o servicios que no alteren la naturaleza del contrato. Estas modificaciones podrán ser hasta un 30% el presupuesto disponible estipulado en las presentes bases de licitación.")
     agregar_parrafo_con_texto(doc ,"En el caso de aumentar los bienes o servicios contratados, la garantía fiel cumplimiento de contrato también podrá readecuarse en proporción al monto de la modificación que se suscriba según aquellos casos que apliquen. En caso de aumentar o disminuir los bienes o servicios contratados, los valores a considerar, serán aquellos ofertados en el anexo oferta económica. ")
     agregar_parrafo_con_texto(doc ,"Con todo, las eventuales modificaciones que se pacten no producirán efecto alguno sino desde la total tramitación del acto administrativo que las apruebe.")
 
-    doc.add_heading("Gastos e Impuestos", level=2)
+    doc.add_heading("{{ Quinto_GastoseImpuestos }}{{ espacio }}Gastos e Impuestos", level=2)
     agregar_parrafo_con_texto(doc, "Todos los gastos e impuestos que se generen o produzcan por causa o con ocasión de este Contrato, tales como los gastos notariales de celebración de contratos y/o cualesquiera otros que se originen en el cumplimiento de obligaciones que, según las Bases, ha contraído el oferente adjudicado, serán de cargo exclusivo de éste.")
 
-    doc.add_heading("Efectos derivados de Incumplimiento del proveedor", level=2)
+    doc.add_heading("{{ Sexto_EfectosDerivadosDeIncumplimiento }}{{ espacio }}Efectos derivados de Incumplimiento del proveedor", level=2)
     agregar_parrafo_con_texto(doc, "En función de la gravedad de la infracción cometida por el adjudicatario, se le aplicarán las siguientes sanciones:")
 
     clasificacion_par1 = doc.add_paragraph()
@@ -795,7 +794,7 @@ def main():
     ]:
         agregar_parrafo_con_texto(doc, texto)
 
-    doc.add_heading("Cobro de la Garantía de Fiel Cumplimiento de Contrato", level=2)
+    doc.add_heading("{{ Octavo_CobroDeLaGarantiaFielCumplimiento }}{{ espacio }}Cobro de la Garantía de Fiel Cumplimiento de Contrato", level=2)
     agregar_parrafo_con_texto(doc, "Al Adjudicatario le podrá ser aplicada la medida de cobro de la Garantía por Fiel Cumplimiento del Contrato por la entidad licitante, en los siguientes casos:")
     for texto in [
         "No pago de multas dentro de los plazos establecidos en las presentes bases y/o el respectivo contrato.",
@@ -804,7 +803,7 @@ def main():
     ]:
         agregar_parrafo_con_texto(doc, texto, estilo='List Bullet')
 
-    doc.add_heading("Término anticipado del contrato", level=2)
+    doc.add_heading("{{ Noveno_TerminoAnticipadoDelContrato }}{{ espacio }}Término anticipado del contrato", level=2)
     agregar_parrafo_con_texto(doc,
                               "El hospital está facultado para declarar administrativamente mediante resolución fundada el término anticipado del contrato, en cualquier momento, sin derecho a indemnización alguna para el adjudicado, si concurre alguna de las causales que se señalan a continuación:")
 
@@ -902,22 +901,22 @@ def main():
     ]:
         agregar_parrafo_con_texto(doc, texto)
 
-    doc.add_heading("Resciliación de Mutuo Acuerdo", level=2)
+    doc.add_heading("{{ Decimo_ResciliacionMutuoAcuerdo }}{{ espacio }}Resciliación de Mutuo Acuerdo", level=2)
     agregar_parrafo_con_texto(doc, "Sin perjuicio de lo anterior, la entidad licitante y el respectivo adjudicatario podrán poner término al contrato en cualquier momento, de común acuerdo, sin constituir una medida por incumplimiento.")
 
-    doc.add_heading("Procedimiento para Aplicación de Medidas derivadas de incumplimientos", level=2)
+    doc.add_heading("{{ DecimoPrimero_ProcedimientoIncumplimiento }}{{ espacio }}Procedimiento para Aplicación de Medidas derivadas de incumplimientos", level=2)
     for texto in [
         "Detectada una situación que amerite la aplicación de una multa u otra medida derivada de incumplimientos contemplada en las presentes bases, o que constituya una causal de término anticipado, con excepción de la resciliación, el referente técnico o administrador del contrato notificará de ello al oferente adjudicado, informándole sobre la medida a aplicar y sobre los hechos que la fundamentan.",
         "A contar de la notificación singularizada en el párrafo anterior, el proveedor adjudicado tendrá un plazo de 5 días hábiles para efectuar sus descargos por escrito, acompañando todos los antecedentes que lo fundamenten. Vencido el plazo indicado sin que se hayan presentados descargos, la Dirección del Hospital resolverá según la naturaleza de la infracción, notificando al proveedor la resolución del caso por parte del Hospital.",
         "Si el proveedor adjudicado ha presentado sus descargos dentro del plazo establecido para estos efectos, el Hospital tendrá un plazo de 30 días hábiles, contados desde la recepción de los descargos del proveedor, para rechazarlos o acogerlos, total o parcialmente. Al respecto, el rechazo total o parcial de los descargos del respectivo proveedor deberá formalizarse a través de la dictación de una resolución fundada del hospital, en la cual deberá detallarse el contenido y las características de la medida. La indicada resolución será notificada al proveedor adjudicado.",
         "Con todo, el adjudicatario solo será responsable por hechos imputables a su incumplimiento directo y no por indisponibilidades de servicio ocasionadas por fallas ajenas a su gestión y control, lo que deberá, en todo caso, acreditarse debidamente. Sin perjuicio de lo anterior, el adjudicatario deberá adoptar medidas que ofrezcan continuidad operativa a los servicios materia de la respectiva licitación.",
         "Una vez finalizados los trámites administrativos señalados precedentemente y para el evento de que esta conlleve la aplicación de una multa o sanción, el Hospital San José de Melipilla podrá realizar el cobro de la multa o sanción que será debidamente notificado junto con el acto administrativo que lo autoriza. El monto de las multas podría ser rebajado del pago, que el Hospital deba efectuar al proveedor, en el estado de pago más próximo a la notificación del acto administrativo, pudiéndose aplicar tanto en la emisión de la orden de compra, como también en la aplicación del descuento en el pago de facturas. De no ser suficiente este monto o en caso de no existir pagos pendientes, el proveedor deberá pagar directamente al Hospital San José de Melipilla, el monto indicado en el acto administrativo previamente notificado, este pago no podrá ser superior a los 5 días hábiles desde su notificación. Si el proveedor no paga dentro de dicho plazo, se hará efectivo el cobro de la garantía de fiel cumplimiento del contrato, debiendo reponer una nueva boleta de garantía por un monto igual al original, en un plazo no superior a 5 días hábiles en caso que aplique la solicitud de dicha caución.",
-        "En el caso de no reponer la boleta de garantía, el hospital podrá proceder a tramitar el termino anticipado del contrato en aquellos casos que aplique con la solicitud de dicha caución.",
+        "En el caso de no reponer la boleta de garantía, el hospital podrá proceder a tramitar el término anticipado del contrato en aquellos casos que aplique con la solicitud de dicha caución.",
         "El valor de la UTM a considerar será el equivalente a su valor en pesos del mes en el cual se aplicó la multa."
     ]:
         agregar_parrafo_con_texto(doc, texto)
 
-    doc.add_heading("Emisión de la Orden de Compra", level=2)
+    doc.add_heading("{{ DecimoSegundo_EmisionOC }}{{ espacio }}Emisión de la Orden de Compra", level=2)
     for texto in [
         "Las órdenes de compra se emitirán previa solicitud del administrador del contrato, quien, en función de la necesidad y demanda del servicio, realizara los pedidos correspondientes.",
         "La orden de compra sólo se emitirá en los casos que el proveedor este en estado hábil para ser contratado por el Estado de Chile y sólo se emitirá el documento a nombre del proveedor adjudicado por el Hospital.",
@@ -925,7 +924,7 @@ def main():
     ]:
         agregar_parrafo_con_texto(doc, texto)
 
-    doc.add_heading("Del Pago", level=2)
+    doc.add_heading("{{ DecimoTercero_DelPago }}{{espacio}}Del Pago", level=2)
     for texto in [
         "El pago se efectuará una vez que el “Hospital” haya recibido oportunamente y a su entera satisfacción dichos bienes o servicios y desde la recepción conforme de la factura u otro instrumento de cobro.",
         "El pago será efectuado dentro de los 30 días corridos siguientes, contados desde la recepción de la factura respectiva, salvo las excepciones indicadas en el artículo 79 bis del Reglamento de la Ley N°19.886.",
@@ -948,10 +947,10 @@ def main():
     ]:
         agregar_parrafo_con_texto(doc, texto)
 
-    doc.add_heading("Vigencia del Contrato", level=2)
+    doc.add_heading("{{ DecimoCuarto_VigenciaContrato }}{{espacio}}Vigencia del Contrato", level=2)
     agregar_parrafo_con_texto(doc, "El contrato tendrá una duración {{ plazo_meses }} meses contados desde la total tramitación del acto administrativo que aprueba la adjudicación o hasta que se cumpla con el monto estipulado en las presentes bases, lo que suceda primero y sin perjuicio, que por razones de buen servicio las prestaciones materia de la licitación podrían iniciarse desde el momento de la suscripción del mismo, sin que proceda pago alguno en el tiempo intermedio.")
 
-    doc.add_heading("Administrador del Contrato y/o Referente Técnico.", level=2)
+    doc.add_heading("{{ DecimoQuinto_AdministradorContrato}}{{espacio}}Administrador del Contrato y/o Referente Técnico.", level=2)
     agregar_parrafo_con_texto(doc, "Con el objeto de supervisar y verificar el cumplimiento materia de la presente licitación, El Hospital designará a {{ opciones_referente_tecnico_adm }}, para coordinar y fiscalizar la efectiva ejecución del contrato en términos administrativos.")
 
     administrado_contrato = doc.add_paragraph()
@@ -969,7 +968,7 @@ def main():
 
     agregar_parrafo_con_texto(doc, "La designación del coordinador y todo cambio posterior deberá ser informado por el adjudicatario al responsable de administrar el contrato y/o referente técnico por parte del órgano comprador, a más tardar dentro de las 24 horas siguientes de efectuada la designación o el cambio, por medio del correo electrónico institucional del funcionario.")
 
-    doc.add_heading("Pacto de Integridad", level=2)
+    doc.add_heading("{{ DecimoSexto_PactoDeIntegrida }}{{ espacio }}Pacto de Integridad", level=2)
     agregar_parrafo_con_texto(doc, "El oferente declara que, por el sólo hecho de participar en la presente licitación, acepta expresamente el presente pacto de integridad, obligándose a cumplir con todas y cada una de las estipulaciones contenidas en el mismo, sin perjuicio de las que se señalen en el resto de las bases de licitación y demás documentos integrantes. Especialmente, el oferente acepta el suministrar toda la información y documentación que sea considerada necesaria y exigida de acuerdo con las presentes bases de licitación, asumiendo expresamente los siguientes compromisos:")
 
     pacto_items = [
@@ -986,13 +985,13 @@ def main():
         p = agregar_parrafo_con_texto(doc, texto)
         aplicar_numeracion(p, pacto_integridad_id)
 
-    doc.add_heading("Comportamiento ético del Adjudicatario.", level=2)
+    doc.add_heading("{{ DecimoSeptimo_ComportamientoEticoAdjudic }}{{ espacio }}Comportamiento ético del Adjudicatario.", level=2)
     agregar_parrafo_con_texto(doc, "El adjudicatario que preste los servicios deberá observar, durante toda la época de ejecución del contrato, el más alto estándar ético exigible a los funcionarios públicos. Tales estándares de probidad deben entenderse equiparados a aquellos exigidos a los funcionarios de la Administración Pública, en conformidad con el Título III de la ley N°18.575, Orgánica Constitucional de Bases Generales de la Administración del Estado.")
 
-    doc.add_heading("Auditorías", level=2)
+    doc.add_heading("{{ DecimoOctavo_Auditorias }}{{espacio}}Auditorías", level=2)
     agregar_parrafo_con_texto(doc, "El adjudicatario podrá ser sometido a auditorías externas, contratadas por la entidad licitante a empresas auditoras independientes, con la finalidad de velar por el cumplimiento de las obligaciones contractuales y de las medidas de seguridad comprometidas por el adjudicatario en su oferta. Si el resultado de estas auditorías evidencia incumplimientos contractuales por parte del adjudicatario, el proveedor quedará sujeto a las medidas que corresponda aplicar la entidad licitante, según las presentes bases.")
 
-    doc.add_heading("Confidencialidad", level=2)
+    doc.add_heading("{{ DecimoNoveno_Confidencialidad }}{{ espacio }}Confidencialidad", level=2)
     for texto in [
         "El adjudicatario no podrá utilizar para ninguna finalidad ajena a la ejecución del contrato, la documentación, los antecedentes y, en general, cualquier información, que haya conocido o a la que haya accedido, en virtud de cualquier actividad relacionada con el contrato.",
         "El adjudicatario, así como su personal dependiente que se haya vinculado a la ejecución del contrato, en cualquiera de sus etapas, deben guardar confidencialidad sobre los antecedentes relacionados con el proceso licitatorio y el respectivo contrato.",
@@ -1001,10 +1000,10 @@ def main():
     ]:
         agregar_parrafo_con_texto(doc, texto)
 
-    doc.add_heading("Propiedad de la información", level=2)
+    doc.add_heading("{{ Vigesimo_PropiedadDeLaInformacion }}{{espacio}}Propiedad de la información", level=2)
     agregar_parrafo_con_texto(doc, "La entidad licitante será la titular de todos los datos de transacciones, bitácoras (logs), parámetros, documentos electrónicos y archivos adjuntos y, en general, de las bases de datos y de toda información contenida en la infraestructura física y tecnológica que le suministre el proveedor contratado y que se genere en virtud de la ejecución de los servicios objeto de la presente licitación. El proveedor no podrá utilizar la información indicada en el párrafo anterior, durante la ejecución del contrato ni con posterioridad al término de su vigencia, sin autorización escrita de la entidad licitante. Por tal motivo, una vez que el proveedor entregue dicha información a la entidad o al finalizar la relación contractual, deberá borrarla de sus registros lógicos y físicos.")
 
-    doc.add_heading("Saldos insolutos de remuneraciones o cotizaciones de seguridad social.", level=2)
+    doc.add_heading("{{ VigesimoPrimero_SaldosInsolutos }}{{ espacio }}Saldos insolutos de remuneraciones o cotizaciones de seguridad social.", level=2)
     for texto in [
         "Durante la vigencia del respectivo contrato el adjudicatario deberá acreditar que no registra saldos insolutos de obligaciones laborales y sociales con sus actuales trabajadores o con trabajadores contratados en los últimos dos años.",
         "El órgano comprador podrá requerir al adjudicatario, en cualquier momento, los antecedentes que estime necesarios para acreditar el cumplimiento de las obligaciones laborales y sociales antes señaladas.",
@@ -1013,7 +1012,7 @@ def main():
     ]:
         agregar_parrafo_con_texto(doc, texto)
 
-    doc.add_heading("Normas Laborales Aplicables", level=2)
+    doc.add_heading("{{ VigesimoSegundo_NormasLaboralesAplicable }}{{ espacio }}Normas Laborales Aplicables", level=2)
     for texto in [
         "El adjudicatario, en su calidad de empleador, será responsable exclusivo del cumplimiento íntegro y oportuno de las normas del Código del Trabajo y leyes complementarias, leyes sociales, de previsión, de seguros, de enfermedades profesionales, de accidentes del trabajo y demás pertinentes respecto de sus trabajadores y/o integrantes de sus respectivos equipos de trabajo.",
         "En consecuencia, el adjudicatario será responsable, en forma exclusiva, y sin que la enumeración sea taxativa, del pago oportuno de las remuneraciones, honorarios, indemnizaciones, desahucios, gratificaciones, gastos de movilización, beneficios y, en general, de toda suma de dinero que, por cualquier concepto, deba pagarse a sus trabajadores y/o integrantes de sus respectivos equipos de trabajo.",
@@ -1022,14 +1021,14 @@ def main():
     ]:
         agregar_parrafo_con_texto(doc, texto)
 
-    doc.add_heading("Cambio de personal del proveedor adjudicado.", level=2)
+    doc.add_heading("{{ VigesimoTercero_CambioPersonalProveedor }}{{ espacio }}Cambio de personal del proveedor adjudicado.", level=2)
     for texto in [
         "El Hospital San José de Melipilla podrá, por razones de buen servicio, solicitar el cambio de trabajadores, expresando la causa del derecho a cambiar al personal del proveedor, entendiéndose como el derecho a prohibir unilateralmente la continuidad de funciones de un trabajador que implique un potencial riesgo a los pacientes, funcionarios, bienes e imagen de la organización.",
         "El Proveedor adjudicado deberá reemplazar al personal, dentro del plazo que se le indique. La decisión del Hospital San José de Melipilla se comunicará por escrito al Proveedor precisando las causas que motivan la solicitud, con a lo menos 5 días de anticipación a la fecha en que se solicita deje de prestar servicios en sus dependencias, el trabajador que se indique."
     ]:
         agregar_parrafo_con_texto(doc, texto)
 
-    doc.add_heading("Cesión y subcontratación.", level=2)
+    doc.add_heading("{{ VigesimoCuarto_CesionySubcontratacion }}{{ espacio }}Cesión y subcontratación.", level=2)
     for texto in [
         "El proveedor adjudicado no podrá ceder ni transferir en forma alguna, total ni parcialmente, los derechos y obligaciones que nacen del desarrollo de esta licitación, y, en especial, los establecidos en los respectivos contratos que se celebren con los órganos públicos mandantes.",
         "La infracción de esta prohibición será causal inmediata de término del contrato, sin perjuicio de las acciones legales que procedan ante esta situación.",
@@ -1039,7 +1038,7 @@ def main():
     ]:
         agregar_parrafo_con_texto(doc, texto)
 
-    doc.add_heading("Discrepancias", level=2)
+    doc.add_heading("{{ VigesimoQuinto_Discrepancias }}{{espacio}}Discrepancias", level=2)
     for texto in [
         "Si con motivo de la ejecución del contrato se presentaran denuncias, querellas o demandas ante el Ministerio Público o los Tribunales Ordinarios de Justicia; o reclamos ante el Consejo de Defensa del Estado por el cuestionamiento en la prestación otorgada y que corresponda al objeto del contrato celebrado, será el proveedor el único responsable por tales actos, por lo que, sí el Hospital fuese condenado a pagar una multa o indemnización, en razón de los actos precedentemente enunciados o el Hospital tuviera que pagar alguna transacción judicial o extrajudicial que deba celebrarse en razón de las situaciones antes enunciadas, el proveedor deberá reembolsar al Hospital el total del monto resultante de un fallo ejecutoriado o de una transacción judicial o extrajudicial o de un procedimiento de medición de acuerdo a la Ley Nº 19.966.",
         "Asimismo, serán responsables de todos los daños, pérdidas, deterioros o perjuicios de bienes muebles e inmuebles del Hospital, producto del mal uso ocasionado en virtud de la prestación de servicio, debiendo restituir al Hospital los costos en que deba incurrir para reparar los daños producidos por este motivo. Esta obligación se mantendrá aun cuando el presente contrato que al efecto se suscriba se dé por terminado ya sea por expiración del plazo establecido o por decisión del Hospital."
@@ -1057,7 +1056,7 @@ def main():
 
     doc.add_paragraph("Para adjudicarse el presente proceso de licitación, los oferentes participantes deberán cumplir con lo siguiente:")
     for texto in ["Haber llenado y presentado los Anexos Administrativos N°1, N°2, N°3, N°4, el presentar estos anexos habilita al proveedor a participar en la presente licitación.",
-                  "Deben presentar el Económico N°5 y los Anexos Técnicos N°7, N°8 y N°9 con toda la información requerida, debidamente firmados por el representante legal de la empresa o la persona natural, según corresponda.",
+                  "Deben presentar el Económico N°5 {{ anexos_tecnicos }} con toda la información requerida, debidamente firmados por el representante legal de la empresa o la persona natural, según corresponda.",
                   "Deberán entregar toda la información necesaria para poder evaluar a la empresa en cada uno de los ítems de los Criterios de Evaluación.",
                   "Deberán dar respuesta a los requisitos generados por foro inverso en los plazos y/o periodos establecidos en las presentes Bases de Licitación.",
                   "Presentar ficha técnica y certificados de los productos ofertados.",
@@ -1075,7 +1074,7 @@ def main():
     doc.add_heading("GENERALIDADES:", level = 3)
 
     generalidades_lista = doc.add_paragraph(style="List Bullet")
-    generalidades_lista.add_run("La Licitación será adjudicada por la totalidad").bold = True
+    generalidades_lista.add_run("La Licitación será adjudicada por {{ metodo_adjudicacion }}").bold = True
     generalidades_lista.add_run(
         " y se podrá aumentar o disminuir hasta un 30% por cada línea adjudicada sin superar el monto total presupuestado para la Licitación.")
 
@@ -1101,7 +1100,7 @@ def main():
 
     gen_p6 = doc.add_paragraph(style="List Bullet")
     gen_p6.add_run("La adquisición de estos productos será de forma parcializada durante un periodo máximo de ")
-    gen_p6.add_run("36 meses").bold = True
+    gen_p6.add_run("{{ plazo_meses }} meses").bold = True
     gen_p6.add_run(" o hasta la duración del monto estipulado en base.")
 
     gen_p7 = doc.add_paragraph(
@@ -1109,14 +1108,14 @@ def main():
         style="List Bullet")
 
     gen_p8 = doc.add_paragraph(
-        "El administrador técnico del contrato será la Enfermera Supervisora de Pabellón y el encargado en aspectos administrativos será el Jefe de Farmacia o quien lo subrogue.",
+        "El administrador técnico del contrato será {{ administrador_tecnico_administrativo }}",
         style="List Bullet")
 
     # Los productos
     doc.add_heading("De los Productos", level = 4)
     num_id_productos = crear_numeracion(doc)
 
-    de_productos_p1 = doc.add_paragraph("La presente licitación pública, se enfoca en la adquisición de los productos que se presentan en el cuadro siguiente, se evaluaran técnicamente cada producto. La adjudicación será por la totalidad.", style = "List Number")
+    de_productos_p1 = doc.add_paragraph("La presente licitación pública, se enfoca en la adquisición de los productos que se presentan en el cuadro siguiente, se evaluaran técnicamente cada producto. La adjudicación será por {{ metodo_adjudicacion }}.", style = "List Number")
     de_productos_p2 = doc.add_paragraph("La siguiente tabla presenta cantidades de consumo referenciales, la que se utilizara solo para términos de evaluación.", style = "List Number")
     aplicar_numeracion(de_productos_p1, num_id_productos)
     aplicar_numeracion(de_productos_p2, num_id_productos)
@@ -1202,7 +1201,7 @@ def main():
     tabla_insumos = crear_tabla(doc, [insumos_header] + insumos_data, estilo='Table Grid',
                                 centrar=False)  # Centrar verticalmente después si es necesario
 
-    de_productos_p3 = doc.add_paragraph("La adjudicación se realizará por valor unitario y tendrá una duración de 36 meses o hasta agotar el presupuesto, lo que ocurra primero, sin obligar al hospital a comprar una cantidad mínima establecida.")
+    de_productos_p3 = doc.add_paragraph("La adjudicación se realizará por valor unitario y tendrá una duración de {{ plazo_meses }} meses o hasta agotar el presupuesto, lo que ocurra primero, sin obligar al hospital a comprar una cantidad mínima establecida.")
     aplicar_numeracion(de_productos_p3, num_id_productos)
 
 
@@ -1353,8 +1352,7 @@ def main():
 
     p3 = doc.add_paragraph()
     p3.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p3.add_run("PROPUESTA PÚBLICA: PARA EL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE "
-               "PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA.")
+    p3.add_run("PROPUESTA PÚBLICA: {{ nombre_adquisicion }}")
 
     # REMOVED: doc.add_paragraph()  # Removed the extra space before the table
 
