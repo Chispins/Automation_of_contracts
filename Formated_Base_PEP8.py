@@ -177,9 +177,11 @@ def aplicar_formato_global(doc):
                         continue
                     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
 
+#numero_base = str(140)
+
 def main():
     configurar_directorio_trabajo()
-    doc = Document("portada_melipilla.docx")
+    doc = Document("portada_melipilla_base.docx")
     list_style = 'List Number'
     if list_style not in doc.styles:
         doc.styles.add_style(list_style, WD_STYLE_TYPE.PARAGRAPH)
@@ -691,7 +693,7 @@ def main():
 
     doc.add_section()
     doc.add_heading("Condiciones Contractuales, Vigencia de las Condiciones Comerciales, Operatoria de la Licitación y Otras Cláusulas:", level=1)
-    doc.add_heading("{{ Tercero_DocumentosIntegrantes }}{{ espacio }}Documentos integrantes", level=2)
+    doc.add_heading("{{ Documentos_Integrantes }}{{ espacio }}Documentos Integrantes", level=2)
     agregar_parrafo_con_texto(doc, "La relación contractual que se genere entre la entidad licitante y el adjudicatario se ceñirá a los siguientes documentos:")
     for texto in [
         "Bases de licitación y sus anexos.",
@@ -720,7 +722,7 @@ def main():
     ]:
         agregar_parrafo_con_texto(doc, texto)
 
-    doc.add_heading("{{ Cuarto_ModificacionDelContrato }}{{ espacio }}Modificación del Contrato", level=2)
+    doc.add_heading("{{ Cuarto_ModificacionDelContrato }}{{espacio}} Modificaciones Del Contrato", level=2)
     agregar_parrafo_con_texto(doc, "Las partes de común acuerdo podrán modificar el contrato aumentando o disminuyendo los Bienes o servicios licitados, como también se podrán pactar nuevos bienes o servicios que no alteren la naturaleza del contrato. Estas modificaciones podrán ser hasta un 30% el presupuesto disponible estipulado en las presentes bases de licitación.")
     agregar_parrafo_con_texto(doc ,"En el caso de aumentar los bienes o servicios contratados, la garantía fiel cumplimiento de contrato también podrá readecuarse en proporción al monto de la modificación que se suscriba según aquellos casos que apliquen. En caso de aumentar o disminuir los bienes o servicios contratados, los valores a considerar, serán aquellos ofertados en el anexo oferta económica. ")
     agregar_parrafo_con_texto(doc ,"Con todo, las eventuales modificaciones que se pacten no producirán efecto alguno sino desde la total tramitación del acto administrativo que las apruebe.")

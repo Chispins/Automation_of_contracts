@@ -6,10 +6,12 @@ import shutil
 import tempfile
 from datetime import datetime
 from docx import Document
+from Formated_Base_PEP8 import aplicar_formato_global
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+from docx.shared import Pt
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
-from Formated_Base_PEP8 import aplicar_formato_global
-
+from docx.enum.text import WD_BREAK
 
 def configurar_directorio_trabajo():
     """Configura el directorio de trabajo en la subcarpeta 'Files'."""
@@ -249,7 +251,7 @@ def main():
     print(f"Directorio temporal creado: {temp_dir}")
 
     # Definir archivo original y copia temporal
-    original_file = "base_automatizada.docx"
+    original_file = "base_automatizada_jinja2.docx"
     original_path = os.path.join(current_dir, original_file)
     temp_file = os.path.join(temp_dir, f"temp_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{original_file}")
 
@@ -264,8 +266,23 @@ def main():
     # Cargar documento temporal y crear documento destino
     print("Cargando copia temporal del documento...")
     word = Document(temp_file)
-    doc = Document()
+    doc = Document("portada_melipilla_contrato.docx")
     print("Documento temporal cargado.")
+
+    # Titulo
+    heading_paragraph = doc.add_heading('', level=0)
+
+    # Add the first part of the text as a run
+    run1 = heading_paragraph.add_run("RESOLUCIÓN EXENTA Nº1")
+    run1.font.size = Pt(11)
+
+    # Add a line break
+    run1.add_break(WD_BREAK.LINE)
+
+    # Add the second part of the text as another run
+    run2 = heading_paragraph.add_run("MELIPILLA")
+    heading_paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+    run2.font.size = Pt(11)
 
     # Lista de secciones a procesar
     """secciones = [
@@ -278,34 +295,34 @@ def main():
         "Sobre los equipos solicitados en comodato para el uso de insumos condición obligatoria",
         "Entrega y Recepción",
         "MOTIVOS DE RECHAZO POR OBSERVACIÓN FÍSICA (ya iniciado en contrato):",
-        "Documentos integrantes",
-        "Modificación del Contrato",
-        "Gastos e Impuestos",
-        "Efectos derivados de Incumplimiento del proveedor",
+        "Tercero Documentos Integrantes",
+        "Cuarto Modificaciones del Contrato",
+        "Quinto Gastos e Impuestos",
+        "Sexto Efectos derivados de Incumplimiento del proveedor",
         "Garantía de Seriedad de la Oferta",
-        "Garantía de Fiel Cumplimiento de Contrato.",
-        "Cobro de la Garantía de Fiel Cumplimiento de Contrato",
-        "Término anticipado del contrato",
-        "Resciliación de Mutuo Acuerdo",
-        "Procedimiento para Aplicación de Medidas derivadas de incumplimientos",
-        "Emisión de la Orden de Compra",
-        "Del Pago",
-        "Vigencia del Contrato",
-        "Administrador del Contrato y/o Referente Técnico.",
-        "Pacto de Integridad",
-        "Comportamiento ético del Adjudicatario.",
-        "Auditorías",
-        "Confidencialidad",
-        "Propiedad de la información",
-        "Saldos insolutos de remuneraciones o cotizaciones de seguridad social.",
-        "Normas Laborales Aplicables",
-        "Cambio de personal del proveedor adjudicado.",
-        "Cesión y subcontratación.",
-        "Discrepancias",
+        "Séptimo Garantía de Fiel Cumplimiento de Contrato.",
+        "Octavo Cobro de la Garantía de Fiel Cumplimiento de Contrato",
+        "Noveno Término anticipado del contrato",
+        "Décimo Resciliación de Mutuo Acuerdo",
+        "Décimo Primero Procedimiento para Aplicación de Medidas derivadas de incumplimientos",
+        "Decimo Segundo Emisión de la Orden de Compra",
+        "Décimo Tercero Del Pago",
+        "Décimo Cuarto Vigencia del Contrato",
+        "Décimo Quinto Administrador del Contrato y/o Referente Técnico.",
+        "Décimo Sexto Pacto de Integridad",
+        "Décimo Séptimo Comportamiento ético del Adjudicatario.",
+        "Décimo Octavo Auditorías",
+        "DécimoNoveno Confidencialidad",
+        "Vigésimo Propiedad de la información",
+        "Vigésimo Primero Saldos insolutos de remuneraciones o cotizaciones de seguridad social.",
+        "Vigésimo Segundo Normas Laborales Aplicables",
+        "Vigésimo Tercero Cambio de personal del proveedor adjudicado.",
+        "Vigésimo Cuarto Cesión y subcontratación.",
+        "Vigésimo Quinto Discrepancias",
         "Constancia",
-
     ]
-        #"Entrega y Recepción",
+
+    #"Entrega y Recepción",
         #"Documentos integrantes",
         #"Modificación del Contrato",
     # Documentos Integrantes, es Tercero
@@ -349,5 +366,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 

@@ -34,7 +34,7 @@ Datos_Javi = {
 
 Datos_Contrato = {
     "espacio" : " ",
-    "Tercero_DocumentosIntegrantes" : "Tercero",
+    "Documentos_Integrantes" : "Tercero",
     "Cuarto_ModificacionDelContrato" : "Cuarto",
     "Quinto_GastoseImpuestos" : "Quinto",
     "Sexto_EfectosDerivadosDeIncumplimiento" : "Sexto",
@@ -44,7 +44,6 @@ Datos_Contrato = {
     "Decimo_ResciliacionMutuoAcuerdo": "Décimo",
     "DecimoPrimero_ProcedimientoIncumplimiento": "Décimo Primero",
     "DecimoSegundo_EmisionOC": "Decimo Segundo",
-
     "DecimoTercero_DelPago": "Décimo Tercero",
     "DecimoCuarto_VigenciaContrato": "Décimo Cuarto",
     "DecimoQuinto_AdministradorContrato": "Décimo Quinto",
@@ -72,4 +71,33 @@ doc.save(output_path)
 
 print(f"Report '{output_path}' generated successfully!")
 
+
+
+
+
+Datos_Contrato_Base = {
+    "Documentos Integrantes": "Documentos Integrantes",
+    "Cuarto_ModificacionDelContrato": "Cuarto_ModificacionDelContrato",
+    "Quinto_GastoseImpuestos": "Quinto_GastoseImpuestos",
+    "Sexto_EfectosDerivadosDeIncumplimiento": "Sexto_EfectosDerivadosDeIncumplimiento",
+    "Septimo_DeLaGarantíaFielCumplimiento": "Septimo_DeLaGarantíaFielCumplimiento",
+    "Octavo_CobroDeLaGarantiaFielCumplimiento": "Octavo_CobroDeLaGarantiaFielCumplimiento",
+    "Noveno_TerminoAnticipadoDelContrato": "Noveno_TerminoAnticipadoDelContrato",
+    "Decimo_ResciliacionMutuoAcuerdo": "Decimo_ResciliacionMutuoAcuerdo",
+    "DecimoPrimero_ProcedimientoIncumplimiento": "DecimoPrimero_ProcedimientoIncumplimiento",
+    "DecimoSegundo_EmisionOC": "DecimoSegundo_EmisionOC",
+    "DecimoTercero_DelPago": "DecimoTercero_DelPago",
+    "DecimoCuarto_VigenciaContrato": "DecimoCuarto_VigenciaContrato",
+    "DecimoQuinto_AdministradorContrato": "DecimoQuinto_AdministradorContrato",
+    "DecimoSexto_PactoDeIntegrida": "DecimoSexto_PactoDeIntegrida",
+    "DecimoSeptimo_ComportamientoEticoAdjudic": "DecimoSeptimo_ComportamientoEticoAdjudic",
+    "DecimoOctavo_Auditorias": "DecimoOctavo_Auditorias",
+    "DecimoNoveno_Confidencialidad": "DecimoNoveno_Confidencialidad",
+    "Vigesimo_PropiedadDeLaInformacion": "Vigesimo_PropiedadDeLaInformacion",
+    "VigesimoPrimero_SaldosInsolutos": "VigesimoPrimero_SaldosInsolutos",
+    "VigesimoSegundo_NormasLaboralesAplicable": "VigesimoSegundo_NormasLaboralesAplicable",
+    "VigesimoTercero_CambioPersonalProveedor": "VigesimoTercero_CambioPersonalProveedor",
+    "VigesimoCuarto_CesionySubcontratacion": "VigesimoCuarto_CesionySubcontratacion",
+    "VigesimoQuinto_Discrepancias": "VigesimoQuinto_Discrepancias"
+}
 
