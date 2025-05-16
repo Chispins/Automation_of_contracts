@@ -4,6 +4,7 @@ import random
 import copy
 import shutil
 import tempfile
+import docx
 from datetime import datetime
 from docx import Document
 from Formated_Base_PEP8 import aplicar_formato_global
@@ -283,6 +284,34 @@ def main():
     run2 = heading_paragraph.add_run("MELIPILLA")
     heading_paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
     run2.font.size = Pt(11)
+
+
+    #--- Introducción del Contrato
+    intro = doc.add_paragraph()
+    intro.add_run("En Melipilla, a 02 de enero de 2025, entre El Hospital San José de Melipilla, RUT N° 61.602.123-0, representado por don Óscar Vargas Duranti, Chileno, RUT Nº 8.578.583-4, de profesión Médico Cirujano, domiciliado para estos efectos en calle O’Higgins Nº 551,  comuna de Melipilla, en adelante “El Hospital” y, por otra parte como proveedor ")
+    intro.add_run("“MEDCORP S.A”").bold=True
+    intro.add_run(" en adelante")
+    intro.add_run("“el proveedor adjudicado”").bold = True
+    intro.add_run(", RUT 76.131.542-0, representado legalmente por doña Alejandra Ana Cuesta Nazar, cedula nacional de identidad N° 15.638.432-1, con domicilio para estos efectos en calle Galvarino 9351, Bodega M7-M, Comuna de Quilicura, viene a suscribir el siguiente contrato:")
+
+
+    doc.add_heading("Primero: Declaraciones.", level = 2)
+    parrafo_primero = doc.add_paragraph()
+    parrafo_primero.add_run("Se deja constancia que el presente servicio ha sido sometido a licitación pública a través del Sistema de Información de la Dirección de Compras y contratación pública (en adelante, “Portal Mercado Público), según ")
+    parrafo_primero.add_run("ID 1057480-81-LE24 ").bold = True
+    parrafo_primero.add_run("aprobándose las bases de licitación mediante la Resolución Exenta Nº 010969 de fecha 05 de diciembre de 2024 y adjudicándose al proveedor ")
+    parrafo_primero.add_run("“MEDCORP S.A”").bold = True
+    parrafo_primero.add_run("en virtud de resolución exenta N° 000596 de fecha 06 de enero de 2024.")
+    parrafo_primero.add_run(r"\n")
+    parrafo_primero.add_run("“El Proveedor/Empresa” declara que cuenta con la capacidad técnica y el personal necesario para la realización de los servicios contratados por el Hospital San José de Melipilla.")
+
+    # Segundo
+    doc.add_heading("Segundo: Objeto del contrato y valor de la contratación.", level = 2)
+    doc.add_paragraph("El presente contrato tiene por objeto la compra de Suministro de Insumos y Accesorios para Terapia de Presión Negativa con Equipos en Comodato para el Hospital San José de Melipilla, a fin de entregar una prestación de salud integral y oportuna a los usuarios del Hospital  y de esta manera dar cumplimiento con el tratamiento de los pacientes.", style = "List Bullet")
+    doc.add_paragraph("La adjudicación se realizará a valor unitario por hora, generando un contrato por $350.000.000.- (Impuestos incluidos.",style="List Bullet")
+
+    doc.add_paragraph("Esto en virtud del siguiente cuadro:")
+    doc.add_paragraph("[[TABLE_PLACEHOLDER]]")
 
     # Lista de secciones a procesar
     """secciones = [
