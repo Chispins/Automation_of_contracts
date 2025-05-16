@@ -274,34 +274,34 @@ def main():
     heading_paragraph = doc.add_heading('', level=0)
 
     # Add the first part of the text as a run
-    run1 = heading_paragraph.add_run("RESOLUCIÓN EXENTA Nº1")
+    run1 = heading_paragraph.add_run("CONTRATACION DEL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA ENTRE")
     run1.font.size = Pt(11)
 
     # Add a line break
     run1.add_break(WD_BREAK.LINE)
 
     # Add the second part of the text as another run
-    run2 = heading_paragraph.add_run("MELIPILLA")
+    run2 = heading_paragraph.add_run("MEDCORP S.A Y HOSPITAL SAN JOSÉ DE MELIPILLA")
     heading_paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
     run2.font.size = Pt(11)
 
 
     #--- Introducción del Contrato
     intro = doc.add_paragraph()
-    intro.add_run("En Melipilla, a 02 de enero de 2025, entre El Hospital San José de Melipilla, RUT N° 61.602.123-0, representado por don Óscar Vargas Duranti, Chileno, RUT Nº 8.578.583-4, de profesión Médico Cirujano, domiciliado para estos efectos en calle O’Higgins Nº 551,  comuna de Melipilla, en adelante “El Hospital” y, por otra parte como proveedor ")
-    intro.add_run("“MEDCORP S.A”").bold=True
+    intro.add_run("En Melipilla, a {{ fecha_contrato }}, entre El Hospital San José de Melipilla, RUT N° 61.602.123-0, representado por don Óscar Vargas Duranti, Chileno, RUT Nº 8.578.583-4, de profesión Médico Cirujano, domiciliado para estos efectos en calle O’Higgins Nº 551,  comuna de Melipilla, en adelante “El Hospital” y, por otra parte como proveedor ")
+    intro.add_run("“{{ nombre_proveedor }}”").bold=True
     intro.add_run(" en adelante")
     intro.add_run("“el proveedor adjudicado”").bold = True
-    intro.add_run(", RUT 76.131.542-0, representado legalmente por doña Alejandra Ana Cuesta Nazar, cedula nacional de identidad N° 15.638.432-1, con domicilio para estos efectos en calle Galvarino 9351, Bodega M7-M, Comuna de Quilicura, viene a suscribir el siguiente contrato:")
+    intro.add_run(", RUT {{ rut_proveedor }}, representado legalmente por {{ representante_legal }}, cedula nacional de identidad N° {{ rut_representante_legal }}, con domicilio para estos efectos en {{domicilio_representante_legal}}, viene a suscribir el siguiente contrato:")
 
 
     doc.add_heading("Primero: Declaraciones.", level = 2)
     parrafo_primero = doc.add_paragraph()
     parrafo_primero.add_run("Se deja constancia que el presente servicio ha sido sometido a licitación pública a través del Sistema de Información de la Dirección de Compras y contratación pública (en adelante, “Portal Mercado Público), según ")
-    parrafo_primero.add_run("ID 1057480-81-LE24 ").bold = True
-    parrafo_primero.add_run("aprobándose las bases de licitación mediante la Resolución Exenta Nº 010969 de fecha 05 de diciembre de 2024 y adjudicándose al proveedor ")
-    parrafo_primero.add_run("“MEDCORP S.A”").bold = True
-    parrafo_primero.add_run("en virtud de resolución exenta N° 000596 de fecha 06 de enero de 2024.")
+    parrafo_primero.add_run("ID {{ id_licitacion }} ").bold = True
+    parrafo_primero.add_run("aprobándose las bases de licitación mediante la Resolución Exenta Nº {{ numero_resolucion_aprobacion }} de fecha {{ fecha_resolucion_aprobacion }} y adjudicándose al proveedor ")
+    parrafo_primero.add_run("“{{ nombre_proveedor }}”").bold = True
+    parrafo_primero.add_run("en virtud de resolución exenta N°{{ resolucion_exenta }} de fecha {{ fecha_resolucion_exenta }}.")
     parrafo_primero.add_run(r"\n")
     parrafo_primero.add_run("“El Proveedor/Empresa” declara que cuenta con la capacidad técnica y el personal necesario para la realización de los servicios contratados por el Hospital San José de Melipilla.")
 
@@ -312,6 +312,9 @@ def main():
 
     doc.add_paragraph("Esto en virtud del siguiente cuadro:")
     doc.add_paragraph("[[TABLE_PLACEHOLDER]]")
+    # Copiar la primera tabla del documento 'word'
+    #
+
 
     # Lista de secciones a procesar
     """secciones = [
@@ -325,10 +328,9 @@ def main():
         "Entrega y Recepción",
         "MOTIVOS DE RECHAZO POR OBSERVACIÓN FÍSICA (ya iniciado en contrato):",
         "Tercero Documentos Integrantes",
-        "Cuarto Modificaciones del Contrato",
+        "Cuarto Modificaciones Del Contrato",
         "Quinto Gastos e Impuestos",
         "Sexto Efectos derivados de Incumplimiento del proveedor",
-        "Garantía de Seriedad de la Oferta",
         "Séptimo Garantía de Fiel Cumplimiento de Contrato.",
         "Octavo Cobro de la Garantía de Fiel Cumplimiento de Contrato",
         "Noveno Término anticipado del contrato",

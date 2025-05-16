@@ -203,7 +203,7 @@ def main():
     run1.font.size = Pt(11)
 
     # Add a line break
-    run1.add_break(WD_BREAK.LINE)
+    #run1.add_break(WD_BREAK.LINE)
 
     # Add the second part of the text as another run
     run2 = heading_paragraph.add_run("MELIPILLA")
@@ -297,7 +297,7 @@ def main():
         ["Presupuesto Referencial", " {{ presupuesto_con_impuestos }}.- (Impuestos incluidos)"],
         ["Etapas del Proceso de Apertura", "Una Etapa (Etapa de Apertura Técnica y Etapa de Apertura Económica en una misma instancia)."],
         ["Opciones de pago", "Transferencia Electrónica"],
-        ["Tipo de Adjudicación", "{{tipo_adjudicacion}}"]
+        ["Tipo de Adjudicación", "{{ tipo_adjudicacion }}"]
     ]
     tabla_p2 = crear_tabla(doc, tabla_p2_datos)
 
@@ -503,12 +503,12 @@ def main():
 
     # Naturaleza y monto de las garantías
     doc.add_heading("Naturaleza y monto de las garantías", level=2)
-    doc.add_heading("Garantía de Seriedad de la Oferta.", level = 3)
+    doc.add_heading("Garantía de Seriedad de la Oferta", level = 3)
     agregar_parrafo_con_texto(doc, "El oferente deberá presentar junto a su oferta una o más garantías, equivalentes en total, al monto que indique la entidad licitante, la que corresponde al monto de $200.000. Si el oferente presenta más de una propuesta, cada una de ellas deberá estar debidamente caucionada, en los términos indicados en la presente cláusula, mediante instrumentos separados.")
     agregar_parrafo_con_texto(doc, "La(s) garantía(s) debe(n) ser entregada(s) en Oficina de Partes del Hospital San José de Melipilla, ubicada en calle O’Higgins Nº 551 comuna de Melipilla, Región Metropolitana, dentro del plazo para presentación de ofertas, si fueran en soporte de papel, en el horario hábil de atención de 8:00 a 15:00 horas. De igual manera deberán publicar en su oferta copia de la garantía con el timbre de recepción de oficina de partes del Hospital San José de Melipilla.")
     agregar_parrafo_con_texto(doc, "Si la(s) garantía(s) fuera(n) es obtenida de manera electrónica (garantía emitida por las instituciones de Garantía recíproca (IGR), Internacionalmente conocidas como SGR), se debe(n) presentar en el portal www.mercadopublico.cl, hasta la hora del cierre de la licitación.")
     runs = [("Se aceptará cualquier tipo de instrumento de garantía que asegure su cobro de manera rápida y efectiva, pagadera a la vista y con el carácter de irrevocable, y siempre que cumpla con los requisitos dispuestos por el artículo 31 del reglamento de la ley N° 19.886 El instrumento deberá incluir la glosa que se indica ", ""),
-            ("“PARA GARANTIZAR LA SERIEDAD DE LA OFERTA EN LA LICITACIÓN  PÚBLICA ID ____________ PARA LA ADQUISICIÓN DE SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA ", "bold"),
+            ("“PARA GARANTIZAR LA SERIEDAD DE LA OFERTA EN LA LICITACIÓN  PÚBLICA ID ____________ PARA LA ADQUISICIÓN DE {{ nombre_adquisicion }}", "bold"),
             ("que señala que se otorga para garantizar la seriedad de la oferta, singularizando el respectivo proceso de compra. En caso de que el instrumento no permita la inclusión de la glosa señalada, el oferente deberá dar cumplimiento a la incorporación de ésta en forma manuscrita en el mismo instrumento, o bien, mediante un documento anexo a la garantía. Como ejemplos de garantías se pueden mencionar los siguientes instrumentos: Boleta de Garantía, Certificado de Fianza a la Vista, Vale Vista o Póliza de Seguro, entre otros.", "")
             ]
     parrafo_loop = doc.add_paragraph()
@@ -544,22 +544,49 @@ def main():
     agregar_parrafo_con_texto(doc, "En caso del oferente no adjudicado, la garantía de seriedad de la oferta estará disponible previa solicitud vía correo electrónico a: garantias.hsjm@hospitaldemelipilla.cl, con copia a : manuel.lara@hospitaldemelipilla.cl para su retiro en el departamento de tesorería del Hospital San José de Melipilla, en el siguiente horario: de lunes a viernes desde las 09:00 a 13:00 horas.")
     agregar_parrafo_con_texto(doc, "Para el retiro de la garantía deberá presentarse poder simple timbrado por la persona natural o jurídica, fotocopia de la cédula de identidad de la persona que retira y el Rut la persona natural o jurídica.")
 
-    doc.add_heading("{{Septimo_DeLaGarantíaFielCumplimiento}}{{espacio}}Garantía de Fiel Cumplimiento de Contrato.", level = 3)
-    loop_fiel = ["Para garantizar el fiel y oportuno cumplimiento del contrato, el adjudicado debe presentar una o más garantías de la misma naturaleza, equivalentes en total al porcentaje del 5% del valor total del contrato adjudicado.",
-                 "La(s) garantía(s) debe(n) ser entregada(s) en la dirección de la entidad licitante indicada: Oficina de Partes del Hospital San José de Melipilla, ubicado en calle O’Higgins Nº 551 comuna de Melipilla, Región Metropolitana, dentro de los 10 días hábiles contados desde la notificación de la adjudicación en horario de 8:00 a 14:00 horas.",
-                 "Si la(s) garantía(s) fuera(n) en soporte electrónico (garantía emitida por las instituciones de Garantía recíproca (IGR), Internacionalmente conocidas como SGR), se deberá enviar al correo electrónico garantias.hsjm@hospitaldemelipilla.cl, si no se presenta esta garantía en tiempo y forma, el Hospital San José de Melipilla podrá hacer efectiva la garantía de seriedad de la oferta y dejar sin efecto administrativamente la adjudicación, sin perjuicio de otros derechos."
-                 ]
-    for texto in loop_fiel:
-        doc.add_paragraph(texto)
-    parrafo_loop_fiel = doc.add_paragraph()
-    lista_loop_fiel = [("Se aceptará cualquier tipo de instrumento de garantía que asegure su cobro de manera rápida y efectiva, pagadera a la vista y con el carácter de irrevocable, y siempre que cumpla con los requisitos dispuestos por el artículo 68 del reglamento de la ley N°19.886. El instrumento deberá incluir la glosa: Para garantizar el fiel cumplimiento del contrato denominado: ", ""),
-                       ("ADQUISICIÓN DE SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA ID _________________", "bold"),
-                       ("y/o de las obligaciones laborales y sociales del adjudicatario”. En caso de que el instrumento no permita la inclusión de la glosa señalada, el oferente deberá dar cumplimiento a la incorporación de ésta en forma manuscrita en el mismo instrumento, o bien, mediante un documento anexo a la garantía. Como ejemplos de garantías se pueden mencionar los siguientes instrumentos: Boleta de Garantía, Certificado de Fianza a la Vista, Vale Vista o Póliza de Seguro, entre otros. ", "")
-                       ]
-    for texto, style in lista_loop_fiel:
-        run = parrafo_loop_fiel.add_run(texto)
-        if style == "bold":
-            run.bold = True
+    tipo = "contrato"
+    if tipo == "contrato":
+        doc.add_heading("{{ Septimo_DeLaGarantíaFielCumplimiento }}{{ espacio }}Garantía de Fiel Cumplimiento de Contrato.", level = 3)
+
+        par_garantia_fiel = doc.add_paragraph()
+        par_garantia_fiel.add_run("Para garantizar el fiel y cabal cumplimiento de las obligaciones que impone el contrato, el adjudicatario entrega una Garantía pagadera a la vista y de carácter irrevocable, por un monto  equivalente al 5% del valor que involucre este convenio {{texto_gar_1}}{{monto_contrato_garantia}}{{ texto_gar_2 }}")
+        par_garantia_fiel.add_run("{{ nombre_adquisicion }}").bold = True
+        par_garantia_fiel.add_run(" ID" + "{{ID_licitacion}}")
+        par_garantia_fiel.add_run("y/o de las obligaciones laborales y sociales del adjudicatario”. La garantía se hará efectiva ante cualquier incumplimiento a las condiciones y exigencias expuestas en las bases.")
+
+        doc.add_paragraph("Se deja constancia que el proveedor adjudicatario entrega certificado de fianza de institución FINFAST como garantía de fiel cumplimiento del contrato con los siguientes datos:")
+        doc.add_paragraph("[[TABLE_PLACEHOLDER1]]")
+        doc.add_paragraph("[[TABLE_PLACEHOLDER2]]")
+
+        doc.add_paragraph("Será responsabilidad del proveedor adjudicado mantener vigente la garantía de fiel cumplimiento, al menos hasta 120 días corridos después de culminado el contrato. Mientras se encuentre vigente el contrato, las renovaciones de esta garantía serán de exclusiva responsabilidad del proveedor adjudicado.")
+        doc.add_paragraph("En caso de cobro de esta garantía, derivado del incumplimiento de las obligaciones contractuales del adjudicatario indicadas en las bases de licitación, éste deberá reponer la garantía por igual monto y por el mismo plazo de vigencia que la que reemplaza en un plazo de 15 días hábiles, contados desde la notificación de cobro.")
+        par2_garantia_fiel = doc.add_paragraph()
+        par2_garantia_fiel.add_run("La restitución de esta garantía será realizada una vez que se haya cumplido su fecha de vencimiento, en los términos indicados en el presente contrato, y su retiro será obligación y responsabilidad exclusiva del contratado previa solicitud por correo electrónico a: ")
+        par2_garantia_fiel.add_run("garantias.hsjm@hospitaldemelipilla.cl").bold = True
+        par2_garantia_fiel.add_run(" , con copia a ")
+        par2_garantia_fiel.add_run("Manuel.lara@hospitaldemelipilla.cl").bold = True
+        par2_garantia_fiel.add_run(",  en el siguiente horario: de lunes a viernes de 09:00 horas hasta las 16:00 horas. Lo anterior previa confirmación por parte del Establecimiento. Para el retiro de la garantía deberá presentar un poder simple timbrado por la empresa, fotocopia de la cédula de identidad de la persona que retira y el Rut de la empresa, siempre que no existan observaciones pendientes.")
+        doc.add_paragraph("Cabe señalar que toda clase de garantías o cauciones que se constituyan en el contexto de esta cláusula, se enmarcan de acuerdo a lo dispuesto por el artículo 11 de la Ley N°19.886, a partir de lo cual se asegurará el fiel y oportuno cumplimiento del contrato, el pago de las obligaciones laborales y sociales con los trabajadores de los contratantes, y permanecerán vigentes hasta 120 días corridos después de culminado el contrato. Asimismo, con cargo a estas mismas cauciones podrán hacerse efectivas las multas y demás sanciones que afecten a los contratistas adjudicados.")
+
+
+
+    else :
+        loop_fiel = ["Para garantizar el fiel y oportuno cumplimiento del contrato, el adjudicado debe presentar una o más garantías de la misma naturaleza, equivalentes en total al porcentaje del 5% del valor total del contrato adjudicado ",
+                     #{{ monto_contrato_garantia }}.
+                     "La(s) garantía(s) debe(n) ser entregada(s) en la dirección de la entidad licitante indicada: Oficina de Partes del Hospital San José de Melipilla, ubicado en calle O’Higgins Nº 551 comuna de Melipilla, Región Metropolitana, dentro de los 10 días hábiles contados desde la notificación de la adjudicación en horario de 8:00 a 14:00 horas.",
+                     "Si la(s) garantía(s) fuera(n) en soporte electrónico (garantía emitida por las instituciones de Garantía recíproca (IGR), Internacionalmente conocidas como SGR), se deberá enviar al correo electrónico garantias.hsjm@hospitaldemelipilla.cl, si no se presenta esta garantía en tiempo y forma, el Hospital San José de Melipilla podrá hacer efectiva la garantía de seriedad de la oferta y dejar sin efecto administrativamente la adjudicación, sin perjuicio de otros derechos."
+                     ]
+        for texto in loop_fiel:
+            doc.add_paragraph(texto)
+        parrafo_loop_fiel = doc.add_paragraph()
+        lista_loop_fiel = [("Se aceptará cualquier tipo de instrumento de garantía que asegure su cobro de manera rápida y efectiva, pagadera a la vista y con el carácter de irrevocable, y siempre que cumpla con los requisitos dispuestos por el artículo 68 del reglamento de la ley N°19.886. El instrumento deberá incluir la glosa: Para garantizar el fiel cumplimiento del contrato denominado: ", ""),
+                           ("{{nombre_adquisicion}} ID _________________", "bold"),
+                           ("y/o de las obligaciones laborales y sociales del adjudicatario”. En caso de que el instrumento no permita la inclusión de la glosa señalada, el oferente deberá dar cumplimiento a la incorporación de ésta en forma manuscrita en el mismo instrumento, o bien, mediante un documento anexo a la garantía. Como ejemplos de garantías se pueden mencionar los siguientes instrumentos: Boleta de Garantía, Certificado de Fianza a la Vista, Vale Vista o Póliza de Seguro, entre otros. ", "")
+                           ]
+        for texto, style in lista_loop_fiel:
+            run = parrafo_loop_fiel.add_run(texto)
+            if style == "bold":
+                run.bold = True
 
 
 
@@ -722,7 +749,7 @@ def main():
     ]:
         agregar_parrafo_con_texto(doc, texto)
 
-    doc.add_heading("{{ Cuarto_ModificacionDelContrato }}{{espacio}} Modificaciones Del Contrato", level=2)
+    doc.add_heading("{{ Cuarto_ModificacionDelContrato }}{{espacio}}Modificaciones Del Contrato", level=2)
     agregar_parrafo_con_texto(doc, "Las partes de común acuerdo podrán modificar el contrato aumentando o disminuyendo los Bienes o servicios licitados, como también se podrán pactar nuevos bienes o servicios que no alteren la naturaleza del contrato. Estas modificaciones podrán ser hasta un 30% el presupuesto disponible estipulado en las presentes bases de licitación.")
     agregar_parrafo_con_texto(doc ,"En el caso de aumentar los bienes o servicios contratados, la garantía fiel cumplimiento de contrato también podrá readecuarse en proporción al monto de la modificación que se suscriba según aquellos casos que apliquen. En caso de aumentar o disminuir los bienes o servicios contratados, los valores a considerar, serán aquellos ofertados en el anexo oferta económica. ")
     agregar_parrafo_con_texto(doc ,"Con todo, las eventuales modificaciones que se pacten no producirán efecto alguno sino desde la total tramitación del acto administrativo que las apruebe.")
@@ -957,7 +984,9 @@ def main():
 
     administrado_contrato = doc.add_paragraph()
     administrado_contrato.add_run("El adjudicatario ").bold = True
-    administrado_contrato.add_run("deberá nombrar un coordinador del contrato, cuya identidad deberá ser informada al Hospital.")
+    administrado_contrato.add_run("{{ coordinador }}{{ nombre_coordinador }}")
+    # deberá nombrar un coordinador del contrato, cuya identidad deberá ser informada al Hospital.
+    # El adjudicatario nombra coordinador del contrato a doña MARIA GABRIELA CARDENAS en el desempeño de su cometido, el coordinador del contrato deberá, a lo menos:
     agregar_parrafo_con_texto(doc, "En el desempeño de su cometido, el coordinador del contrato deberá, a lo menos:")
 
     for texto in [
@@ -1053,7 +1082,7 @@ def main():
     # Ahora la sección Bases Ténicas para BASES TECNICAS PARA EL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA
 
     doc.add_section()
-    doc.add_heading("BASES TECNICAS PARA EL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA", level = 1)
+    doc.add_heading("BASES TECNICAS PARA EL {{ nombre_adquisicion }}", level = 1)
     doc.add_heading("Requisitos para adjudicarse disposiciones generales", level=2)
 
     doc.add_paragraph("Para adjudicarse el presente proceso de licitación, los oferentes participantes deberán cumplir con lo siguiente:")
