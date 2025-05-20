@@ -99,7 +99,37 @@ base_data_dict = process_and_clean_dict(Datos_Base_excel, "Datos_Base")
 contrato_p1_data_dict = process_and_clean_dict(Datos_Contrato_P1, "Datos_Contrato_P1")
 contrato_p2_data_dict = process_and_clean_dict(Datos_Contrato_P2, "Datos_Contrato_P2")
 
+
 contrato_p1_data_dict["espacio"] = " "
+contrato_p1_data_dict["Documentos_Integrantes"] = "Tercero"
+contrato_p1_data_dict["Cuarto_ModificacionDelContrato"] = "Cuarto"
+contrato_p1_data_dict["Quinto_GastoseImpuestos"] = "Quinto"
+contrato_p1_data_dict["Sexto_EfectosDerivadosDeIncumplimiento"] = "Sexto"
+contrato_p1_data_dict["Septimo_DeLaGarantíaFielCumplimiento"] = "Séptimo"
+contrato_p1_data_dict["Octavo_CobroDeLaGarantiaFielCumplimiento"] = "Octavo"
+contrato_p1_data_dict["Noveno_TerminoAnticipadoDelContrato"] = "Noveno"
+contrato_p1_data_dict["Decimo_ResciliacionMutuoAcuerdo"] = "Décimo"
+contrato_p1_data_dict["DecimoPrimero_ProcedimientoIncumplimiento"] = "Décimo Primero"
+contrato_p1_data_dict["DecimoSegundo_EmisionOC"] = "Decimo Segundo"
+contrato_p1_data_dict["DecimoTercero_DelPago"] = "Décimo Tercero"
+contrato_p1_data_dict["DecimoCuarto_VigenciaContrato"] = "Décimo Cuarto"
+contrato_p1_data_dict["DecimoQuinto_AdministradorContrato"] = "Décimo Quinto"
+contrato_p1_data_dict["DecimoSexto_PactoDeIntegrida"] = "Décimo Sexto"
+contrato_p1_data_dict["DecimoSeptimo_ComportamientoEticoAdjudic"] = "Décimo Séptimo"
+contrato_p1_data_dict["DecimoOctavo_Auditorias"] = "Décimo Octavo"
+contrato_p1_data_dict["DecimoNoveno_Confidencialidad"] = "Décimo Noveno"
+contrato_p1_data_dict["Vigesimo_PropiedadDeLaInformacion"] = "Vigésimo"
+
+contrato_p1_data_dict["VigesimoPrimero_SaldosInsolutos"] = "Vigésimo Primero"
+contrato_p1_data_dict["VigesimoSegundo_NormasLaboralesAplicable"] = "Vigésimo Segundo"
+contrato_p1_data_dict["VigesimoTercero_CambioPersonalProveedor"] = "Vigésimo Tercero"
+contrato_p1_data_dict["VigesimoCuarto_CesionySubcontratacion"] = "Vigésimo Cuarto"
+contrato_p1_data_dict["VigesimoQuinto_Discrepancias"] = "Vigésimo Quinto"
+contrato_p1_data_dict["coordinador"] = "El adjudicatario nombra coordinador del contrato a"
+contrato_p1_data_dict["texto_gar_1"] = ", es decir"
+contrato_p1_data_dict["texto_gar_2"] = "de pesos a nombre de “EL HOSPITAL” y consigna la siguiente glosa: Para garantizar el fiel cumplimiento del contrato denominado:"
+contrato_p1_data_dict["texto_gar_3"] = "ds"
+contrato_p1_data_dict["director"] = " la Resolución Exenta RA 116395/343/2024 de fecha 12/08/2024 del SSMOCC., la cual nombra Director del Hospital San José de Melipilla al suscrito"
 
 # --- Prepare Contexts for Templates (Merged Dictionaries) ---
 
