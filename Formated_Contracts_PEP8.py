@@ -230,25 +230,36 @@ from win32com import client
 from win32com.client import constants
 import pythoncom, os
 
-def copiar_tablas_con_win32(source_path, intermediate_path, output_path):
+def copiar_tablas_con_win32(source_path, intermediate_path, prototipo_path, output_path):
     pythoncom.CoInitialize()
     try:
         word = client.Dispatch("Word.Application")
         word.Visible = False
+
         src = word.Documents.Open(os.path.abspath(source_path))
         dst = word.Documents.Open(os.path.abspath(intermediate_path))
 
-        tables = src.Tables
-        idx = 0
-        for para in dst.Paragraphs:
-            if "[[TABLE_PLACEHOLDER]]" in para.Range.Text and idx < tables.Count:
-                tables.Item(idx+1).Range.Copy()
-                para.Range.PasteAndFormat(constants.wdFormatOriginalFormatting)
-                idx += 1
+        # 1. Pegar tablas 8, 9 y 10 en los primeros 3 marcadores
+        table_indices = [8, 9, 10, 11]
+        placeholders = [p for p in dst.Paragraphs if '[[TABLE_PLACEHOLDER]]' in p.Range.Text]
+
+        for i, idx in enumerate(table_indices):
+            if i < len(placeholders) and idx <= src.Tables.Count:
+                src.Tables.Item(idx).Range.Copy()
+                placeholders[i].Range.PasteAndFormat(constants.wdFormatOriginalFormatting)
+
+        # 2. Pegar las dos tablas de `prototipo_tabla_rellenado.docx` en el último marcador
+        if placeholders:
+            last_ph = placeholders[-1]
+            prot = word.Documents.Open(os.path.abspath(prototipo_path))
+            for j in range(1, prot.Tables.Count + 1):
+                prot.Tables.Item(j).Range.Copy()
+                last_ph.Range.PasteAndFormat(constants.wdFormatOriginalFormatting)
+            prot.Close(False)
 
         dst.SaveAs(os.path.abspath(output_path))
-        dst.Close()
-        src.Close()
+        dst.Close(False)
+        src.Close(False)
         word.Quit()
     finally:
         pythoncom.CoUninitialize()
@@ -396,15 +407,17 @@ def main():
     aplicar_formato_global(doc)
 
     # Guardar documento resultante
-    output_file = f"contrato_automatizado.docx"
+    output_file = f"contrato_automatizado_over.docx"
     output_path = os.path.join(current_dir, output_file)
     print(f"Guardando documento nuevo como: {output_path}...")
     doc.save(output_path)
     print("Documento nuevo guardado exitosamente.")
     print("Nota: El archivo original no ha sido modificado. Solo se trabajó con una copia temporal.")
+    prototipo_path = os.path.abspath("prototipo_tabla_rellenado.docx")
+    final_with_tables = os.path.join(current_dir, "contrato_automatizado_tablas.docx")
 
     final_with_tables = "contrato_automatizado_tablas.docx"
-    copiar_tablas_con_win32(original_path, output_path, final_with_tables)
+    copiar_tablas_con_win32(original_path, output_path, prototipo_path, final_with_tables)
     print(f"Documento final con tablas guardado en: {final_with_tables}")
 
     # Limpiar directorio temporal
@@ -418,4 +431,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

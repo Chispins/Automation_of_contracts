@@ -8,6 +8,7 @@ from Formated_Base_PEP8 import configurar_directorio_trabajo
 configurar_directorio_trabajo()
 
 excel_name = "Libro1.xlsx"
+
 template_name_1 = "base_automatizada.docx"
 template_name_2 = "contrato_automatizado_tablas.docx" # Assuming this is the second template
 
@@ -98,6 +99,7 @@ base_data_dict = process_and_clean_dict(Datos_Base_excel, "Datos_Base")
 contrato_p1_data_dict = process_and_clean_dict(Datos_Contrato_P1, "Datos_Contrato_P1")
 contrato_p2_data_dict = process_and_clean_dict(Datos_Contrato_P2, "Datos_Contrato_P2")
 
+contrato_p1_data_dict["espacio"] = " "
 
 # --- Prepare Contexts for Templates (Merged Dictionaries) ---
 
@@ -125,9 +127,10 @@ try:
     doc1 = DocxTemplate(template_name_1)
     # Call render() only ONCE with the combined context
     doc1.render(context_for_template1)
-    output_filename_1 = "base_automatizada_rendered.docx" # Clearer filename
+    output_filename_1 = "base_automatizada_jinja2.docx" # Clearer filename
     doc1.save(output_filename_1)
     print(f"Successfully rendered and saved '{output_filename_1}'")
+
 except FileNotFoundError:
      print(f"Error: Template file '{template_name_1}' not found.")
 except Exception as e:
