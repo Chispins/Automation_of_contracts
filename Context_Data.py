@@ -60,7 +60,8 @@ Datos_Contrato = {
     "DecimoNoveno_Confidencialidad": "DécimoNoveno",
     "Vigesimo_PropiedadDeLaInformacion": "Vigésimo",
     "VigesimoPrimero_SaldosInsolutos": "Vigésimo Primero",
-    "VigesimoSegundo_NambioPersonalProveedor": "Vigésimo Tercero",
+    "VigesimoSegundo_NormasLaboralesAplicable": "Vigésimo Segundo",
+    "VigesimoTercero_CambioPersonalProveedor": "Vigésimo Tercero",
     "VigesimoCuarto_CesionySubcontratacion": "Vigésimo Cuarto",
     "VigesimoQuinto_Discrepancias": "Vigésimo Quinto",
 

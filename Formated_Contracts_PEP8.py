@@ -13,6 +13,9 @@ from docx.shared import Pt
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.enum.text import WD_BREAK
+from win32com import client
+import pythoncom
+
 
 def configurar_directorio_trabajo():
     """Configura el directorio de trabajo en la subcarpeta 'Files'."""
@@ -44,6 +47,7 @@ def configurar_directorio_trabajo():
         #     print(f"Directorio '{wd}' creado y establecido como directorio de trabajo.")
         # except OSError as e:
         #     print(f"Error al crear o acceder al directorio '{wd}': {e}")
+
 
 def crear_numeracion(doc):
     """Crea un formato de numeración y devuelve su ID único."""
@@ -218,24 +222,36 @@ def copiar_seccion_completa(doc_destino, seccion_heading, elementos_seccion, niv
                 aplicar_numeracion(nuevo, seccion_num_id)
 
         elif tipo == 'tabla':
-            tabla = elemento
-            filas, cols = len(tabla.rows), len(tabla.columns)
-            nueva_tabla = doc_destino.add_table(rows=filas, cols=cols)
-            if tabla.style:
-                nueva_tabla.style = tabla.style
+            # No copiar tablas en esta etapa, solo agregar un marcador de posición
+            doc_destino.add_paragraph(f"[[TABLE_PLACEHOLDER]]")
 
-            for i, fila in enumerate(tabla.rows):
-                for j, celda in enumerate(fila.cells):
-                    destino_celda = nueva_tabla.cell(i, j)
-                    for p in destino_celda.paragraphs:
-                        p.clear()
-                    for p_origen in celda.paragraphs:
-                        nuevo_p = destino_celda.add_paragraph()
-                        if p_origen._p.pPr is not None:
-                            nuevo_p._p.append(copy.deepcopy(p_origen._p.pPr))
-                        for child in p_origen._p:
-                            if child.tag in (qn('w:r'), qn('w:bookmarkStart'), qn('w:bookmarkEnd')):
-                                nuevo_p._p.append(copy.deepcopy(child))
+
+from win32com import client
+from win32com.client import constants
+import pythoncom, os
+
+def copiar_tablas_con_win32(source_path, intermediate_path, output_path):
+    pythoncom.CoInitialize()
+    try:
+        word = client.Dispatch("Word.Application")
+        word.Visible = False
+        src = word.Documents.Open(os.path.abspath(source_path))
+        dst = word.Documents.Open(os.path.abspath(intermediate_path))
+
+        tables = src.Tables
+        idx = 0
+        for para in dst.Paragraphs:
+            if "[[TABLE_PLACEHOLDER]]" in para.Range.Text and idx < tables.Count:
+                tables.Item(idx+1).Range.Copy()
+                para.Range.PasteAndFormat(constants.wdFormatOriginalFormatting)
+                idx += 1
+
+        dst.SaveAs(os.path.abspath(output_path))
+        dst.Close()
+        src.Close()
+        word.Quit()
+    finally:
+        pythoncom.CoUninitialize()
 
 # --- Flujo Principal del Programa ---
 def main():
@@ -386,6 +402,10 @@ def main():
     doc.save(output_path)
     print("Documento nuevo guardado exitosamente.")
     print("Nota: El archivo original no ha sido modificado. Solo se trabajó con una copia temporal.")
+
+    final_with_tables = "contrato_automatizado_tablas.docx"
+    copiar_tablas_con_win32(original_path, output_path, final_with_tables)
+    print(f"Documento final con tablas guardado en: {final_with_tables}")
 
     # Limpiar directorio temporal
     try:
