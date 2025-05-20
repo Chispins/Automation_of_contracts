@@ -412,17 +412,17 @@ def main():
     agregar_contenido_celda(tabla_ofertas, 2, 1, [
         [("Anexo N°5: Oferta económica", "bold")],
         ["El anexo referido debe ser ingresado a través del sistema www.mercadopublico.cl , en la sección Anexos Económicos."],
-        [("En caso de que no se presente debidamente el Anexo N°5 “Oferta económica”, la oferta será declarada ", ""), ("inadmisible", "bold")]
+        [("En caso de que no se presente debidamente el Anexo N°5 “Oferta económica”, la oferta será declarada ", ""), ("inadmisible{% if pedro %}", "bold")]
     ])
 
     agregar_contenido_celda(tabla_ofertas, 3, 0, ["Anexos Técnicos."])
     agregar_contenido_celda(tabla_ofertas, 3, 1, [
-        [("Anexo N°6: Evaluación Técnica", "bold")],
-        [("Anexo N°7: Ficha Técnica", "bold")],
-        [("Anexo N°8: Plazo de Entrega", "bold")],
-        [("Anexo N°9: Servicio Post-venta", "bold")],
+        [("{{anexo_6}}", "bold")],
+        [("{{anexo_7}}", "bold")],
+        [("{{anexo_8}}", "bold")],
+        [("{{anexo_9}}", "bold")],
         ["Los anexos referidos deben ser ingresados a través del sistema www.mercadopublico.cl. en la sección Anexos Técnicos."],
-        [("En el caso que no se presente debidamente los Anexos N°7, N°8 y N°9 la oferta será declarada ", ""), ("inadmisible", "bold")]
+        [("{{ausencia_para_inadmisible}} ", ""), ("inadmisible {% endif %}", "bold")]
     ])
     centrar_verticalmente_tabla(tabla_ofertas)
 
@@ -502,7 +502,7 @@ def main():
         agregar_parrafo_con_texto(doc, texto)
 
     # Naturaleza y monto de las garantías
-    doc.add_heading("Naturaleza y monto de las garantías", level=2)
+    doc.add_heading("{% if garantia %}Naturaleza y monto de las garantías", level=2)
     doc.add_heading("Garantía de Seriedad de la Oferta", level = 3)
     agregar_parrafo_con_texto(doc, "El oferente deberá presentar junto a su oferta una o más garantías, equivalentes en total, al monto que indique la entidad licitante, la que corresponde al monto de $200.000. Si el oferente presenta más de una propuesta, cada una de ellas deberá estar debidamente caucionada, en los términos indicados en la presente cláusula, mediante instrumentos separados.")
     agregar_parrafo_con_texto(doc, "La(s) garantía(s) debe(n) ser entregada(s) en Oficina de Partes del Hospital San José de Melipilla, ubicada en calle O’Higgins Nº 551 comuna de Melipilla, Región Metropolitana, dentro del plazo para presentación de ofertas, si fueran en soporte de papel, en el horario hábil de atención de 8:00 a 15:00 horas. De igual manera deberán publicar en su oferta copia de la garantía con el timbre de recepción de oficina de partes del Hospital San José de Melipilla.")
@@ -566,7 +566,7 @@ def main():
         par2_garantia_fiel.add_run(" , con copia a ")
         par2_garantia_fiel.add_run("Manuel.lara@hospitaldemelipilla.cl").bold = True
         par2_garantia_fiel.add_run(",  en el siguiente horario: de lunes a viernes de 09:00 horas hasta las 16:00 horas. Lo anterior previa confirmación por parte del Establecimiento. Para el retiro de la garantía deberá presentar un poder simple timbrado por la empresa, fotocopia de la cédula de identidad de la persona que retira y el Rut de la empresa, siempre que no existan observaciones pendientes.")
-        doc.add_paragraph("Cabe señalar que toda clase de garantías o cauciones que se constituyan en el contexto de esta cláusula, se enmarcan de acuerdo a lo dispuesto por el artículo 11 de la Ley N°19.886, a partir de lo cual se asegurará el fiel y oportuno cumplimiento del contrato, el pago de las obligaciones laborales y sociales con los trabajadores de los contratantes, y permanecerán vigentes hasta 120 días corridos después de culminado el contrato. Asimismo, con cargo a estas mismas cauciones podrán hacerse efectivas las multas y demás sanciones que afecten a los contratistas adjudicados.")
+        doc.add_paragraph("Cabe señalar que toda clase de garantías o cauciones que se constituyan en el contexto de esta cláusula, se enmarcan de acuerdo a lo dispuesto por el artículo 11 de la Ley N°19.886, a partir de lo cual se asegurará el fiel y oportuno cumplimiento del contrato, el pago de las obligaciones laborales y sociales con los trabajadores de los contratantes, y permanecerán vigentes hasta 120 días corridos después de culminado el contrato. Asimismo, con cargo a estas mismas cauciones podrán hacerse efectivas las multas y demás sanciones que afecten a los contratistas adjudicados. {% endif %}")
 
 
 
@@ -574,7 +574,7 @@ def main():
         loop_fiel = ["Para garantizar el fiel y oportuno cumplimiento del contrato, el adjudicado debe presentar una o más garantías de la misma naturaleza, equivalentes en total al porcentaje del 5% del valor total del contrato adjudicado ",
                      #{{ monto_contrato_garantia }}.
                      "La(s) garantía(s) debe(n) ser entregada(s) en la dirección de la entidad licitante indicada: Oficina de Partes del Hospital San José de Melipilla, ubicado en calle O’Higgins Nº 551 comuna de Melipilla, Región Metropolitana, dentro de los 10 días hábiles contados desde la notificación de la adjudicación en horario de 8:00 a 14:00 horas.",
-                     "Si la(s) garantía(s) fuera(n) en soporte electrónico (garantía emitida por las instituciones de Garantía recíproca (IGR), Internacionalmente conocidas como SGR), se deberá enviar al correo electrónico garantias.hsjm@hospitaldemelipilla.cl, si no se presenta esta garantía en tiempo y forma, el Hospital San José de Melipilla podrá hacer efectiva la garantía de seriedad de la oferta y dejar sin efecto administrativamente la adjudicación, sin perjuicio de otros derechos."
+                     "Si la(s) garantía(s) fuera(n) en soporte electrónico (garantía emitida por las instituciones de Garantía recíproca (IGR), Internacionalmente conocidas como SGR), se deberá enviar al correo electrónico garantias.hsjm@hospitaldemelipilla.cl, si no se presenta esta garantía en tiempo y forma, el Hospital San José de Melipilla podrá hacer efectiva la garantía de seriedad de la oferta y dejar sin efecto administrativamente la adjudicación, sin perjuicio de otros derechos. {% endif %}"
                      ]
         for texto in loop_fiel:
             doc.add_paragraph(texto)
@@ -587,6 +587,7 @@ def main():
             run = parrafo_loop_fiel.add_run(texto)
             if style == "bold":
                 run.bold = True
+
 
 
 
@@ -625,7 +626,7 @@ def main():
 
     inadmisibilidad_p1 = doc.add_paragraph()
     inadmisibilidad_p1.add_run("Inadmisibilidad de las ofertas y declaración de desierta de la licitación: ").bold = True
-    inadmisibilidad_p1.add_run("La entidad licitante declarará inadmisible las ofertas presentadas que no cumplan los requisitos mínimos establecidos en los Anexos N°5, N°6, N°7, N°8 y N°9 y/o las condiciones establecidas en las presentes bases de licitación, sin perjuicio de la facultad para solicitar a los oferentes que salven errores u omisiones formales de acuerdo con lo establecido en las presentes bases.")
+    inadmisibilidad_p1.add_run("La entidad licitante declarará inadmisible las ofertas presentadas que no cumplan los requisitos mínimos establecidos en los Anexos N°5 {anexo_listado} y/o las condiciones establecidas en las presentes bases de licitación, sin perjuicio de la facultad para solicitar a los oferentes que salven errores u omisiones formales de acuerdo con lo establecido en las presentes bases.")
 
     agregar_parrafo_con_texto(doc, "La entidad licitante podrá, además, declarar desierta la licitación cuando no se presenten ofertas o cuando éstas no resulten convenientes a sus intereses. Dichas declaraciones deberán materializarse a través de la dictación de una resolución fundada y no darán derecho a indemnización alguna a los oferentes.")
 
@@ -823,12 +824,12 @@ def main():
     ]:
         agregar_parrafo_con_texto(doc, texto)
 
-    doc.add_heading("{{ Octavo_CobroDeLaGarantiaFielCumplimiento }}{{ espacio }}Cobro de la Garantía de Fiel Cumplimiento de Contrato", level=2)
+    doc.add_heading("{% if garantia %}{{ Octavo_CobroDeLaGarantiaFielCumplimiento }}{{ espacio }}Cobro de la Garantía de Fiel Cumplimiento de Contrato", level=2)
     agregar_parrafo_con_texto(doc, "Al Adjudicatario le podrá ser aplicada la medida de cobro de la Garantía por Fiel Cumplimiento del Contrato por la entidad licitante, en los siguientes casos:")
     for texto in [
         "No pago de multas dentro de los plazos establecidos en las presentes bases y/o el respectivo contrato.",
         "Incumplimientos de las exigencias técnicas de los bienes y servicios (en caso de que hayan sido requeridos) adjudicados establecidos en el Contrato.",
-        "Cualquiera de las causales señaladas en el N°10.6.3 sobre “Término Anticipado del Contrato”, a excepción del numeral 3) y numeral 16), en todas estas causales señaladas, se procederá al cobro de la garantía de fiel cumplimiento del contrato, si se hubiere exigido dicha caución en las Bases."
+        "Cualquiera de las causales señaladas en el N°10.6.3 sobre “Término Anticipado del Contrato”, a excepción del numeral 3) y numeral 16), en todas estas causales señaladas, se procederá al cobro de la garantía de fiel cumplimiento del contrato, si se hubiere exigido dicha caución en las Bases.{% endif %}"
     ]:
         agregar_parrafo_con_texto(doc, texto, estilo='List Bullet')
 
@@ -1243,7 +1244,7 @@ def main():
     aplicar_numeracion(parte_d_generalidades, num_id_productos)
 
     # Entrega de Muestras
-    doc.add_heading("Entrega de Muestras", level = 4)
+    doc.add_heading("{% if entrega_muestras %}Entrega de Muestras", level = 4)
     entrega_muestras_p1 = doc.add_paragraph(style = "List Bullet")
     entrega_muestras_p1.add_run("Presentar muestras de los insumos y equipo en comodato para evaluación es de carácter ")
     entrega_muestras_p1.add_run("OBLIGATORIO").bold = True
@@ -1301,7 +1302,7 @@ def main():
         ["Cable para alimentación de corriente eléctrica o baterías en caso de equipo portátil."],
         ["Memoria de uso de consola"],
         [
-            "Autonomía de la batería de al menos 6 horas para equipo de uso hospitalario y 10 horas para equipo de uso domiciliario."]
+            "Autonomía de la batería de al menos 6 horas para equipo de uso hospitalario y 10 horas para equipo de uso domiciliario.{% endif %}"]
     ]
 
     # Crear la tabla de características de equipos

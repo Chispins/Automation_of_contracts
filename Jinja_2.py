@@ -34,6 +34,7 @@ except FileNotFoundError:
 except KeyError as e:
     print(f"Error: Sheet '{e}' not found in '{excel_name}'. Check sheet names.")
     exit()
+
 except Exception as e:
     print(f"An error occurred while reading Excel: {e}")
     exit()
@@ -98,6 +99,18 @@ def process_and_clean_dict(df, sheet_name):
 base_data_dict = process_and_clean_dict(Datos_Base_excel, "Datos_Base")
 contrato_p1_data_dict = process_and_clean_dict(Datos_Contrato_P1, "Datos_Contrato_P1")
 contrato_p2_data_dict = process_and_clean_dict(Datos_Contrato_P2, "Datos_Contrato_P2")
+
+if base_data_dict["anexo_6"]:
+    base_data_dict["anexo_6"] = "Anexo N°6 "+ base_data_dict["anexo_6"]
+
+if base_data_dict["anexo_7"]:
+    base_data_dict["anexo_7"] = "Anexo N°7 "+ base_data_dict["anexo_7"]
+
+if base_data_dict["anexo_8"]:
+    base_data_dict["anexo_8"] = "Anexo N°8 "+ base_data_dict["anexo_8"]
+
+if base_data_dict["anexo_9"]:
+    base_data_dict["anexo_9"] = "Anexo N°9 "+ base_data_dict["anexo_9"]
 
 
 contrato_p1_data_dict["espacio"] = " "
