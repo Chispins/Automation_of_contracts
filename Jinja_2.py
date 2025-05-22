@@ -112,6 +112,13 @@ if base_data_dict["anexo_8"]:
 if base_data_dict["anexo_9"]:
     base_data_dict["anexo_9"] = "Anexo N°9 "+ base_data_dict["anexo_9"]
 
+if (base_data_dict["entrega_muestras"]):
+    base_data_dict["muestra"] = "Entregar muestras de los productos solicitados y comodato ofertado."
+if (base_data_dict["garantia"]):
+    base_data_dict["entreg_garan"] = "Entregar garantías de la oferta"
+base_data_dict["labor_coordinador"] = " en el desempeño de su cometido, el coordinador del contrato deberá, a lo menos"
+base_data_dict["coordinador"] = " El adjudicatario nombra coordinador del contrato a"
+
 
 contrato_p1_data_dict["espacio"] = " "
 contrato_p1_data_dict["Documentos_Integrantes"] = "Tercero"
@@ -143,6 +150,8 @@ contrato_p1_data_dict["texto_gar_1"] = ", es decir"
 contrato_p1_data_dict["texto_gar_2"] = "de pesos a nombre de “EL HOSPITAL” y consigna la siguiente glosa: Para garantizar el fiel cumplimiento del contrato denominado:"
 contrato_p1_data_dict["texto_gar_3"] = "ds"
 contrato_p1_data_dict["director"] = " la Resolución Exenta RA 116395/343/2024 de fecha 12/08/2024 del SSMOCC., la cual nombra Director del Hospital San José de Melipilla al suscrito"
+
+
 
 # --- Prepare Contexts for Templates (Merged Dictionaries) ---
 
