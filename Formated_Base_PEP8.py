@@ -2,14 +2,15 @@ import os
 import re
 import random
 from docx import Document
-from docx.enum.section import WD_SECTION_START
+# from docx.enum.section import WD_SECTION_START
 from docx.enum.style import WD_STYLE_TYPE
-from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_PARAGRAPH_ALIGNMENT
-from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+# from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
-from docx.enum.text import WD_BREAK
+# from docx.enum.text import WD_BREAK
 from docx.shared import Pt
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 
 def configurar_directorio_trabajo():
@@ -144,10 +145,7 @@ def agregar_contenido_celda(tabla, fila, columna, contenidos):
                     run = p.add_run(str(item))
 
 # Formated_Base_PEP8.py
-from docx.enum.text import WD_ALIGN_PARAGRAPH
 
-from docx.shared import Pt
-from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 def aplicar_formato_global(doc):
     """Aplica Calibri Light 11 y justificado, excepto portada y título principal."""
@@ -162,8 +160,12 @@ def aplicar_formato_global(doc):
 
     # 3) Aplicar formato al resto
     for i, paragraph in enumerate(doc.paragraphs):
-        if i <= limite_portada or paragraph.style.name in excluded_styles:
+        # Excluir párrafos de la portada, con estilos excluidos o que ya tienen alineación centrada
+        if (i <= limite_portada or
+                paragraph.style.name in excluded_styles or
+                paragraph.alignment == WD_PARAGRAPH_ALIGNMENT.CENTER):
             continue
+
         paragraph.style.font.name = 'Calibri Light'
         paragraph.style.font.size = Pt(11)
         paragraph.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -173,9 +175,9 @@ def aplicar_formato_global(doc):
         for row in table.rows:
             for cell in row.cells:
                 for p in cell.paragraphs:
-                    if p.style.name in excluded_styles:
-                        continue
-                    p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+                    # Mantener la verificación para alineación centrada también en tablas
+                    if p.alignment != WD_PARAGRAPH_ALIGNMENT.CENTER:
+                        [...]
 
 #numero_base = str(140)
 
@@ -971,7 +973,8 @@ def main():
     del_pago_correo.add_run("(En formato PDF y XML)")
 
     for texto in [
-        "El valor del convenio se reajustará anualmente de acuerdo con la variación que haya experimentado el Índice de Precios al Consumidor IPC, obtenido del promedio de la sumatoria de los IPC de los doce meses inmediatamente anteriores al mes en que se efectúa su cálculo. Este reajuste es de exclusiva responsabilidad de la empresa adjudicada; si por alguna razón no lo aplicare, no se permitirá su cobro en forma retroactiva. Su precio se pagará conforme a lo establecido.",
+        "El valor del convenio se reajustará anualmente de acuerdo con la variación que haya experimentado el Índice de Precios al Consumidor IPC, obtenido del promedio de la sumatoria de los IPC de los doce meses inmediatamente anteriores al mes en que se efectúa su cálculo. Este reajuste es de exclusiva responsabilidad de la empresa adjudicada; si por alguna razón no lo aplicare, no se permitirá su cobro en forma retroactiva. Su precio se pagará conforme a lo establecido.{% if pago %}",
+        "El pago de los bienes y/o servicios será siempre en pesos chilenos. En caso que la factura se exprese en otra unidad monetaria, deberá indicar el valor de la conversión correspondiente a la fecha de emisión de la factura.{% endif %}",
         "En ningún caso procederán cobros adicionales por bienes o servicios no convenidos previamente, ni por tiempos en que el proveedor no preste los servicios.",
         "Cabe señalar que, cuando el resultado del monto a facturar resulte un número con decimales, éste se redondeará al número entero siguiente en caso de que la primera cifra decimal sea igual o superior a 5. En caso contrario el monto deberá ser redondeado al número entero anterior."
     ]:
@@ -1033,7 +1036,9 @@ def main():
         agregar_parrafo_con_texto(doc, texto)
 
     doc.add_heading("{{ Vigesimo_PropiedadDeLaInformacion }}{{espacio}}Propiedad de la información", level=2)
-    agregar_parrafo_con_texto(doc, "La entidad licitante será la titular de todos los datos de transacciones, bitácoras (logs), parámetros, documentos electrónicos y archivos adjuntos y, en general, de las bases de datos y de toda información contenida en la infraestructura física y tecnológica que le suministre el proveedor contratado y que se genere en virtud de la ejecución de los servicios objeto de la presente licitación. El proveedor no podrá utilizar la información indicada en el párrafo anterior, durante la ejecución del contrato ni con posterioridad al término de su vigencia, sin autorización escrita de la entidad licitante. Por tal motivo, una vez que el proveedor entregue dicha información a la entidad o al finalizar la relación contractual, deberá borrarla de sus registros lógicos y físicos.")
+    agregar_parrafo_con_texto(doc, "La entidad licitante será la titular de todos los datos de transacciones, bitácoras (logs), parámetros, documentos electrónicos y archivos adjuntos y, en general, de las bases de datos y de toda información contenida en la infraestructura física y tecnológica que le suministre el proveedor contratado y que se genere en virtud de la ejecución de los servicios objeto de la presente licitación.")
+    agregar_parrafo_con_texto(doc, "El proveedor no podrá utilizar la información indicada en el párrafo anterior, durante la ejecución del contrato ni con posterioridad al término de su vigencia, sin autorización escrita de la entidad licitante. Por tal motivo, una vez que el proveedor entregue dicha información a la entidad o al finalizar la relación contractual, deberá borrarla de sus registros lógicos y físicos.")
+    # Most Recent Change
 
     doc.add_heading("{{ VigesimoPrimero_SaldosInsolutos }}{{ espacio }}Saldos insolutos de remuneraciones o cotizaciones de seguridad social.", level=2)
     for texto in [
@@ -1077,10 +1082,59 @@ def main():
     ]:
         agregar_parrafo_con_texto(doc, texto)
 
-    doc.add_heading("Constancia", level=2)
+    doc.add_heading("{{ VigesimoSexto_Constancia }}{{ espacio }}Constancia", level=2)
     agregar_parrafo_con_texto(doc, "Se deja expresa constancia que todas y cada una de las cláusulas contenidas en las presentes Bases, Anexos y aclaratorias, se entienden incorporadas sin necesidad de mención expresa en el correspondiente contrato que se materialice con el adjudicado y éste se hace responsable del cumplimiento de las obligaciones de tales documentos, Bases Administrativas y Contrato que se deriven.")
 
     # Ahora la sección Bases Ténicas para BASES TECNICAS PARA EL SUMINISTRO DE INSUMOS Y ACCESORIOS PARA TERAPIA DE PRESIÓN NEGATIVA CON EQUIPOS EN COMODATO PARA EL HOSPITAL SAN JOSÉ DE MELIPILLA
+    doc.add_heading("{{ VigesimoSeptimo_Ejemplares }}{{ espacio }} Ejemplares")
+    agregar_parrafo_con_texto(doc, " El presente convenio se firma en dos ejemplares, quedando uno en poder de la Empresa y el otro en poder del Hospital.")
+
+    doc.add_heading("{{ VigesimoOctavo_Personeria }}{{ espacio }}La personería")
+    agregar_parrafo_con_texto(doc, "La personería de {{ representante_legal }}, cedula nacional de identidad N° {{ rut_representante_legal }} para representar a {{nombre_proveedor}}, {{ rut_proveedor }}, {{detalles_escrituras_proveedor}}.Por su parte, La personería del Sr. Óscar Vargas Duranti, para representar al Hospital San José de Melipilla, emana de la Resolución Exenta RA 116395/343 de fecha 12/08/2024 del Servicio de Salud Metropolitano Occidente la cual nombra Director Titular del Hospital San José de Melipilla.")
+
+
+    # Firmas
+    pf_signature_line = doc.add_paragraph()
+    pf_signature_line.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    # Adjust the number of underscores as needed for desired length
+    pf_signature_line.add_run("____________________________________")
+
+    pf1 = doc.add_paragraph()
+    pf1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    pf1.add_run("{representante_legal}").bold = True
+
+    pf2 = doc.add_paragraph()
+    pf2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    pf2.add_run("REPRESENTANTE LEGAL")
+
+    pf3 = doc.add_paragraph()
+    pf3.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    pf3.add_run("{{nombre_proveedor}}".upper())
+
+
+    doc.add_paragraph()
+    doc.add_paragraph()
+
+    pf2 = doc.add_paragraph()
+    pf2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    pf2.add_run("____________________________________")
+    # Guardar el documento
+
+
+    pf4 = doc.add_paragraph()
+    pf4.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    pf4.add_run( "SR OSCAR VARGAS DURANTI").bold = True
+
+
+    pf5 = doc.add_paragraph()
+    pf5.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    pf5.add_run("DIRECTOR")
+
+
+    pf6 = doc.add_paragraph()
+    pf6.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    pf6.add_run("HOSPITAL SAN JOSÉ DE MELIPILLA")
+
 
     doc.add_section()
     doc.add_heading("BASES TECNICAS PARA EL {{ nombre_adquisicion }}", level = 1)

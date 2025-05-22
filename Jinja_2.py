@@ -145,6 +145,10 @@ contrato_p1_data_dict["VigesimoSegundo_NormasLaboralesAplicable"] = "Vigésimo S
 contrato_p1_data_dict["VigesimoTercero_CambioPersonalProveedor"] = "Vigésimo Tercero"
 contrato_p1_data_dict["VigesimoCuarto_CesionySubcontratacion"] = "Vigésimo Cuarto"
 contrato_p1_data_dict["VigesimoQuinto_Discrepancias"] = "Vigésimo Quinto"
+contrato_p1_data_dict["VigesimoSexto_Constancia"] = "Vigésimo Sexto"
+contrato_p1_data_dict["VigesimoSeptimo_Ejemplares"] = "Vigésimo Séptimo"
+contrato_p1_data_dict["VigesimoOctavo_Personeria"] = "Vigésimo Octavo"
+
 contrato_p1_data_dict["coordinador"] = "El adjudicatario nombra coordinador del contrato a"
 contrato_p1_data_dict["texto_gar_1"] = ", es decir"
 contrato_p1_data_dict["texto_gar_2"] = "de pesos a nombre de “EL HOSPITAL” y consigna la siguiente glosa: Para garantizar el fiel cumplimiento del contrato denominado:"
