@@ -257,7 +257,7 @@ def main():
     aplicar_numeracion(resolucion_p2, num_id_resolucion)
 
     resolucion_p3 = doc.add_paragraph(style=list_style)
-    resolucion_p3.add_run("APRUÉBENSE las bases administrativas, técnicas y anexos N.º 1, 2, 3, 4, 5 {{ cantidad_anexos }}").bold = True
+    resolucion_p3.add_run("APRUÉBENSE las bases administrativas, técnicas y anexos N.º 1, 2, 3, 4, 5 {% if cantidad_anexos %}, {% endif %}{{ cantidad_anexos }}").bold = True
     resolucion_p3.add_run("desarrollados para efectuar el llamado a licitación, que se transcriben a continuación:")
     aplicar_numeracion(resolucion_p3, num_id_resolucion)
 
@@ -643,9 +643,9 @@ def main():
     tabla_criterios_datos = [
         ["CRITERIOS", "", "PONDERACIÓN", "EVALUADO\nSEGÚN ANEXO"],
         ["ECONÓMICO", "OFERTA ECONÓMICA", "60%", "ANEXO N°5"],
-        ["TÉCNICOS", "EVALUACIÓN TÉCNICA", "20%", "ANEXO N°6"],
-        ["", "PLAZO DE ENTREGA", "10%", "ANEXO N°8"],
-        ["", "SERVICIO POST-VENTA", "10%", "ANEXO N°9"]
+        ["TÉCNICOS", "EVALUACIÓN TÉCNICA", "{pct_eval_tecnica}", "ANEXO N°6"],
+        ["", "PLAZO DE ENTREGA", "{pct_eval_plazo}", "ANEXO N°8"],
+        ["", "SERVICIO POST-VENTA", "{pct_eval_post}", "ANEXO N°9"]
     ]
     tabla_criterios = crear_tabla(doc, tabla_criterios_datos)
     tabla_criterios.cell(0, 0).merge(tabla_criterios.cell(0, 1))
@@ -688,19 +688,19 @@ def main():
 
     doc.add_heading("Criterios Técnicos", level=4)
     crit_tecn_para = doc.add_paragraph(style="List Bullet")
-    crit_tecn_run = crit_tecn_para.add_run("EVALUACIÓN TÉCNICA 20%: ")
+    crit_tecn_run = crit_tecn_para.add_run("EVALUACIÓN TÉCNICA {{ pct_eval_tecnica }}: ")
     crit_tecn_run.bold = True
-    crit_tecn_para.add_run("Se evaluará según información presentada para el Anexo N°7 que deberá ser adjuntada en su oferta en el Portal de Mercado Público, junto con la pauta de evaluación del Anexo N°6. Se evaluará por producto ofertado, donde el puntaje total será el promedio de la evaluación de todos los insumos ofertados.")
+    crit_tecn_para.add_run("{{ evaluacion_tecnica }}")
 
     plazo_entrega_para = doc.add_paragraph(style="List Bullet")
-    plazo_entrega_run = plazo_entrega_para.add_run("PLAZO DE ENTREGA 10%: ")
+    plazo_entrega_run = plazo_entrega_para.add_run("PLAZO DE ENTREGA {{pct_eval_plazo}}: ")
     plazo_entrega_run.bold = True
-    plazo_entrega_para.add_run("Se evaluará según información presentada en el Anexo N°8 de la presente base de licitación.")
+    plazo_entrega_para.add_run("{{ evaluacion_plazo }}")
 
     serv_post_venta_para = doc.add_paragraph(style="List Bullet")
-    serv_post_venta_run = serv_post_venta_para.add_run("Servicio Post-Venta 10%: ")
+    serv_post_venta_run = serv_post_venta_para.add_run("Servicio Post-Venta {{pct_post}}: ")
     serv_post_venta_run.bold = True
-    serv_post_venta_para.add_run("Se evaluará según información presentada en el Anexo N°9 de la presente base de licitación.")
+    serv_post_venta_para.add_run("")
 
     # Adjudicación y otras secciones
     doc.add_heading("Adjudicación", level=3)
@@ -985,8 +985,8 @@ def main():
 
     administrado_contrato = doc.add_paragraph()
     administrado_contrato.add_run("El adjudicatario ").bold = True
-    administrado_contrato.add_run("{{ coordinador }}{{ nombre_coordinador }}")
-    # deberá nombrar un coordinador del contrato, cuya identidad deberá ser informada al Hospital.
+    administrado_contrato.add_run("{{ coordinador }}{{ nombre_coordinador }}{{labor_coordinador}}")
+    # deberá nombrar un coordinador del contrato,1 cuya identidad deberá ser informada al Hospital.
     # El adjudicatario nombra coordinador del contrato a doña MARIA GABRIELA CARDENAS en el desempeño de su cometido, el coordinador del contrato deberá, a lo menos:
     agregar_parrafo_con_texto(doc, "En el desempeño de su cometido, el coordinador del contrato deberá, a lo menos:")
 
@@ -1092,8 +1092,8 @@ def main():
                   "Deberán entregar toda la información necesaria para poder evaluar a la empresa en cada uno de los ítems de los Criterios de Evaluación.",
                   "Deberán dar respuesta a los requisitos generados por foro inverso en los plazos y/o periodos establecidos en las presentes Bases de Licitación.",
                   "Presentar ficha técnica y certificados de los productos ofertados.",
-                  "Entregar muestras de los productos solicitados y comodato ofertado.",
-                  "Entregar garantías de la oferta."]:
+                  "{{ muestra }}",
+                  "{{entreg_garan}}."]:
         agregar_parrafo_con_texto(doc, texto, estilo="List Bullet")
 
     parrafo_nuevo = doc.add_paragraph()
@@ -1101,7 +1101,7 @@ def main():
     parrafo_nuevo.add_run(" Los oferentes que no cumplan con estos requisitos no serán evaluados, declarándose inadmisible su oferta.")
 
     doc.add_heading("Disposiciones de la Licitación", level=2)
-    doc.add_paragraph("Determinar las directrices y características técnicas necesarias para el suministro de insumos y accesorios para terapia de presión negativa con equipos en comodato.")
+    doc.add_paragraph("Determinar las directrices y características técnicas necesarias para el {{ nombre_adquisicion }}")
 
     doc.add_heading("GENERALIDADES:", level = 3)
 
@@ -1111,7 +1111,7 @@ def main():
         " y se podrá aumentar o disminuir hasta un 30% por cada línea adjudicada sin superar el monto total presupuestado para la Licitación.")
 
     gen_p1 = doc.add_paragraph(
-        "La propuesta deberá contemplar todos los costos de trasporte para el despacho de los productos. El Hospital no cancelará ningún costo asociado a esta temática.",
+        "{{ con_costo_de_transporte }}  La propuesta deberá contemplar todos los costos de trasporte para el despacho de los productos. El Hospital no cancelará ningún costo asociado a esta temática.",
         style="List Bullet")
 
     gen_p2 = doc.add_paragraph(
@@ -1217,7 +1217,7 @@ def main():
         ["20",
          "Kit de apósito para terapia de instilación tamaño médium, espuma de ester de poliuretano y reticulada con 3 capas: 1 capa en contacto con la herida que tiene orificios de 5 mm, una segunda capa fina de 8 mm y una tercera capa gruesa de 16 mm.",
          "UD", "$200.000"],
-        ["21", "Cassete para conectar la solución para la terapia de instilación.", "UD", "$110.000"]
+        ["21", "Cassete para conectar la solución para la terapia de instilación.", "UD", "$110.000 {% if detalles_extra %}"]
     ]
 
     # Resto del código para crear y formatear la tabla (sin cambios)
@@ -1240,7 +1240,7 @@ def main():
     parte_d_generalidades = doc.add_paragraph(style = "List Number")
     parte_d_generalidades.add_run("se considera causal")
     parte_d_generalidades.add_run(" admisibilidad").bold = True
-    parte_d_generalidades.add_run("que el proveedor adjunte ficha técnica en español de todos los productos solicitados al portal de Mercado Público.")
+    parte_d_generalidades.add_run("que el proveedor adjunte ficha técnica en español de todos los productos solicitados al portal de Mercado Público.{% endif %}")
     aplicar_numeracion(parte_d_generalidades, num_id_productos)
 
     # Entrega de Muestras
@@ -1312,8 +1312,8 @@ def main():
     doc.add_heading("Entrega y Recepción", level=4)  # Asumiendo level 4, ajustar si es necesario
 
     entrega_recepcion_items = [
-        "La adquisición de estos productos será de forma parcializada según la cantidad y periocidad que el hospital considere necesario.",
-        "El proveedor deberá despachar los productos señalando explícitamente Nombre del producto, Identificación del Proveedor y N° de Guía/Factura, Modelo (solo cuando corresponda), N° de Lote/Serie, Fecha de Vencimiento, de acuerdo a Norma Técnica de Minsal °226/22.",
+        "La adquisición de estos productos será de forma parcializada según la cantidad y periocidad que el hospital considere necesario. {% if pedro %}",
+        "El proveedor deberá despachar los productos señalando explícitamente Nombre del producto, Identificación del Proveedor y N° de Guía/Factura, Modelo (solo cuando corresponda), N° de Lote/Serie, Fecha de Vencimiento, de acuerdo a Norma Técnica de Minsal °226/22.{% endif %}",
         "Los productos deberán ser entregado en las dependencias del Hospital de Melipilla, considerando el traslado carga y descarga.",
         "La propuesta deberá contemplar todos los costos de trasporte para el despacho de los productos. El Hospital no cancelará ningún costo asociado a esta temática.",
         "Desde el requerimiento, el proveedor tendrá un máximo 7 días corridos para entregar los productos, siempre respetando los plazos ofertados según anexo Plazo de Entrega.",
@@ -1322,7 +1322,7 @@ def main():
         "El gasto que eventualmente se genere por artículos rechazados será de cargo a la empresa adjudicada.",
         "El embalaje deberá ser suficiente para soportar, sin límites, la manipulación brusca y descuidada durante el tránsito y la exposición a temperaturas extremas.",
         "El proveedor deberá permitir la apertura de cajas, bolsas, etc., para la correcta revisión de los productos entregados al Hospital por el personal de Bodega del Establecimiento para así dar una correcta recepción conforme.",
-        "En los casos que los productos sean despachados por empresas de transporte estos deberán permitir la revisión de los productos, en caso contrario los productos serán rechazados."
+        "En los casos que los productos sean despachados por empresas de transporte estos deberán permitir la revisión de los productos, en caso contrario los productos serán rechazados.{% if pedro %}"
     ]
 
     for item_text in entrega_recepcion_items:
@@ -1334,7 +1334,7 @@ def main():
     p_ultimo.add_run("Los productos deberán ser entregados en ")
     p_ultimo.add_run("Bodega de Farmacia").bold = True
     p_ultimo.add_run(
-        " del Hospital San José de Melipilla ubicada en calle O’Higgins #551, en los siguientes horarios: lunes a viernes de 8:00 a 14:00 horas")
+        " del Hospital San José de Melipilla ubicada en calle O’Higgins #551, en los siguientes horarios: lunes a viernes de 8:00 a 14:00 horas{% endif %}")
 
 
     doc.add_heading("MOTIVOS DE RECHAZO POR OBSERVACIÓN FÍSICA (ya iniciado en contrato):", level=4)
