@@ -370,14 +370,16 @@ def main():
         "Décimo Sexto Pacto de Integridad",
         "Décimo Séptimo Comportamiento ético del Adjudicatario.",
         "Décimo Octavo Auditorías",
-        "DécimoNoveno Confidencialidad",
+        "Décimo Noveno Confidencialidad",
         "Vigésimo Propiedad de la información",
         "Vigésimo Primero Saldos insolutos de remuneraciones o cotizaciones de seguridad social.",
         "Vigésimo Segundo Normas Laborales Aplicables",
         "Vigésimo Tercero Cambio de personal del proveedor adjudicado.",
         "Vigésimo Cuarto Cesión y subcontratación.",
         "Vigésimo Quinto Discrepancias",
-        "Constancia",
+        "Vigésimo Sexto Constancia",
+        "Vigésimo Séptimo  Ejemplares",
+        "Vigésimo Octavo La personería"
     ]
 
     #"Entrega y Recepción",
