@@ -11,6 +11,9 @@ from docx.oxml.ns import qn
 # from docx.enum.text import WD_BREAK
 from docx.shared import Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docxtpl import DocxTemplate
+from Jinja_2 import context_for_template1
+
 
 
 def configurar_directorio_trabajo():
@@ -183,7 +186,14 @@ def aplicar_formato_global(doc):
 
 def main():
     configurar_directorio_trabajo()
-    doc = Document("portada_melipilla_base.docx")
+    global DocxTemplate
+
+    portada_template_v1 = DocxTemplate("portada_melipilla_base.docx")
+    portada_template_v1.render(context_for_template1)
+    portada_template_v1.save("portada_melipilla_base_rendered.docx")
+
+
+    doc = Document("portada_melipilla_base_rendered.docx")
     list_style = 'List Number'
     if list_style not in doc.styles:
         doc.styles.add_style(list_style, WD_STYLE_TYPE.PARAGRAPH)
@@ -628,7 +638,7 @@ def main():
 
     inadmisibilidad_p1 = doc.add_paragraph()
     inadmisibilidad_p1.add_run("Inadmisibilidad de las ofertas y declaración de desierta de la licitación: ").bold = True
-    inadmisibilidad_p1.add_run("La entidad licitante declarará inadmisible las ofertas presentadas que no cumplan los requisitos mínimos establecidos en los Anexos N°5 {anexo_listado} y/o las condiciones establecidas en las presentes bases de licitación, sin perjuicio de la facultad para solicitar a los oferentes que salven errores u omisiones formales de acuerdo con lo establecido en las presentes bases.")
+    inadmisibilidad_p1.add_run("La entidad licitante declarará inadmisible las ofertas presentadas que no cumplan los requisitos mínimos establecidos en los Anexos N°5 {{ anexo_listado }} y/o las condiciones establecidas en las presentes bases de licitación, sin perjuicio de la facultad para solicitar a los oferentes que salven errores u omisiones formales de acuerdo con lo establecido en las presentes bases.")
 
     agregar_parrafo_con_texto(doc, "La entidad licitante podrá, además, declarar desierta la licitación cuando no se presenten ofertas o cuando éstas no resulten convenientes a sus intereses. Dichas declaraciones deberán materializarse a través de la dictación de una resolución fundada y no darán derecho a indemnización alguna a los oferentes.")
 
@@ -645,9 +655,9 @@ def main():
     tabla_criterios_datos = [
         ["CRITERIOS", "", "PONDERACIÓN", "EVALUADO\nSEGÚN ANEXO"],
         ["ECONÓMICO", "OFERTA ECONÓMICA", "60%", "ANEXO N°5"],
-        ["TÉCNICOS", "EVALUACIÓN TÉCNICA", "{pct_eval_tecnica}", "ANEXO N°6"],
-        ["", "PLAZO DE ENTREGA", "{pct_eval_plazo}", "ANEXO N°8"],
-        ["", "SERVICIO POST-VENTA", "{pct_eval_post}", "ANEXO N°9"]
+        ["TÉCNICOS", "EVALUACIÓN TÉCNICA", "{{ pct_eval_tecnica }}", "ANEXO N°6"],
+        ["", "PLAZO DE ENTREGA", "{{ pct_eval_plazo }}", "ANEXO N°8"],
+        ["", "SERVICIO POST-VENTA", "{{ pct_eval_post }}", "ANEXO N°9"]
     ]
     tabla_criterios = crear_tabla(doc, tabla_criterios_datos)
     tabla_criterios.cell(0, 0).merge(tabla_criterios.cell(0, 1))
@@ -1101,7 +1111,7 @@ def main():
 
     pf1 = doc.add_paragraph()
     pf1.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    pf1.add_run("{representante_legal}").bold = True
+    pf1.add_run("{{ representante_legal}}").bold = True
 
     pf2 = doc.add_paragraph()
     pf2.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -1564,6 +1574,7 @@ def main():
     doc_path = 'base_automatizada.docx'
     doc.save(doc_path)
     print(f"Documento guardado como: {doc_path}")
+
 
 if __name__ == "__main__":
     main()

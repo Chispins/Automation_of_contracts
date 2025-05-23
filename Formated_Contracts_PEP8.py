@@ -15,6 +15,7 @@ from docx.oxml.ns import qn
 from docx.enum.text import WD_BREAK
 from win32com import client
 import pythoncom
+from docxtpl import DocxTemplate
 
 
 def configurar_directorio_trabajo():
@@ -279,7 +280,7 @@ def main():
     print(f"Directorio temporal creado: {temp_dir}")
 
     # Definir archivo original y copia temporal
-    original_file = "base_automatizada_jinja2.docx"
+    original_file = "contrato_automatizado_rendered.docx"
     original_path = os.path.join(current_dir, original_file)
     temp_file = os.path.join(temp_dir, f"temp_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{original_file}")
 
@@ -294,8 +295,16 @@ def main():
     # Cargar documento temporal y crear documento destino
     print("Cargando copia temporal del documento...")
     word = Document(temp_file)
-    doc = Document("portada_melipilla_contrato.docx")
+
+    # Trabajo con la portada
+    portada_template = DocxTemplate("portada_melipilla_contrato.docx")
+    context = {"numero_contrato": "123456789", "involucrados": "MMJ,ASJ,MMA,MVO,PQE"}
+    from Jinja_2 import context_for_template2
+    portada_template.render(context_for_template2)
+    portada_template.save("portada_melipilla_contrato_renderizado.docx")
+    doc = Document("portada_melipilla_contrato_renderizado.docx")
     print("Documento temporal cargado.")
+
 
     # Titulo
     heading_paragraph = doc.add_heading('', level=0)
