@@ -18,8 +18,9 @@ def configurar_directorio_trabajo():
         print(f"Advertencia: El directorio '{wd}' no existe. "
               "No se cambió el directorio de trabajo.")
 
-if __name__ == "__main__":
-    # Call the function to set the working directory
+def create_melipilla_document(archivo="base"):
+    """Crea el documento de portada para Melipilla con la configuración especificada."""
+    # Configurar directorio de trabajo
     configurar_directorio_trabajo()
 
     # Define image paths
@@ -66,8 +67,6 @@ if __name__ == "__main__":
         print(f"Error adding picture '{logo_melipilla_name}' to table: {e}")
 
     # Add text below the table
-    archivo = "base"
-
     if archivo == "base":
         text_lines = (
             "SERVICIO SALUD OCCIDENTE",
@@ -94,22 +93,19 @@ if __name__ == "__main__":
         if paragraph.runs:
             font = paragraph.runs[0].font
             font.size = Pt(8)
-            # Set size to 8 points
             if line == "BASE N° {{ numero_base }}":
                 font.bold = True
-
 
     # Save the document
     if archivo == "base":
         output_filename = "portada_melipilla_base.docx"
         doc.save(output_filename)
     elif archivo == "contrato":
-        output_filename = "portada_melipilla_contrato"
+        output_filename = "portada_melipilla_contrato.docx"
         doc.save(output_filename)
 
-    # Al final del archivo, después de intentar guardar el documento
+    # Verify the saved file
     try:
-        # Verificar si el archivo existe después de guardarlo
         output_path = os.path.abspath(output_filename)
         if os.path.exists(output_path):
             tamaño_archivo = os.path.getsize(output_path) / 1024  # Tamaño en KB
@@ -120,3 +116,7 @@ if __name__ == "__main__":
             print(f"❌ Error: No se encontró el archivo '{output_filename}' después de intentar guardarlo.")
     except Exception as e:
         print(f"❌ Error al verificar el archivo guardado: {str(e)}")
+
+if __name__ == "__main__":
+    # Ejecutar la función principal si se corre directamente
+    create_melipilla_document(archivo="base")

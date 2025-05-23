@@ -4,7 +4,6 @@ import random
 import copy
 import shutil
 import tempfile
-import docx
 from datetime import datetime
 from docx import Document
 from Formated_Base_PEP8 import aplicar_formato_global
@@ -16,6 +15,7 @@ from docx.enum.text import WD_BREAK
 from win32com import client
 import pythoncom
 from docxtpl import DocxTemplate
+from win32com.client import constants
 
 
 def configurar_directorio_trabajo():
@@ -226,10 +226,6 @@ def copiar_seccion_completa(doc_destino, seccion_heading, elementos_seccion, niv
             # No copiar tablas en esta etapa, solo agregar un marcador de posición
             doc_destino.add_paragraph(f"[[TABLE_PLACEHOLDER]]")
 
-
-from win32com import client
-from win32com.client import constants
-import pythoncom, os
 
 def copiar_tablas_con_win32(source_path, intermediate_path, prototipo_path, output_path):
     pythoncom.CoInitialize()

@@ -14,8 +14,6 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docxtpl import DocxTemplate
 from Jinja_2 import context_for_template1
 
-
-
 def configurar_directorio_trabajo():
     """Configura el directorio de trabajo en la subcarpeta 'Files'."""
     cwd = os.getcwd()
@@ -188,12 +186,13 @@ def main():
     configurar_directorio_trabajo()
     global DocxTemplate
 
-    portada_template_v1 = DocxTemplate("portada_melipilla_base.docx")
-    portada_template_v1.render(context_for_template1)
-    portada_template_v1.save("portada_melipilla_base_rendered.docx")
+    #portada_template_v1 = DocxTemplate("portada_melipilla_base.docx")
+    #portada_template_v1.render(context_for_template1)
+    #portada_template_v1.save("portada_melipilla_base_rendered.docx")
 
+    #doc = Document("portada_melipilla_base_rendered.docx")
+    doc = Document("portada_melipilla_base.docx")
 
-    doc = Document("portada_melipilla_base_rendered.docx")
     list_style = 'List Number'
     if list_style not in doc.styles:
         doc.styles.add_style(list_style, WD_STYLE_TYPE.PARAGRAPH)

@@ -1,16 +1,31 @@
 import jinja2
 import pandas as pd
 from docxtpl import DocxTemplate
+import os
+import re
 # Assuming configurar_directorio_trabajo is correctly defined
-from Formated_Base_PEP8 import configurar_directorio_trabajo
 
+def configurar_directorio_trabajo():
+    """Configura el directorio de trabajo en la subcarpeta 'Files'."""
+    cwd = os.getcwd()
+    target_dir_name = "Files"
+    wd = os.path.join(cwd, target_dir_name)
+    pattern = r"Files\\Files"
+    if re.search(pattern, wd):
+        wd = wd.replace(r"\Files\Files", r"\Files")
+    if os.path.isdir(wd):
+        os.chdir(wd)
+        print(f"Directorio de trabajo cambiado a: {wd}")
+    else:
+        print(f"Advertencia: El directorio '{wd}' no existe o no es válido.")
 # Set up the working directory
 configurar_directorio_trabajo()
 
 excel_name = "Libro1.xlsx"
 
 template_name_1 = "base_automatizada.docx"
-template_name_2 = "contrato_automatizado_tablas.docx" # Assuming this is the second template
+template_name_2 = "base_automatizada.docx" # Assuming this is the second template
+template_name_3 = "contrato_automatizado_tablas.docx"
 
 # Function to strip whitespace and handle potential NaN/empty values
 def strip_dataframe_and_handle_empty(df):
@@ -163,13 +178,15 @@ contrato_p1_data_dict["director"] = " la Resolución Exenta RA 116395/343/2024 d
 # Merge all necessary data into a single dictionary
 context_for_template1 = {}
 context_for_template1.update(base_data_dict)
-context_for_template1.update(contrato_p1_data_dict)
+#context_for_template1.update(contrato_p1_data_dict)
 # Add data from P2 here if needed in the first template:
 # context_for_template1.update(contrato_p2_data_dict) # Uncomment if P2 data is needed in template 1
 
 # Context for the second template (contrato_automatizado_tablas.docx)
 # Merge necessary data into a single dictionary for template 2
 context_for_template2 = {}
+context_for_template2.update(base_data_dict)
+context_for_template2.update(contrato_p1_data_dict)
 context_for_template2.update(contrato_p2_data_dict)
 # Add data from Base or P1 here if needed in the second template:
 # context_for_template2.update(base_data_dict) # Uncomment if Base data is needed in template 2
@@ -195,15 +212,26 @@ except Exception as e:
 
 # Render and save the second template (if you need to generate a second document)
 # Check if template_name_2 is defined and exists
-if template_name_2:
+"""if template_name_2:
     try:
         doc2 = DocxTemplate(template_name_2)
         # Call render() only ONCE with the combined context
         doc2.render(context_for_template2)
-        output_filename_2 = "contrato_automatizado_tablas_rendered.docx" # Clearer filename
+        output_filename_2 = "contrato_automatizado_rendered.docx" # Clearer filename
         doc2.save(output_filename_2)
         print(f"Successfully rendered and saved '{output_filename_2}'")
     except FileNotFoundError:
          print(f"Error: Template file '{template_name_2}' not found.")
     except Exception as e:
         print(f"An error occurred during rendering of {template_name_2}: {e}")
+"""
+try:
+    doc3 = DocxTemplate(template_name_3)
+    doc3.render(context_for_template2)
+    output_filename_3 = "contrato_automatizado_rendered.docx"
+    doc3.save(output_filename_3)
+    print(f"Successfully rendered and saved '{output_filename_3}'")
+except FileNotFoundError:
+    print(f"Error: Template file '{template_name_3}' not found.")
+except Exception as e:
+    print(f"An error occurred during rendering of {template_name_3}: {e}")
