@@ -3,9 +3,13 @@ import sys
 import time
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-import pandas as pd
-import psutil
 import shutil
+import re
+import shutil
+import importlib.util
+from docxtpl import DocxTemplate
+import pandas as pd
+
 # Definimos el directorio a monitorear
 directorio = r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\Licitaciones_Testing"
 import docx
@@ -88,12 +92,79 @@ class Handler(FileSystemEventHandler):
                 print(f"Error al procesar directorio: {e}")
 
 def generar_base():
-    # Aquí iría la lógica para generar la base automatizada
-    print("Generando base automatizada...")
+    """Genera la base automatizada usando el módulo Formated_Bases"""
+    try:
+        # Guardar el directorio actual
+        dir_original = os.getcwd()
+
+        # Buscar el archivo en diferentes ubicaciones posibles
+        posibles_rutas = [
+            os.path.join(cwd, "Formated_Base_PEP8.py"),
+            os.path.join(os.path.dirname(cwd), "Formated_Base_PEP8.py"),
+            os.path.join(directorio, "Formated_Base_PEP8.py"),
+            r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\NO_MODIFICAR\Formated_Base_PEP8.py"
+        ]
+
+        ruta_formated_bases = None
+        for ruta in posibles_rutas:
+            print(f"Buscando módulo en: {ruta}")
+            if os.path.exists(ruta):
+                ruta_formated_bases = ruta
+                break
+
+        if not ruta_formated_bases:
+            raise FileNotFoundError("No se pudo encontrar Formated_Base_PEP8 en ninguna ubicación conocida")
+
+        print(f"Módulo encontrado en: {ruta_formated_bases}")
+
+        # Cargar el módulo sin ejecutar su código principal
+        modulo_formated_bases = cargar_modulo_desde_archivo(ruta_formated_bases, "formated_bases")
+
+        print("Generando base automatizada...")
+        # Llamar a la función principal del módulo con el directorio actual
+        modulo_formated_bases.main_bases(archivo="base", wd=dir_original, monitoring=True)
+
+        print("Base automatizada generada correctamente.")
+    except Exception as e:
+        print(f"Error al generar la base automatizada: {e}")
+
 
 def generar_contrato():
-    # Aquí iría la lógica para generar el contrato automatizado
-    print("Generando contrato automatizado...")
+    """Genera el contrato automatizado usando el módulo Formated_Contracts_PEP8"""
+    try:
+        # Guardar el directorio actual
+        dir_original = os.getcwd()
+
+        # Buscar el archivo en diferentes ubicaciones posibles
+        posibles_rutas = [
+            os.path.join(cwd, "Formated_Contracts_PEP8.py"),
+            os.path.join(os.path.dirname(cwd), "Formated_Contracts_PEP8.py"),
+            os.path.join(directorio, "Formated_Contracts_PEP8.py"),
+            r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\NO_MODIFICAR\Formated_Contracts_PEP8.py"
+        ]
+
+        ruta_formated_contracts = None
+        for ruta in posibles_rutas:
+            print(f"Buscando módulo en: {ruta}")
+            if os.path.exists(ruta):
+                ruta_formated_contracts = ruta
+                break
+
+        if not ruta_formated_contracts:
+            raise FileNotFoundError("No se pudo encontrar Formated_Contracts_PEP8.py en ninguna ubicación conocida")
+
+        print(f"Módulo encontrado en: {ruta_formated_contracts}")
+
+        # Cargar el módulo sin ejecutar su código principal
+        modulo_formated_contracts = cargar_modulo_desde_archivo(ruta_formated_contracts, "formated_contracts")
+
+        print("Generando contrato automatizado...")
+        # Llamar a la función principal del módulo con el directorio actual
+        modulo_formated_contracts.main(wd=dir_original, monitoring=True)
+
+        print("Contrato automatizado generado correctamente.")
+    except Exception as e:
+        print(f"Error al generar el contrato automatizado: {e}")
 
 def render_base():
     print("render")
@@ -131,6 +202,98 @@ def iniciar_monitoreo(path):
 
     observer.join()
 
+
+# Sugerencias de ChatGPT:
+
+def configurar_directorio_trabajo(reset=False, directorio_base=None):
+    """
+    Configura el directorio de trabajo en la subcarpeta 'Files'.
+
+    Args:
+        reset: Si es True, restaura el directorio original después de realizar operaciones
+        directorio_base: Directorio base alternativo para usar en lugar del CWD
+
+    Returns:
+        El directorio original si reset=True, para poder restaurarlo después
+    """
+    directorio_original = os.getcwd()
+
+    if directorio_base:
+        cwd = directorio_base
+    else:
+        cwd = directorio_original
+
+    target_dir_name = "Files"
+    wd = os.path.join(cwd, target_dir_name)
+
+    # Evitar rutas duplicadas
+    pattern = r"Files\\Files"
+    if re.search(pattern, wd):
+        wd = wd.replace(r"\Files\Files", r"\Files")
+
+    if os.path.isdir(wd):
+        os.chdir(wd)
+        print(f"Directorio de trabajo cambiado a: {wd}")
+    else:
+        print(f"Advertencia: El directorio '{wd}' no existe o no es válido.")
+
+    if reset:
+        return directorio_original
+    return None
+
+def cargar_modulo_desde_archivo(ruta_archivo, nombre_modulo):
+    """
+    Carga un módulo Python desde una ruta de archivo sin ejecutar su código principal.
+
+    Args:
+        ruta_archivo: Ruta al archivo Python
+        nombre_modulo: Nombre para el módulo importado
+
+    Returns:
+        El módulo cargado
+    """
+    spec = importlib.util.spec_from_file_location(nombre_modulo, ruta_archivo)
+    modulo = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(modulo)
+    return modulo
+
+
+def procesar_documento_completo():
+    """Función principal que integra la funcionalidad de los distintos módulos"""
+
+    # Guardar el directorio original
+    dir_original = os.getcwd()
+
+    try:
+        # 1. Configurar directorio de trabajo inicial
+        configurar_directorio_trabajo()
+
+        # 2. Importar los módulos necesarios (sin ejecutar el código principal)
+        # Asegúrate de que las rutas sean correctas según tu estructura de archivos
+        modulo_formated_contracts = cargar_modulo_desde_archivo("../Formated_Contracts_PEP8.py", "formated_contracts")
+        modulo_formated_bases = cargar_modulo_desde_archivo("../Formated_Base_PEP8.py", "formated_bases")
+
+        # 3. Ejecutar la funcionalidad de Formatted_Contracts_PEP8
+        # Accede a las funciones del módulo pero sin ejecutar su __main__
+        print("Procesando contrato...")
+        modulo_formated_contracts.main()
+
+        # 4. Ejecutar la funcionalidad de Jinja (aprovechando el código existente)
+        print("Aplicando plantillas Jinja...")
+        # Aquí podría ir el código de procesamiento de Jinja adaptado para usar rutas absolutas
+        excel_name = os.path.abspath("Libro1.xlsx")
+        template_name_1 = os.path.abspath("base_automatizada.docx")
+        template_name_3 = os.path.abspath("contrato_automatizado_tablas.docx")
+
+        # Lógica de procesamiento de Jinja...
+        # (Incluir aquí el código del procesamiento de Jinja adaptado para usar rutas absolutas)
+
+        print("Proceso completo finalizado con éxito!")
+
+    finally:
+        # Restaurar el directorio original al finalizar
+        os.chdir(dir_original)
+        print(f"Directorio restaurado a: {dir_original}")
 
 # Ejecutamos la función de monitoreo
 if __name__ == "__main__":
