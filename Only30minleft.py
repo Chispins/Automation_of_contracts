@@ -54,9 +54,7 @@ class Handler(FileSystemEventHandler):
                     print(f"Error al procesar {file_name}: {e}")
 
     def on_created(self, event):
-        # Usamos directamente el event.src_path que ya es una ruta absoluta
         directorio_carpeta_creada = event.src_path
-
         print(f"Carpeta monitoreada es {directorio_carpeta_creada}")
 
         if event.is_directory:
@@ -65,8 +63,22 @@ class Handler(FileSystemEventHandler):
                 doc_base = docx.Document()
                 doc_contrato = docx.Document()
                 name_file_origin = "Libro1.xlsx"
-                file_origin = os.path.join(r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\NO_MODIFICAR", name_file_origin)
+                file_origin = os.path.join(r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\NO_MODIFICAR",
+                                           name_file_origin)
                 destination = os.path.join(directorio_carpeta_creada, name_file_origin)
+
+                # Verificar si el archivo origen existe
+                if not os.path.exists(file_origin):
+                    print(f"Error: Archivo origen {file_origin} no existe.")
+                    # Intentar buscar en otras ubicaciones
+                    alternative_origin = os.path.join(cwd, name_file_origin)
+                    if os.path.exists(alternative_origin):
+                        file_origin = alternative_origin
+                        print(f"Se encontró archivo alternativo en: {file_origin}")
+                    else:
+                        print("No se encontró archivo Libro1.xlsx en ninguna ubicación.")
+                        return
+
                 if os.path.exists(destination):
                     print(f"El archivo {name_file_origin} ya existe en {destination}.")
                 else:
@@ -91,13 +103,12 @@ class Handler(FileSystemEventHandler):
             except Exception as e:
                 print(f"Error al procesar directorio: {e}")
 
+
 def generar_base():
-    """Genera la base automatizada usando el módulo Formated_Bases"""
     try:
-        # Guardar el directorio actual
         dir_original = os.getcwd()
 
-        # Buscar el archivo en diferentes ubicaciones posibles
+        # Buscar el módulo Formated_Base_PEP8.py
         posibles_rutas = [
             os.path.join(cwd, "Formated_Base_PEP8.py"),
             os.path.join(os.path.dirname(cwd), "Formated_Base_PEP8.py"),
@@ -113,21 +124,49 @@ def generar_base():
                 break
 
         if not ruta_formated_bases:
-            raise FileNotFoundError("No se pudo encontrar Formated_Base_PEP8 en ninguna ubicación conocida")
+            raise FileNotFoundError("No se pudo encontrar Formated_Base_PEP8.py en ninguna ubicación conocida")
 
         print(f"Módulo encontrado en: {ruta_formated_bases}")
 
-        # Cargar el módulo sin ejecutar su código principal
+        # Buscar el archivo Libro1.xlsx en las subcarpetas del directorio
+        ruta_excel = None
+
+        # Primero intentar en la carpeta principal
+        posibles_rutas_excel = [
+            os.path.join(directorio, "Libro1.xlsx"),
+            os.path.join(dir_original, "Libro1.xlsx"),
+        ]
+
+        # Luego buscar en todas las subcarpetas (sólo un nivel)
+        if os.path.exists(directorio):
+            for item in os.listdir(directorio):
+                item_path = os.path.join(directorio, item)
+                if os.path.isdir(item_path):
+                    excel_path = os.path.join(item_path, "Libro1.xlsx")
+                    posibles_rutas_excel.append(excel_path)
+
+        for ruta in posibles_rutas_excel:
+            print(f"Buscando Excel en: {ruta}")
+            if os.path.exists(ruta):
+                ruta_excel = ruta
+                break
+
+        if not ruta_excel:
+            raise FileNotFoundError(f"No se pudo encontrar Libro1.xlsx en ninguna ubicación conocida")
+
+        print(f"Excel encontrado en: {ruta_excel}")
+
         modulo_formated_bases = cargar_modulo_desde_archivo(ruta_formated_bases, "formated_bases")
 
         print("Generando base automatizada...")
-        # Llamar a la función principal del módulo con el directorio actual
-        modulo_formated_bases.main_bases(archivo="base", wd=dir_original, monitoring=True)
+        modulo_formated_bases.main_bases(archivo="base", wd=os.path.dirname(ruta_excel), monitoring=True,
+                                         excel_path=ruta_excel)
 
         print("Base automatizada generada correctamente.")
     except Exception as e:
         print(f"Error al generar la base automatizada: {e}")
-
+        import traceback
+        traceback.print_exc()
 
 def generar_contrato():
     """Genera el contrato automatizado usando el módulo Formated_Contracts_PEP8"""
@@ -295,6 +334,26 @@ def procesar_documento_completo():
         os.chdir(dir_original)
         print(f"Directorio restaurado a: {dir_original}")
 
+
+def verificar_archivos_necesarios():
+    """Verifica que los archivos necesarios existan"""
+    archivos = {
+        "Libro1.xlsx": r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\NO_MODIFICAR\Libro1.xlsx"
+    }
+
+    for nombre, ruta in archivos.items():
+        if not os.path.exists(ruta):
+            print(f"Advertencia: El archivo {nombre} no existe en {ruta}")
+            # Crear una copia desde el directorio local si existe
+            local_path = os.path.join(cwd, nombre)
+            if os.path.exists(local_path):
+                os.makedirs(os.path.dirname(ruta), exist_ok=True)
+                shutil.copy2(local_path, ruta)
+                print(f"Se ha copiado {nombre} desde {local_path} a {ruta}")
+            else:
+                print(f"Error: No se encontró {nombre} en ninguna ubicación.")
+
 # Ejecutamos la función de monitoreo
 if __name__ == "__main__":
+    verificar_archivos_necesarios()  # Añadir esta línea
     iniciar_monitoreo(directorio)
