@@ -243,9 +243,6 @@ if resultado_requisitos:
     encabezado_req, parrafos_req, nivel_req = resultado_requisitos
     copiar_seccion_completa(doc, encabezado_req, parrafos_req, nivel_req)
 
-resultado_ofertas_req = extraer_seccion_completa(word, "Instrucciones para la Presentación de Ofertas.")
-if resultado_ofertas_req:
-    encabezado_ofertas, parrafos_ofertas, nivel_ofertas = resultado_ofertas_req
-    copiar_seccion_completa(doc, encabezado_ofertas, parrafos_ofertas, nivel_ofertas)
 # Guardar documento
 doc.save("seccion_completa_copiada.docx")
+

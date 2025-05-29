@@ -28,6 +28,9 @@ Datos_Javi = {
     "anexos_tecnicos": "y los Anexos Técnicos N°7, N°8 y N°9",
     "metodo_adjudicacion": "la totalidad",
     "administrador_tecnico_administrativo": "la Enfermera Supervisora de Pabellón y el encargado en aspectos administrativos será el Jefe de Farmacia o quien lo subrogue."
+    #"texto_extra" : "La adjudicación se realizará por",
+    #"tipo_adjudicacion" : "valor unitario",
+
 
 }
 
@@ -80,6 +83,7 @@ doc = DocxTemplate(template_path)
 
 # 2. Render the template with the context data
 doc.render(Datos_Javi)
+
 doc.render(Datos_Contrato)
 
 # 3. Save the generated document
@@ -88,6 +92,21 @@ doc.save(output_path)
 print(f"Report '{output_path}' generated successfully!")
 
 
+# Ahora con el final
+Datos_Contrato_Portada = {
+    "numero_contrato": "4",
+    "involucrados": "CRE/RMG/MMJ/MGL/MES",
+    "fecha_contrato": "02 de enero de 2025",
+    "nombre_proveedor": "MEDCORP S.A",
+    "rut_proveedor": "76.131.542-0",
+    "representante_legal": "doña Alejandra Ana Cuesta Nazar",
+    "rut_representante_legal": "15.638.432-1",
+    "domicilio_representante_legal": "San Fernando 1234, Santiago"
+}
+contrato_con_tablas = DocxTemplate("contrato_automatizado_tablas.docx")
+# Usar la instancia 'contrato_con_tablas' para renderizar y guardar el documento
+contrato_con_tablas.render(Datos_Contrato_Portada)
+contrato_con_tablas.save("contrato_automatizado_portada_jinja2_segunda.docx")
 
 
 
@@ -117,3 +136,34 @@ Datos_Contrato_Base = {
     "VigesimoQuinto_Discrepancias": "VigesimoQuinto_Discrepancias"
 }
 
+
+import pandas as pd
+excel_name = "Libro1.xlsx"
+
+Datos_Base_excel = pd.read_excel(excel_name, sheet_name="Datos_Base")
+base_nomb = Datos_Base_excel.iloc[:, 0]
+base_base = Datos_Base_excel.iloc[:, 1]
+diccion = [f"{nombre}: {base}" for nombre, base in zip(base_nomb, base_base)]
+
+
+
+Datos_Contrato_P1 = pd.read_excel(excel_name, sheet_name="Datos_Contrato_P1")
+# Now the same
+contrato_nomb = Datos_Contrato_P1.iloc[:, 0]
+contrato_base = Datos_Contrato_P1.iloc[:, 1]
+diccion = [f"{nombre}: {base}" for nombre, base in zip(contrato_nomb, contrato_base)]
+
+
+
+
+Datos_Contrato_P2 = pd.read_excel(excel_name, sheet_name="Datos_Contrato_P2")
+# Now the same
+contrato_nomb_p2 = Datos_Contrato_P2.iloc[:, 0]
+contrato_base_p2 = Datos_Contrato_P2.iloc[:, 1]
+diccion = [f"{nombre}: {base}" for nombre, base in zip(contrato_nomb_p2, contrato_base_p2)]
+
+
+# Now the jinja with the the diccionaries of the first two things
+
+templ = "base_automatizada.docx"
+templ_output_1 = ""

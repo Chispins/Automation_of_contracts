@@ -12,40 +12,23 @@ from docx.oxml.ns import qn
 from docx.shared import Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docxtpl import DocxTemplate
-from Jinja_2 import context_for_template1
+# from Jinja_2 import context_for_template1
 
-def configurar_directorio_trabajo():
-    """Configura el directorio de trabajo en la subcarpeta 'Files'."""
+
+"""def configurar_directorio_trabajo():
     cwd = os.getcwd()
     target_dir_name = "Files"
-    wd = os.path.join(cwd, target_dir_name)
-    pattern = r"Files\\Files"
-    if re.search(pattern, wd):
+    wd = os.path.join(cwd, target_dir_name)""" #pattern = r"Files\\Files"
+
+"""if re.search(pattern, wd):
         wd = wd.replace(r"\Files\Files", r"\Files")
     if os.path.isdir(wd):
         os.chdir(wd)
         print(f"Directorio de trabajo cambiado a: {wd}")
     else:
-        print(f"Advertencia: El directorio '{wd}' no existe o no es válido.")
-
-def agregar_bookmark(parrafo, bookmark_id, bookmark_name):
-    """
-    Agrega un bookmark a un párrafo específico.
-    :param parrafo: El párrafo al que se le añadirá el bookmark.
-    :param bookmark_id: ID único para el bookmark.
-    :param bookmark_name: Nombre del bookmark.
-    """
-    p = parrafo._p
-    # Crear elemento de inicio del bookmark
-    bookmark_start = OxmlElement('w:bookmarkStart')
-    bookmark_start.set(qn('w:id'), str(bookmark_id))
-    bookmark_start.set(qn('w:name'), bookmark_name)
-    p.append(bookmark_start)
-
-    # Crear elemento de fin del bookmark (después del contenido del párrafo)
-    bookmark_end = OxmlElement('w:bookmarkEnd')
-    bookmark_end.set(qn('w:id'), str(bookmark_id))
-    p.append(bookmark_end)
+        print(f"Advertencia: El directorio '{wd}' no existe o no es válido.")"""
+# Set up the working directory
+#configurar_directorio_trabajo()"""
 
 def crear_numeracion(doc):
     """Crea un formato de numeración y devuelve su ID."""
@@ -183,14 +166,14 @@ def aplicar_formato_global(doc):
 #numero_base = str(140)
 
 def main():
-    configurar_directorio_trabajo()
+    #""configurar_directorio_trabajo()""
     global DocxTemplate
 
     #portada_template_v1 = DocxTemplate("portada_melipilla_base.docx")
     #portada_template_v1.render(context_for_template1)
     #portada_template_v1.save("portada_melipilla_base_rendered.docx")
 
-    #doc = Document("portada_melipilla_base_rendered.docx")
+    # Cambiar el nombre del archivo generado
     doc = Document("portada_melipilla_base.docx")
 
     list_style = 'List Number'
@@ -1570,9 +1553,9 @@ def main():
     # Aplicar formato global
     aplicar_formato_global(doc)
 
-    doc_path = 'base_automatizada.docx'
-    doc.save(doc_path)
-    print(f"Documento guardado como: {doc_path}")
+    # Guardar el documento con el nuevo nombre
+    doc.save("plantilla_original.docx")
+    print("Documento guardado como: plantilla_original.docx")
 
 
 if __name__ == "__main__":

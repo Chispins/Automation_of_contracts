@@ -171,7 +171,7 @@ class MyHandler(FileSystemEventHandler):
 
             # Crear y renderizar documento contrato si triger_2 es "si"
             contrato_path = os.path.join(wd, "contrato_automatizado_tablas.docx")
-            contrato_rendered_path = os.path.join(wd, "contrato_automatizado_rendered.docx")
+            contrato_rendered_path = os.path.join(wd, "contrato_automatizado_tablas_rendered.docx")
             if triger_2 == "si":
                 # Primero, crear la plantilla de contrato si no existe
                 if not os.path.exists(contrato_path):
@@ -198,6 +198,7 @@ class MyHandler(FileSystemEventHandler):
                 print(f"Renderizado de contrato omitido en {wd}: triger_2 no es 'si' (triger_2={triger_2})")
         except Exception as e:
             print(f"Error al renderizar documentos en {wd}: {e}")
+
 #template_name_2 = context_for_tempate_"
 
 def monitor_directories(directories):

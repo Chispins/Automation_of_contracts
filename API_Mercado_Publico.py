@@ -111,6 +111,9 @@ import requests
 from bs4 import BeautifulSoup
 import time # Optional: Add a small delay between requests for politeness
 
+# Get
+
+
 def get_mercadopublico_sales(rut):
     """
     Fetches the sales value for a given RUT from Mercado Público.
@@ -175,10 +178,12 @@ def get_mercadopublico_sales(rut):
         return None # Handle any other unexpected errors during parsing/processing
 
 
+
+
 # --- Main execution ---
 
 # Your list of RUT numbers
-rut_numbers = [
+"""rut_numbers = [
     "78.615.850-8"
 ]
 # Dictionary to store the results
@@ -210,4 +215,60 @@ for rut, sales in sales_results.items():
 #     writer.writeheader()
 #     for rut, sales in sales_results.items():
 #         writer.writerow({'RUT': rut, 'VENTAS_EN_MERCADO_PUBLICO': sales if sales is not None else ''})
-# print("\nResults saved to mercadopublico_sales.csv")
+# print("\nResults saved to mercadopublico_sales.csv")"""
+
+
+def obtener_detalles_licitacion(tender_id):
+    """
+    Obtiene todos los detalles de una licitación desde la API de Mercado Público usando su ID.
+
+    Args:
+        tender_id (str): ID de la licitación (ej. "1509-5-L114")
+
+    Returns:
+        dict: Datos completos de la licitación o None en caso de error
+    """
+    import requests
+
+    # Configuración de la API
+    BASE_URL = "https://api.mercadopublico.cl/servicios/v1/publico/licitaciones.json"
+    ACCESS_TICKET = "78240120-F9A8-4FDA-AC92-167A134B5FF1"  # TICKET DE PRUEBA
+
+    # Parámetros de la solicitud
+    params = {
+        "codigo": tender_id,
+        "ticket": ACCESS_TICKET
+    }
+
+    try:
+        # Realizar la solicitud GET
+        response = requests.get(BASE_URL, params=params, timeout=10)
+
+        # Verificar si la solicitud fue exitosa
+        if response.status_code == 200:
+            data = response.json()
+
+            # Verificar si se encontraron licitaciones
+            licitaciones = data.get("Listado", [])
+            if licitaciones and len(licitaciones) > 0:
+                # Retornar la primera (y probablemente única) licitación encontrada
+                return licitaciones[0]
+            else:
+                print(f"No se encontraron datos para la licitación con ID: {tender_id}")
+                return None
+        else:
+            print(f"Error en la solicitud: Código de estado {response.status_code}")
+            return None
+
+    except requests.exceptions.Timeout:
+        print("Error: La solicitud excedió el tiempo de espera.")
+    except requests.exceptions.ConnectionError:
+        print("Error: No se pudo conectar al servidor de la API.")
+    except requests.exceptions.RequestException as e:
+        print(f"Error durante la solicitud: {e}")
+    except Exception as e:
+        print(f"Error inesperado: {e}")
+
+    return None
+
+obtener_detalles_licitacion("1057480-15-LR24")

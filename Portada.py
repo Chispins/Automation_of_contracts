@@ -10,23 +10,40 @@ def configurar_directorio_trabajo():
     cwd = os.getcwd()
     target_dir_name = "Files"
     wd = os.path.join(cwd, target_dir_name)
-
+    pattern = r"Files\\Files"
+    if re.search(pattern, wd):
+        wd = wd.replace(r"\Files\Files", r"\Files")
     if os.path.isdir(wd):
-        os.chdir(wd)
-        print(f"Directorio de trabajo cambiado a: {wd}")
+        print(f"Directorio de trabajo configurado a: {wd}")
     else:
-        print(f"Advertencia: El directorio '{wd}' no existe. "
-              "No se cambió el directorio de trabajo.")
+        print(f"Advertencia: El directorio '{wd}' no existe o no es válido. Usando directorio actual: {cwd}")
+        wd = cwd
+    return wd
 
-def create_melipilla_document(archivo="base"):
-    """Crea el documento de portada para Melipilla con la configuración especificada."""
-    # Configurar directorio de trabajo
-    configurar_directorio_trabajo()
+def create_melipilla_document(archivo="base", wd=None):
+    """Crea el documento de portada para Melipilla con la configuración especificada.
 
-    # Define image paths
-    logo_melipilla_name = "logo_melipilla.png"  # This image will be on the right
-    ssmo_alta_name = "SSMOalta.png"             # This image will be on the left
+    Args:
+        archivo (str): Tipo de documento, puede ser 'base' o 'contrato'. Por defecto es 'base'.
+        wd (str, optional): Directorio de trabajo donde se guardará el documento.
+                           Si no se especifica, usa el directorio actual o la subcarpeta 'Files'.
+    """
+    # Configurar el directorio de trabajo
+    if wd is None:
+        wd = configurar_directorio_trabajo()
+    else:
+        wd = os.path.abspath(wd)  # Normalizar la ruta a absoluta
+        if not os.path.isdir(wd):
+            print(f"Advertencia: El directorio '{wd}' no existe. No se puede crear el documento.")
+            return
 
+    print(f"Usando directorio de trabajo: {wd}")
+
+    # Define image paths (usar rutas fijas de red)
+    logo_melipilla_name = r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\NO_MODIFICAR\logo_melipilla.png"  # Imagen a la derecha
+    ssmo_alta_name = r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\NO_MODIFICAR\SSMOalta.png"  # Imagen a la izquierda
+
+    # Verificar si las imágenes existen antes de intentar usarlas
     # Create a new Document
     doc = docx.Document()
 
@@ -36,35 +53,26 @@ def create_melipilla_document(archivo="base"):
 
     # Set column widths
     table.columns[0].width = Inches(2.5)  # Width for the left logo cell (SSMOalta)
-    table.columns[1].width = Inches(3)    # Width for spacing
+    table.columns[1].width = Inches(3)  # Width for spacing
     table.columns[2].width = Inches(2.5)  # Width for the right logo cell (logo_melipilla)
 
-    left_logo_cell = table.cell(0, 0)   # This cell holds the left logo (SSMOalta)
+    left_logo_cell = table.cell(0, 0)  # This cell holds the left logo (SSMOalta)
     right_logo_cell = table.cell(0, 2)  # This cell holds the right logo (logo_melipilla)
 
-    try:
-        left_logo_paragraph = left_logo_cell.paragraphs[0]
-        run = left_logo_paragraph.add_run()
-        run.add_picture(ssmo_alta_name, height=Cm(2.87))
-        left_logo_paragraph.alignment = WD_ALIGN_PARAGRAPH.LEFT
-        left_logo_paragraph.paragraph_format.space_after = Pt(0)
-        left_logo_cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.TOP
-        print(f"Imagen '{ssmo_alta_name}' added to table (left) "
-              f"with height {Cm(2.87)}cm.")
-    except Exception as e:
-        print(f"Error adding picture '{ssmo_alta_name}' to table: {e}")
+    left_logo_paragraph = left_logo_cell.paragraphs[0]
+    run = left_logo_paragraph.add_run()
+    run.add_picture(ssmo_alta_name, height=Cm(2.87))
+    left_logo_paragraph.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    left_logo_paragraph.paragraph_format.space_after = Pt(0)
+    left_logo_cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.TOP
 
-    try:
-        right_logo_paragraph = right_logo_cell.paragraphs[0]
-        run = right_logo_paragraph.add_run()
-        run.add_picture(logo_melipilla_name, width=Cm(3.74))
-        right_logo_paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-        right_logo_paragraph.paragraph_format.space_after = Pt(0)
-        right_logo_cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.TOP
-        print(f"Imagen '{logo_melipilla_name}' added to table (right) "
-              f"with width {Cm(3.74)}cm.")
-    except Exception as e:
-        print(f"Error adding picture '{logo_melipilla_name}' to table: {e}")
+    right_logo_paragraph = right_logo_cell.paragraphs[0]
+    run = right_logo_paragraph.add_run()
+    run.add_picture(logo_melipilla_name, width=Cm(3.74))
+    right_logo_paragraph.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    right_logo_paragraph.paragraph_format.space_after = Pt(0)
+    right_logo_cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.TOP
+
 
     # Add text below the table
     if archivo == "base":
@@ -96,17 +104,22 @@ def create_melipilla_document(archivo="base"):
             if line == "BASE N° {{ numero_base }}":
                 font.bold = True
 
-    # Save the document
+    # Save the document in the specified working directory
     if archivo == "base":
         output_filename = "portada_melipilla_base.docx"
-        doc.save(output_filename)
-    elif archivo == "contrato":
+    else:
         output_filename = "portada_melipilla_contrato.docx"
-        doc.save(output_filename)
+
+    output_path = os.path.join(wd, output_filename)
+    try:
+        doc.save(output_path)
+        print(f"Documento guardado en: {output_path}")
+    except Exception as e:
+        print(f"Error al guardar el documento en {output_path}: {e}")
+        return
 
     # Verify the saved file
     try:
-        output_path = os.path.abspath(output_filename)
         if os.path.exists(output_path):
             tamaño_archivo = os.path.getsize(output_path) / 1024  # Tamaño en KB
             print(f"✅ El archivo '{output_filename}' se guardó correctamente.")

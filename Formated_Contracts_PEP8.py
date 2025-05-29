@@ -18,36 +18,22 @@ from docxtpl import DocxTemplate
 from win32com.client import constants
 
 
+
 def configurar_directorio_trabajo():
     """Configura el directorio de trabajo en la subcarpeta 'Files'."""
-    # Construye la ruta normalizada al directorio "Files"
     cwd = os.getcwd()
     target_dir_name = "Files"
     wd = os.path.join(cwd, target_dir_name)
-
-    # Define el patrón específico a buscar (duplicación de \Files)
-    # Se asume separador de Windows (\). Se usan dobles barras invertidas en el patrón regex.
     pattern = r"Files\\Files"
-
-    # Busca el patrón en la ruta generada
     if re.search(pattern, wd):
-        # Si se encuentra, reemplaza la primera ocurrencia de la duplicación
         wd = wd.replace(r"\Files\Files", r"\Files")
-
-    # Cambia al directorio destino, verificando primero si es un directorio válido
     if os.path.isdir(wd):
         os.chdir(wd)
-        print(f"Directorio de trabajo cambiado a: {wd}") # Opcional: confirmar cambio
+        print(f"Directorio de trabajo cambiado a: {wd}")
     else:
-        print(f"Advertencia: El directorio '{wd}' no existe o no es válido. No se cambió el directorio de trabajo.")
-        # Aquí podrías decidir crear el directorio si no existe, o manejar el error.
-        # Ejemplo para crearlo:
-        # try:
-        #     os.makedirs(wd, exist_ok=True) # Crea el directorio si no existe
-        #     os.chdir(wd)
-        #     print(f"Directorio '{wd}' creado y establecido como directorio de trabajo.")
-        # except OSError as e:
-        #     print(f"Error al crear o acceder al directorio '{wd}': {e}")
+        print(f"Advertencia: El directorio '{wd}' no existe o no es válido.")
+# Set up the working directory
+configurar_directorio_trabajo()
 
 
 def crear_numeracion(doc):
