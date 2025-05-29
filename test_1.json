@@ -1,0 +1,16 @@
+[
+    {
+        "Responsable": {
+            "Administrador": "Ivon",
+            "Referente": "Juan"
+        },
+        "Firmante": {
+            "Director": "Ricardo Contreras",
+            "Subdirector": "Manuel"
+        }
+    },
+    {
+        "Number": 3,
+        "Date of implementation": "03-02-2024"
+    }
+]
