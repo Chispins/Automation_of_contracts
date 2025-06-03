@@ -228,4 +228,7 @@ def monitor_directories(directories):
 if __name__ == "__main__":
     #path = r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\Licitaciones_Testing"
     path = r"C:\Users\Thinkpad\PycharmProjects\Automation_of_contracts\Files\Monitored"
+    # Ruta_Alternativa
+    path_files = r"C:\Users\Thinkpad\PycharmProjects\Automation_of_contracts\Files"
+
     monitor_directories([path])

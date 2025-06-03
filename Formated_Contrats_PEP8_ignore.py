@@ -212,7 +212,11 @@ def copiar_tablas_con_win32(source_path, intermediate_path, prototipo_path, outp
         for i, idx in enumerate(table_indices):
             if i < len(placeholders) and idx <= src.Tables.Count:
                 src.Tables.Item(idx).Range.Copy()
-                placeholders[i].Range.PasteAndFormat(constants.wdFormatOriginalFormatting)
+                try:
+                    placeholders[i].Range.PasteAndFormat(constants.wdFormatOriginalFormatting)
+                except AttributeError:
+                    print("Constante wdFormatOriginalFormatting no encontrada, usando valor numérico 16.")
+                    placeholders[i].Range.PasteAndFormat(16)
 
         # 2. Pegar las dos tablas de `prototipo_tabla_rellenado.docx` en el último marcador
         if placeholders:
@@ -220,7 +224,11 @@ def copiar_tablas_con_win32(source_path, intermediate_path, prototipo_path, outp
             prot = word.Documents.Open(os.path.abspath(prototipo_path))
             for j in range(1, prot.Tables.Count + 1):
                 prot.Tables.Item(j).Range.Copy()
-                last_ph.Range.PasteAndFormat(constants.wdFormatOriginalFormatting)
+                try:
+                    last_ph.Range.PasteAndFormat(constants.wdFormatOriginalFormatting)
+                except AttributeError:
+                    print("Constante wdFormatOriginalFormatting no encontrada, usando valor numérico 16.")
+                    last_ph.Range.PasteAndFormat(16)
             prot.Close(False)
 
         dst.SaveAs(os.path.abspath(output_path))
