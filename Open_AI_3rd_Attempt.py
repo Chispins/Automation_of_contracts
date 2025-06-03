@@ -130,3 +130,5 @@ doce = DocxTemplate(name)
 doce.render(datos)
 doce.save("test_table.docx")
 
+#class perio():
+    #def __init__(self):

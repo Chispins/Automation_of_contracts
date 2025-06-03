@@ -28,8 +28,19 @@ with open("json_practice.json", "w") as f:
     f.write(json_individual)
 
 
+import re
+regex = r"m"
+print(re.match(regex,"emoredev"))
+re.findall(regex,"emoredev")
 
 
+list_1 = [1,4,3,7,1,2]
+list_2 = [5,7,8,6,9,5]
+
+sumado = [x+y for x,y in zip(list_1,list_2) if x>3]
+
+list_3 = [3,2,5,4,4]
+resultado = list(map(lambda x: x+3, list_3))
 
 
 for key, value in zip(data_p1_key, data_p1_value):
@@ -51,7 +62,7 @@ data_1 = ["Nombre", "RUT", "Adjudicado", "Representante_Legal"]
 data_2 = ["Mario", "20.202.201-2", "Meliplex", "Rocio"]
 ziped_data = zip(data_1, data_2)
 
-+# For the first element
+
 base_dict = {}
 for key, value in zip(data_1, data_2):
     base_dict[key] = value
@@ -85,3 +96,7 @@ historial_licitaciones_dict = json.loads("historial_licitaciones.json")
 historial_licitaciones_dict[name_lic] = merged_dict
 with open("historial_licitaciones.json", "w") as archivo_json:
     json.dumps(historial_licitaciones_dict, indent=4)
+
+
+
+#

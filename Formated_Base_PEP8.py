@@ -15,7 +15,7 @@ from docxtpl import DocxTemplate
 # from Jinja_2 import context_for_template1
 
 
-def configurar_directorio_trabajo():
+r"""def configurar_directorio_trabajo():
     cwd = os.getcwd()
     target_dir_name = "Files"
     wd = os.path.join(cwd, target_dir_name)
@@ -26,7 +26,7 @@ def configurar_directorio_trabajo():
         os.chdir(wd)
         print(f"Directorio de trabajo cambiado a: {wd}")
     else:
-        print(f"Advertencia: El directorio '{wd}' no existe o no es válido.")
+        print(f"Advertencia: El directorio '{wd}' no existe o no es válido.")"""
 # Set up the working directory
 #configurar_directorio_trabajo()"""
 
@@ -166,7 +166,7 @@ def aplicar_formato_global(doc):
 #numero_base = str(140)
 
 def main():
-    configurar_directorio_trabajo()
+    #configurar_directorio_trabajo()
     global DocxTemplate
 
     #portada_template_v1 = DocxTemplate("portada_melipilla_base.docx")

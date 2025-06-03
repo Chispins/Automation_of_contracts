@@ -109,6 +109,7 @@ class MyHandler(FileSystemEventHandler):
 
             # Copiar archivo Excel si no existe
             source_file = r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\NO_MODIFICAR\Libro1.xlsx"
+            #source_file = r"C:\Users\Thinkpad\PycharmProjects\Automation_of_contracts\Files\Libro1.xlsx"
             destination_file = os.path.join(wd, "Libro1.xlsx")
             if os.path.exists(destination_file):
                 print(f"Archivo Excel 'Libro1.xlsx' ya existe en {wd}, omitiendo copia.")
@@ -120,6 +121,7 @@ class MyHandler(FileSystemEventHandler):
                     print(f"Error copiando archivo Excel a {wd}: {e}")
 
             source_file_docx = r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\NO_MODIFICAR\plantilla_original.docx"
+            #source_file_docx = r"C:\Users\Thinkpad\PycharmProjects\Automation_of_contracts\Files\plantilla_original.docx"
             destination_file_docx = os.path.join(wd, "plantilla_original.docx")  # Cambiar el nombre del archivo
             if os.path.exists(destination_file_docx):
                 print(f"Archivo 'plantilla_original.docx' ya existe en {wd}, omitiendo copia.")
@@ -206,7 +208,7 @@ def monitor_directories(directories):
         print("No se proporcionaron directorios para monitorear.")
         return
 
-    handler = MyHandler(directories[0])  # Usar el primer directorio como raíz
+    handler = MyHandler(directories[0])  # Usar el primer directrio como raíz
     observer = Observer()
     for directory in directories:
         if os.path.exists(directory):
@@ -226,9 +228,8 @@ def monitor_directories(directories):
 
 
 if __name__ == "__main__":
-    #path = r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\Licitaciones_Testing"
-    path = r"C:\Users\Thinkpad\PycharmProjects\Automation_of_contracts\Files\Monitored"
+    path = r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\Licitaciones_Testing"
+    #path = r"C:\Users\Thinkpad\PycharmProjects\Automation_of_contracts\Files\bMonitored"
     # Ruta_Alternativa
-    path_files = r"C:\Users\Thinkpad\PycharmProjects\Automation_of_contracts\Files"
-
+    #path_files = r"C:\Users\Thinkpad\PycharmProjects\Automation_of_contracts\Files"
     monitor_directories([path])
