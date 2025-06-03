@@ -8,7 +8,7 @@ import pymupdf
 import re
 
 
-r"""def configurar_directorio_trabajo():
+def configurar_directorio_trabajo():
     cwd = os.getcwd()
     target_dir_name = "Files"
     wd = os.path.join(cwd, target_dir_name)
@@ -22,7 +22,7 @@ r"""def configurar_directorio_trabajo():
     else:
         print(f"Advertencia: El directorio '{wd}' no existe o no es válido.")
 configurar_directorio_trabajo()
-"""
+
 
 openai_api_key = "AIzaSyAgXYnDNJ6gQmMVUk88G6wGPdXz-qG2Gbw"
 client = OpenAI(

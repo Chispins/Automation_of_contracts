@@ -147,7 +147,6 @@ class MyHandler(FileSystemEventHandler):
 
             data_2 = pd.read_excel(excel_path, sheet_name="Datos_Contrato_P2")
             triger_2 = data_2.iloc[1, 3] if len(data_2) > 1 and len(data_2.columns) > 3 else "no"
-
             # Generar contextos desde Jinja_2.py
             context_for_template1, context_for_template2 = generate_contexts(wd)
             if context_for_template1 is None or context_for_template2 is None:
@@ -227,5 +226,6 @@ def monitor_directories(directories):
 
 
 if __name__ == "__main__":
-    path = r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\Licitaciones_Testing"
+    #path = r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\Licitaciones_Testing"
+    path = r"C:\Users\Thinkpad\PycharmProjects\Automation_of_contracts\Files\Monitored"
     monitor_directories([path])

@@ -427,8 +427,6 @@ def main(wd=None, monitoring=False):
         print("Documento nuevo guardado exitosamente.")
         print("Nota: El archivo original no ha sido modificado. Solo se trabajó con una copia temporal.")
 
-        import Open_AI_text
-
 
 
 
@@ -439,7 +437,11 @@ def main(wd=None, monitoring=False):
             return False
 
         final_with_tables = os.path.join(wd, "contrato_automatizado_tablas.docx")
-        import Open_Ai_3rd_Attempt
+        #import sys
+        #sys.path.append(r'C:\Users\Thinkpad\PycharmProjects\Automation_of_contracts')
+        # import Open_AI_3rd_Attempt
+
+
         copiar_tablas_con_win32(original_path, output_path_v2, prototipo_path, final_with_tables)
         print(f"Documento final con tablas guardado en: {final_with_tables}")
 
@@ -457,9 +459,12 @@ def main(wd=None, monitoring=False):
 
 
 if __name__ == "__main__":
-    main(wd = r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\Licitaciones_Testing\Nueva carpeta (10)\Nueva carpeta\Nueva carpeta\Nueva carpeta (2)")
+    main(wd = r"C:\Users\Thinkpad\PycharmProjects\Automation_of_contracts\Files")
+        #wd = r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\Licitaciones_Testing\Nueva carpeta (10)\Nueva carpeta\Nueva carpeta\Nueva carpeta (2)")
 
-wd =  r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\Licitaciones_Testing\Nueva carpeta (10)\Nueva carpeta\Nueva carpeta\Nueva carpeta (2)"
+#wd =  r"\\10.5.130.24\Abastecimiento\Compartido Abastecimiento\Otros\Licitaciones_Testing\Nueva carpeta (10)\Nueva carpeta\Nueva carpeta\Nueva carpeta (2)"
+wd = r"C:\Users\Thinkpad\PycharmProjects\Automation_of_contracts\Files"
+
 prototipo_path = os.path.join(wd, "prototipo_tabla_rellenado.docx")
 import docx
 tablas_orig = docx.Document(prototipo_path)
