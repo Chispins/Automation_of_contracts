@@ -433,12 +433,13 @@ def main(wd=None, monitoring=False):
 
 
 
-        prototipo_path = os.path.join(wd, "prototipo_tabla_rellenado.docx")
+        prototipo_path = os.path.join(wd, "test_table.docx")
         if not os.path.exists(prototipo_path):
             print(f"Advertencia: Archivo prototipo {prototipo_path} no encontrado. Se omitirá la copia de tablas.")
             return False
 
         final_with_tables = os.path.join(wd, "contrato_automatizado_tablas.docx")
+        import Open_Ai_3rd_Attempt
         copiar_tablas_con_win32(original_path, output_path_v2, prototipo_path, final_with_tables)
         print(f"Documento final con tablas guardado en: {final_with_tables}")
 

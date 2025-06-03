@@ -95,25 +95,9 @@ print(response.choices[0].message.content)
 
 # Obtener la respuesta del modelo Gemini
 respuesta = response.choices[0].message.content
+
 import json
-
-
-# esto es para que la respuesta sea legible, porque viene e n un formato json que no es valido
-try:
-    # Intentar parsear directamente como JSON
-    datos = json.loads(response.choices[0].message.content)
-except json.JSONDecodeError:
-    # Si falla, intenta limpiar el texto antes de parsear
-    contenido_limpio = response.choices[0].message.content
-    # Buscar donde comienza y termina el JSON
-    inicio = contenido_limpio.find('{')
-    fin = contenido_limpio.rfind('}') + 1
-    if inicio >= 0 and fin > 0:
-        json_texto = contenido_limpio[inicio:fin]
-        datos = json.loads(json_texto)
-    else:
-        datos = {}  # Si no se puede parsear, usar diccionario vacío
-# Tengo que
+datos = json.loads(response.choices[0].message.content)
 # datos
 
 # Importar las bibliotecas necesarias
@@ -193,8 +177,26 @@ for campo in campos:
     fila[0].text = campo
     fila[1].text = valores.get(campo, "")
 
+
+
+
+
+
+
+
+
+
+
+
 # Guardar el documento
 documento.save('tabla_fea_sin_rellenar.docx')
+
+
+
+
+
+
+
 
 print("Documento Word creado con éxito.")
 
