@@ -1,3 +1,61 @@
+# README: Sistema Automatizado de Generación de Documentos
+
+## 📝 Descripción General
+Este sistema automatiza la creación de Bases y Contratos para los procesos de Licitaciones del HSJM un código que responde a acciones del usuario en archivos Excel.
+
+## 🔄 Flujo de Trabajo Principal
+
+### 1. Monitoreo Inicial
+- **Tecnología**: Utiliza `watchdog` para vigilancia continua
+- **Alcance**: 
+  - Monitorea carpeta principal y todas las subcarpetas
+  - Detecta cambios en tiempo real (creación/modificación de archivos)
+
+### 2. Verificación de Archivos Base
+Verifica que existan los
+**Archivos requeridos**:
+- `Libro1.xlsx` (plantilla de datos)
+- `plantilla_original.docx` (documento base)
+- `portada_melipilla_base.docx`, `portada_melipilla_contrato.docx`
+Plantilla original es un documento que contiene todo el texto que será utilizado tanto en las bases como en los contratos, donde aplica `{{}}` en cada elemento que es variable, y cada uno de esos elementos será remplazado posteriormente con las variables designadas en `Libro1.xlsx`. 
+
+## 3. Generación de documentos Necesarios
+En caso de no existir los archivos necesarios, el código pega los siguientes archivos `plantilla_original.docx`, `Libro1.xlsx`, `portada_melipilla_base.docx`, `portada_melipilla_contrato.docx` (output_1) en el work directory(wd), los archivos son copiados desde la carpeta `NO_BORRAR`.
+Este evento ocurre cada vez que se:
+
+-Crea una carpeta.
+-Mueve una carpeta dentro de la dirección monitoreada.
+-Borra uno de los documentos necesarios
+
+### 4. Generación de Documento "Base"
+**Condiciones de activación**:
+1. Modificación reciente de `Libro1.xlsx`
+2. Celda D2 contiene "si" o cualquier otro texto
+3. No existe documento final existente en la carpeta
+
+**Proceso**:
+1. Lee datos de Excel con `pandas`
+2. Genera contexto para plantilla utilizando la información de `Libro1.xlsx`
+3. Rellena `plantilla_original.docx` Word.
+4. Guarda como `plantilla_original_rendered.docx` (Output_2)
+
+### 5. Generación de Contrato
+**Condicionebs de activación**:
+1. Modificación reciente de `Libro1.xlsx`
+2. Celda específica contiene "si" 
+3. No existe contrato final previo
+
+**Proceso**:
+1. Verifica existencia de documento base.
+2. Genera una plantilla de Contrato, que es en realidad el documento de `plantilla_original_rendered.docx` eliminando los elementos que no se utilizan.
+3. Genera el contexto para plantilla con la información de `Libro1.xlsx` 
+4. Render en la portada 
+5. Render en la plantilla del Contrato
+6. Genera el contrato mezclando los dos documentos
+7. Coloca los table placeholders en los lugares donde deberían ir tabla, guarda el documento como `contrato_autonmatizado_faltan_tablas.docx`
+8. Remplaza los table placeholders, por tablas pegandolas utilizando el paquete win32com y lo guarda como `contrato_automatizado_rendered.docx` (Output_3)
+
+
 # Documentación del Proyecto: Automatización de Contratos
 
 ## Descripción General
