@@ -154,26 +154,10 @@ class MyHandler(FileSystemEventHandler):
             if context_for_template1 is None or context_for_template2 is None:
                 print(f"Error: No se pudieron generar contextos para renderizado en {wd}")
                 return
-
-            # Renderizar documento base si triger_1 es "si"
-            base_path = os.path.join(wd, "plantilla_original.docx")  # Cambiar el nombre del archivo
-            base_rendered_path = os.path.join(wd, "plantilla_original_rendered.docx")  # Cambiar el nombre del archivo
-            if triger_1 == "si" and os.path.exists(base_path) and not os.path.exists(base_rendered_path):
-                doc = DocxTemplate(base_path)
-                doc.render(context_for_template1)
-                doc.save(base_rendered_path)
-                print(f"✅ Documento base completo renderizado guardado como: {base_rendered_path}")
-            elif triger_1 != "si":
-                print(f"Renderizado de base omitido en {wd}: triger_1 no es 'si' (triger_1={triger_1})")
-            elif not os.path.exists(base_path):
-                print(f"Error: Plantilla base no encontrada en {base_path}")
-            elif os.path.exists(base_rendered_path):
-                print(f"Archivo base completo renderizado ya existe en {base_rendered_path}, omitiendo renderizado.")
-
             # Crear y renderizar documento contrato si triger_2 es "si"
             contrato_path = os.path.join(wd, "contrato_automatizado_tablas.docx")
             contrato_rendered_path = os.path.join(wd, "contrato_automatizado_tablas_rendered.docx")
-            if triger_2 == "si":
+            if triger_2 == "si" and os.path.exists(os.path.join(wd, "plantilla_original_rendered.docx")):
                 # Primero, crear la plantilla de contrato si no existe
                 if not os.path.exists(contrato_path):
                     try:
@@ -197,6 +181,24 @@ class MyHandler(FileSystemEventHandler):
                     print(f"Archivo contrato completo renderizado ya existe en {contrato_rendered_path}, omitiendo renderizado.")
             else:
                 print(f"Renderizado de contrato omitido en {wd}: triger_2 no es 'si' (triger_2={triger_2})")
+                return
+
+            # Renderizar documento base si triger_1 es "si"
+            base_path = os.path.join(wd, "plantilla_original.docx")  # Cambiar el nombre del archivo
+            base_rendered_path = os.path.join(wd, "plantilla_original_rendered.docx")  # Cambiar el nombre del archivo
+            if triger_1 == "si" and os.path.exists(base_path) and not os.path.exists(base_rendered_path):
+                doc = DocxTemplate(base_path)
+                doc.render(context_for_template1)
+                doc.save(base_rendered_path)
+                print(f"✅ Documento base completo renderizado guardado como: {base_rendered_path}")
+            elif triger_1 != "si":
+                print(f"Renderizado de base omitido en {wd}: triger_1 no es 'si' (triger_1={triger_1})")
+            elif not os.path.exists(base_path):
+                print(f"Error: Plantilla base no encontrada en {base_path}")
+            elif os.path.exists(base_rendered_path):
+                print(f"Archivo base completo renderizado ya existe en {base_rendered_path}, omitiendo renderizado.")
+
+
         except Exception as e:
             print(f"Error al renderizar documentos en {wd}: {e}")
 
