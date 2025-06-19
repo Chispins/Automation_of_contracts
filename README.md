@@ -7,7 +7,7 @@ El programa sigue la siuiente secuencia
 ![Image](https://github.com/user-attachments/assets/0c4c27e9-5276-4d6f-940a-1d6db82d54b3)
 
 
-Lo primero que sucede al activar el programa es que se crea un vigilante que estará siempre mirando las carpetas dentro de la carpeta principal, este vigilante estará observando dos tipos de Eventos la creación de carpetas y la modificación de archivos. Esto es para asegurarse de que los archivos necesarios estén disponibles y cuando se cumplan las condiciones genere Bases y Contratos de Licitación y guarda un registro del mismo.
+Lo primero que sucede al activar el programa es que se crea un vigilante que estará siempre mirando las carpetas dentro de la carpeta principal, este vigilante estará observando dos tipos de Eventos la creación de carpetas y la modificación de archivos. Esto es para asegurarse de proveer los archivos necesarios y para que cuando se cumplan las condiciones genere las Bases y Contratos de Licitación y guarda un registro del mismo.
 
 
 
@@ -16,7 +16,7 @@ Lo primero que sucede al activar el programa es que se crea un vigilante que est
 El programa revisa cada segundo si hay archivos o carpetas nuevos o modificados. Para que dependiendo del caso generar una base, contrato, o los archivos.
 
 ## 2 **¿Es creación de carpeta?**
-¿Es el evento una creación de una carpeta?
+¿Es el evento una creación de una carpeta? En caso de ser **NO** se salta al paso 5, en caso de ser **SI** la respuesta entonces se pasa al paso 3.
 
 ## 3 **Creación de carpeta de licitación**
 Pega entonces todos los archivos necesarios 
@@ -26,18 +26,20 @@ Pega entonces todos los archivos necesarios
 - Libro1.xlsx Es un excel de 3 hojas, donde la primera corresponde a información para la base, la segunda y la tercera son información para el contrato
 
 ## 4 **Verificación de Requerimientos**
-Verifica que se cumplan **todas** las siguientes condiciones condiciones
+En caso de que el *"Evento"** no sea una creación de carpeta, se procederá a verificar que se cumplan **todas** las siguientes condiciones.
 | Requisito | ¿Qué pasa si falta? | ¿Cómo solucionarlo? |
 |-----------|---------------------|---------------------|
 | **`CONFIRMAR`** en la columna D4 de la primera hoja de Libro1.xlsx | La Base **NO se genera** | Escribir `CONFIRMAR` en la celda D4 y luego guardar|
 | **`Plantilla_original.docx** en la carpeta de la licitación`** | La Base **NO se genera** | Copia el archivo desde otra carpeta, o crear otra carpeta y llevar el proceso de licitación en esa nueva carpeta |
-| **`CONFIRMAR`** **NO ESTA SELECCIONADO** en la columna D4 de la tercera hoja de Libro1.xlsx | La base **NO se genera** | Borrar lo que esté escrito en la celda D4 de la tercera hoja y luego guardar |
+| **`CONFIRMAR`** **ESTA SELECCIONADO** en la columna D4 de la tercera hoja de Libro1.xlsx | La base **NO se genera** | Borrar lo que esté escrito en la celda D4 de la tercera hoja y luego guardar |
 
 
+## 5. Generar Base y otros archivos intermedios 
+El programa comenzará el procesamiento, lo que hace es tomar los datos que fueron rellenados en el excel, y los remplazará en el archivo plantilla original, y luego guardará un nuevo archivo que se llamará plantilla_original_rendered
 
-### 4. Modificación del Excel
+### 6. Modificación del Excel
 
-La primera verificación que se hace es para leer si debe generarse un contrato 
+En caso
 
 | Requisito | ¿Qué pasa si falta? | ¿Cómo solucionarlo? |
 |-----------|---------------------|---------------------|
