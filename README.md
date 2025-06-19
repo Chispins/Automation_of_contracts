@@ -13,7 +13,7 @@ Lo primero que sucede al activar el programa es que se crea un vigilante que est
 
 
 ### 1. **Inicio Monitoreo**
-El programa revisa cada segundo si hay archivos o carpetas nuevos o modificados. Para que dependiendo del caso generar una base, contrato, o los archivos.
+El programa revisa cada segundo si hay archivos oh carpetas nuevos o modificados. Para que dependiendo del caso generar una base, contrato, o los archivos.
 
 ## 2 **¿Es creación de carpeta?**
 ¿Es el evento una creación de una carpeta? En caso de ser **NO** se salta al paso 5, en caso de ser **SI** la respuesta entonces se pasa al paso 3.
