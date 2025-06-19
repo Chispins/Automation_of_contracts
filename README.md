@@ -18,8 +18,8 @@ El programa revisa cada segundo si hay archivos o carpetas nuevos o modificados.
 ## 2 **¿Es creación de carpeta?**
 ¿Es el evento una creación de una carpeta? En caso de ser **NO** se salta al paso 5, en caso de ser **SI** la respuesta entonces se pasa al paso 3.
 
-## 3 **Creación de carpeta de licitación**
-Pega entonces todos los archivos necesarios 
+## 3 **Generación de archivos necesarios **
+En caso de que el evento sea una creación de carpeta entonces el vigilante pegará todos los archivos necesarios para el correcto funcionamiento dentro de la carpeta recién creada.
 - portada_melipilla_base.docx Es el archivo que será la portada de la Base
 - portada_melipilla_contrato.docx Es el archivo que será la portada del contrato
 - plantilla_original.docx Es el word que será la plantilla, sobre este archivo se trabajará para crear una base
@@ -31,31 +31,27 @@ En caso de que el *"Evento"** no sea una creación de carpeta, se procederá a v
 |-----------|---------------------|---------------------|
 | **`CONFIRMAR`** en la columna D4 de la primera hoja de Libro1.xlsx | La Base **NO se genera** | Escribir `CONFIRMAR` en la celda D4 y luego guardar|
 | **`Plantilla_original.docx** en la carpeta de la licitación`** | La Base **NO se genera** | Copia el archivo desde otra carpeta, o crear otra carpeta y llevar el proceso de licitación en esa nueva carpeta |
-| **`CONFIRMAR`** **ESTA SELECCIONADO** en la columna D4 de la tercera hoja de Libro1.xlsx | La base **NO se genera** | Borrar lo que esté escrito en la celda D4 de la tercera hoja y luego guardar |
+| **`CONFIRMAR`** **ESTA SELECCIONADO** en la columna D4 de la tercera hoja de Libro1.xlsx | La base **NO se genera** y se procederá al paso | Borrar lo que esté escrito en la celda D4 de la tercera hoja y luego guardar |
 
 
 ## 5. Generar Base y otros archivos intermedios 
-El programa comenzará el procesamiento, lo que hace es tomar los datos que fueron rellenados en el excel, y los remplazará en el archivo plantilla original, y luego guardará un nuevo archivo que se llamará plantilla_original_rendered
+El programa comenzará el procesamiento, lo que hace es tomar los datos que fueron rellenados en el excel, luego remplazará en el archivo plantilla original con los valores del excel, agregará una portada base, y luego guardará un nuevo archivo que se llamará plantilla_original_rendered, este nuevo archivo será una Base que está finalizada y lista.
 
-### 6. Modificación del Excel
+Se procede a la generación del archivo de base, utilizando **`plantilla_original.docx`**. El programa crea un nuevo archivo de Base, utilizando la portada de la Base, y escribiendo todos los elementos de plantilla original que se utilizan en una base, remplazando los valores por los Valores que están presentes en Hoja 1, este nuevo archivo guardado es almacenado como plantilla_original_rendered, este nuevo archivo es una Base que está Finalizada y lista.
+### 6. Verificación de requerimientos
 
-En caso
+En caso de que ya exista una base creada en la carpeta se comenzará a verificar las siguientes condiciones
 
 | Requisito | ¿Qué pasa si falta? | ¿Cómo solucionarlo? |
 |-----------|---------------------|---------------------|
-| **`CONFIRMAR`** en la columna D4 de Libro1.xlsx | El reporte **NO se genera** | 1. Consigue el archivo de gastos del mes<br>2. Colócalo en la carpeta del mes<br>3. Asegúrate que se llame el nombre comienza con `DEVENGADO` |
-| **`BASE DISTRIBUCION GASTO GENERAL Y SUMINISTROS.xlsx`** en la carpeta del mes | El reporte **NO se genera** | Copia el archivo desde `NO_BORRAR`<br>2. Pégalo en la carpeta del mes |
-| **`Codigos_Clasificador_Compilado.xlsx`** en `NO_BORRAR` | El reporte **NO funciona correctamente** | **No lo muevas ni lo borres**<br>Si falta, repónlo desde una copia de seguridad |
-| **NO existe el reporte final** en la carpeta del mes | Si es que **YA EXISTE UN REPORTE** no se crea un nuevo reporte | 1. Elimina el reporte antiguo<br>2. O muévelo a otra carpeta |
+| **`CONFIRMAR`** en la columna D4 de la tercera hoja Libro1.xlsx **NO ESTÁ SELECCIONADO** | El reporte **NO se genera** | 1. Consigue el archivo de gastos del mes<br>2. Colócalo en la carpeta del mes<br>3. Asegúrate que se llame el nombre comienza con `DEVENGADO` | Escribir `CONFIRMAR` en la celda D4 y luego guardar|
+| **`Plantilla_original_rendered.docx** en la carpeta de la licitación`** | La Base **NO se genera** | Copia el archivo desde otra carpeta, o borrar confirmar de la hoja 3, y apretar CONFIRMAR en la celda D4 en la primera hoja para generar la base.|
 
 
-### 2. Verificación de Archivos Base
-Verifica que existan los
-**Archivos requeridos**:
-- `Libro1.xlsx` (plantilla de datos)
-- `plantilla_original.docx` (documento base)
-- `portada_melipilla_base.docx`, `portada_melipilla_contrato.docx`
-Plantilla original es un documento que contiene todo el texto que será utilizado tanto en las bases como en los contratos, donde aplica `{{}}` en cada elemento que es variable, y cada uno de esos elementos será remplazado posteriormente con las variables designadas en `Libro1.xlsx`. 
+### 7. Generación Contrato
+Se procede a la generación del archivo de contrato, utilizando la misma **`plantilla_original.docx`**  que utiliza la base. El programa crea un nuevo archivo de contrato, utilizando la portada del contrato, y escribiendo todos los elementos de plantilla original que se utilizan en un contrato, solo que ahora remplaza por los valores de la Hoja 1, Hoja 2, y Hoja 3. La diferencia es el resultado de este procesamiento entregará un contrato listo.
+
+
 
 ## 3. Generación de documentos Necesarios
 En caso de no existir los archivos necesarios, el código pega los siguientes archivos `plantilla_original.docx`, `Libro1.xlsx`, `portada_melipilla_base.docx`, `portada_melipilla_contrato.docx` (output_1) en el work directory(wd), los archivos son copiados desde la carpeta `NO_BORRAR`.
