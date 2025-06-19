@@ -1,15 +1,51 @@
 # README: Sistema Automatizado de Generación de Documentos
 
-## 📝 Descripción General
-Este sistema automatiza la creación de Bases y Contratos para los procesos de Licitaciones del HSJM un código que responde a acciones del usuario en archivos Excel.
+Este programa permite la creación automática de Bases y Contratos para las licitaciones. Remplaza el trabajo de generación manual de los mismos y evita errores. Además genera un registro con todas las bases y contratos creados utilizando esta herramienta.
 
-## 🔄 Flujo de Trabajo Principal
+El programa sigue la siuiente secuencia
 
-### 1. Monitoreo Inicial
-- **Tecnología**: Utiliza `watchdog` para vigilancia continua
-- **Alcance**: 
-  - Monitorea carpeta principal y todas las subcarpetas
-  - Detecta cambios en tiempo real (creación/modificación de archivos)
+![Image](https://github.com/user-attachments/assets/0c4c27e9-5276-4d6f-940a-1d6db82d54b3)
+
+
+Lo primero que sucede al activar el programa es que se crea un vigilante que estará siempre mirando las carpetas dentro de la carpeta principal, este vigilante estará observando dos tipos de Eventos la creación de carpetas y la modificación de archivos. Esto es para asegurarse de que los archivos necesarios estén disponibles y cuando se cumplan las condiciones genere Bases y Contratos de Licitación y guarda un registro del mismo.
+
+
+
+
+### 1. **Inicio Monitoreo**
+El programa revisa cada segundo si hay archivos o carpetas nuevos o modificados. Para que dependiendo del caso generar una base, contrato, o los archivos.
+
+## 2 **¿Es creación de carpeta?**
+¿Es el evento una creación de una carpeta?
+
+## 3 **Creación de carpeta de licitación**
+Pega entonces todos los archivos necesarios 
+- portada_melipilla_base.docx Es el archivo que será la portada de la Base
+- portada_melipilla_contrato.docx Es el archivo que será la portada del contrato
+- plantilla_original.docx Es el word que será la plantilla, sobre este archivo se trabajará para crear una base
+- Libro1.xlsx Es un excel de 3 hojas, donde la primera corresponde a información para la base, la segunda y la tercera son información para el contrato
+
+## 4 **Verificación de Requerimientos**
+Verifica que se cumplan **todas** las siguientes condiciones condiciones
+| Requisito | ¿Qué pasa si falta? | ¿Cómo solucionarlo? |
+|-----------|---------------------|---------------------|
+| **`CONFIRMAR`** en la columna D4 de la primera hoja de Libro1.xlsx | La Base **NO se genera** | Escribir `CONFIRMAR` en la celda D4 y luego guardar|
+| **`Plantilla_original.docx** en la carpeta de la licitación`** | La Base **NO se genera** | Copia el archivo desde otra carpeta, o crear otra carpeta y llevar el proceso de licitación en esa nueva carpeta |
+| **`CONFIRMAR`** **NO ESTA SELECCIONADO** en la columna D4 de la tercera hoja de Libro1.xlsx | La base **NO se genera** | Borrar lo que esté escrito en la celda D4 de la tercera hoja y luego guardar |
+
+
+
+### 4. Modificación del Excel
+
+La primera verificación que se hace es para leer si debe generarse un contrato 
+
+| Requisito | ¿Qué pasa si falta? | ¿Cómo solucionarlo? |
+|-----------|---------------------|---------------------|
+| **`CONFIRMAR`** en la columna D4 de Libro1.xlsx | El reporte **NO se genera** | 1. Consigue el archivo de gastos del mes<br>2. Colócalo en la carpeta del mes<br>3. Asegúrate que se llame el nombre comienza con `DEVENGADO` |
+| **`BASE DISTRIBUCION GASTO GENERAL Y SUMINISTROS.xlsx`** en la carpeta del mes | El reporte **NO se genera** | Copia el archivo desde `NO_BORRAR`<br>2. Pégalo en la carpeta del mes |
+| **`Codigos_Clasificador_Compilado.xlsx`** en `NO_BORRAR` | El reporte **NO funciona correctamente** | **No lo muevas ni lo borres**<br>Si falta, repónlo desde una copia de seguridad |
+| **NO existe el reporte final** en la carpeta del mes | Si es que **YA EXISTE UN REPORTE** no se crea un nuevo reporte | 1. Elimina el reporte antiguo<br>2. O muévelo a otra carpeta |
+
 
 ### 2. Verificación de Archivos Base
 Verifica que existan los
