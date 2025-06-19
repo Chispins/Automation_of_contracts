@@ -51,6 +51,13 @@ En caso de que ya exista una base creada en la carpeta se comenzará a verificar
 ### 7. Generación Contrato
 Se procede a la generación del archivo de contrato, utilizando la misma **`plantilla_original.docx`**  que utiliza la base. El programa crea un nuevo archivo de contrato, utilizando la portada del contrato, y escribiendo todos los elementos de plantilla original que se utilizan en un contrato, solo que ahora remplaza por los valores de la Hoja 1, Hoja 2, y Hoja 3. La diferencia es el resultado de este procesamiento entregará un contrato listo.
 
+## Ejemplo de Uso
+Creación de carpeta en Licitaciones Testing/1057480-15-LR25
+# Se generan los Archivos en la carpeta
+Se rellena la primera Hoja de Libro1.xlsx, y luego se escribe CONFIRMAR en D4.
+Listo, ya se debería generar la Base para la licitación.
+Luego, cuando ya se debe realizar el contrato, se rellena la segunda y tercera hoja del excel y se rellena la celda D4 de la tercera hoja.
+Listo, ya se debería generar el contrato para la licitación
 
 
 ## 3. Generación de documentos Necesarios
@@ -189,3 +196,52 @@ El archivo `Finished_Sequence_of_Scripts.py` utiliza `watchdog` para monitorear 
 ## Notas
 - Todavía existen detalles dentro de los documentos que deben ser ajustados, así como también algunos elementos que no están correctamente condicionados, por lo que es necesario revisar las bases o correjir el código
 - Asegúrese de realizar pruebas exhaustivas después de realizar cambios en los scripts o plantillas además de respaldar los archivos antes de hacer cambios.
+
+
+
+# Generador Automático de Bases y Contratos
+
+## ¿Para qué sirve?
+Crea automáticamente documentos legales para licitaciones, evitando:
+- Errores manuales
+- Tiempo de creación
+- Formateo inconsistente
+
+## ¿Cómo funciona? (Pasos simples)
+
+1. **Preparación inicial**:
+   - Crea una carpeta nueva para cada licitación
+   - El programa copiará automáticamente 4 archivos esenciales:
+     - `portada_melipilla_base.docx` (Portada Base)
+     - `portada_melipilla_contrato.docx` (Portada Contrato)
+     - `plantilla_original.docx` (Documento principal)
+     - `Libro1.xlsx` (Datos para completar)
+
+2. **Creación de la Base**:
+   - Abre `Libro1.xlsx`
+   - Completa la **Hoja 1**
+   - Escribe `CONFIRMAR` en la celda **D4**
+   - Guarda el archivo
+   - El programa generará:  
+     `plantilla_original_rendered.docx` (Base lista)
+
+3. **Creación del Contrato**:
+   - Completa las **Hojas 2 y 3** de `Libro1.xlsx`
+   - Escribe `CONFIRMAR` en la celda **D4 de la Hoja 3**
+   - Guarda el archivo
+   - El programa generará el contrato final
+
+## Solución de problemas
+
+| Problema               | Solución                          |
+|------------------------|-----------------------------------|
+| Base no se genera      | Verificar que `CONFIRMAR` está escrito en D4 de Hoja 1 |
+| Contrato no se genera  | Verificar `CONFIRMAR` en D4 de Hoja 3 |
+| Faltan archivos        | Crear nueva carpeta para que el programa los copie |
+
+## Ejemplo completo: Licitación 1057480-15-LR25
+
+1. Crear carpeta:  
+   `Licitaciones Testing/1057480-15-LR25`
+
+2. El programa copia automáticamente:
