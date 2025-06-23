@@ -66,7 +66,7 @@ Se procede a la generación del archivo de contrato, utilizando la misma **`plan
 
 ## Ejemplo de Uso
 Necesitamos llevar una licitación para la compra de examenes, por lo que vamos al compartido y creamos una nueva carpeta en Licitaciones Testing/1057480-15-LR25
-# Se generan los Archivos en la carpeta
+-- Se generan los Archivos en la carpeta --
 Dentro de los archivos veremos varios, sin embargo el que nos interesa se llama `Libro1.xlsx`, este archivo es el que debemos de completar, este archivo tendrá 3 hojas, para generar una base Se rellena la primera Hoja de Libro1.xlsx, y luego se escribe CONFIRMAR en D4.
 Listo, ya se debería generar la Base para la licitación.
 Luego, cuando ya se debe realizar el contrato, se rellena la segunda y tercera hoja del excel y se rellena la celda D4 de la tercera hoja.
