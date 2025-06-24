@@ -64,6 +64,56 @@ En caso de que ya exista una base creada en la carpeta se comenzará a verificar
 ### 10. Generación Contrato
 Se procede a la generación del archivo de contrato, utilizando la misma **`plantilla_original.docx`**  que utiliza la base. El programa crea un nuevo archivo de contrato, utilizando la portada del contrato, y escribiendo todos los elementos de plantilla original que se utilizan en un contrato, solo que ahora remplaza por los valores de la Hoja 1, Hoja 2, y Hoja 3. La diferencia es el resultado de este procesamiento entregará un contrato listo.
 
+Para generar los contratos, se sigue un flujo largo, donde se generan varios archivos intermedios, el archivo final que nos interesa es 'contrato_automatizado_tablas_rendered'. El detalle de los archivos intermedios se ve en la siguiente imagen 
+![Image](https://github.com/user-attachments/assets/e0b777d6-41bc-415f-a552-646835f37553)
+
+### Detalle del Flujo de Generación de Documentos
+
+Esta tabla detalla el flujo de generación de documentos, explicando el propósito de cada archivo clave en el proceso.
+
+
+| Nombre del Archivo | Descripción del archivo |
+| :--- | :--- |
+| `Libro1.xlsx` | Es el archivo excel que **se debe modificar**, posee 3 hojas, la primera es de elementos de la base, la segunda y tercera poseen detalles del contrato que deben ser rellenados, el primer elemento de la cuarta fila **en TODAS LAS HOJAS no puede ser vacio, o sino el codigo no funciona**, se recomienda colocar "1", este excel es el que **sirve como fuente** en el que se basarán todos los archivos posteriores. |
+| `plantilla_original_rendered.docx` | Es el archivo de la **Base ya listo y procesado** con los valores remplazados. |
+| `portada_melipilla_contrato.docx` | Es la **portada de un contrato**. |
+| `portada_melipilla_contrato_renderizado.docx` | Es la portada **solamente con los valores remplazados**. |
+| `contrato_automatizado_over.docx` | **Toma el archivo anterior de portada**, y le **agrega los primeros 3 items** para un contrato. |
+| `contrato_faltan_tablas.docx` | Toma el archivo anterior, y esa será la primera parte del documento, luego sobre eso vamos a pegar todos los items desde el tercero hasta el Vigésimo Óctavo provenientes desde plantilla contrato, Lo que hace es buscar un título, ese título y todo el contenido que posea un nivel de título inferior será copiado y pegado, notar que esto **hace perder cualquier tipo de formato** que posea el documento de origen. Ademas **remplaza todos los lugares donde habían tablas por "[[ TABLE PLACEHOLDER ]]"**. |
+| `contrato_automatizado_tablas.docx` | En esta parte se toma el documento anterior y luego **remplaza todas los espacios donde hay [[TABLE PLACEHOLDER]] por las tablas** de 'plantilla_original.docx', por lo que es importante en este sentido mencionar que habrá que **modificar esas tablas para que cuadren** con los cambios en las adjudiaciones, además este proceso es el **más sensible y propenso a fallos**, porque **requiere que esté instalado word** en el computador que este corriendo el código, además, si los archivos **están abiertos la copia podría fallar**, las tablas **mantendrán todos sus formatos** y propiedades originales. Notar también que las tablas son ingresadas, **en el orden en el que están presentes en las bases**, por lo que si se crean nuevas tablas, entonces **el procedimiento podría fallar**, además que como originalmente estaba pensado también realizar el procesamiento de las garantías de fiel cumplimiento, entonces **será necesario insertar un documento "prototipo_tabla_rellenado.docx"** (que son 2 tablas) en la carpeta. |
+
+
+
+| Archivo | Descripción y Aspectos Clave |
+| :--- | :--- |
+| ⚙️ `Libro1.xlsx` | **Archivo de entrada principal (fuente de datos).**<br>Es el `Excel` que el usuario debe modificar. Contiene los datos del contrato distribuidos en 3 hojas para ser rellenados.<br>⚠️ **Importante**: La celda `A4` de la primera hoja **no puede estar vacía** (se recomienda usar "1") para que el script funcione correctamente. |
+| 📄 `portada_melipilla_contrato.docx` | **Plantilla de la portada.**<br>Documento `Word` que sirve como molde para la portada del contrato. |
+| 📄 `portada_melipilla_contrato_renderizado.docx` | **Portada con datos insertados.**<br>Resultado de rellenar `plantilla_portada.docx` con los datos del Excel. Es un archivo intermedio. |
+| 📄 `contrato_automatizado_over.docx` | **Borrador inicial del contrato.**<br>Documento que **combina la portada procesada** con los primeros tres ítems del contrato. |
+| 📄 `contrato_faltan_tablas.docx` | **Contrato con marcadores de posición para las tablas.**<br>Añade el cuerpo principal del contrato (ítems 3 al 28).<br>⚠️ **Importante**: Durante este proceso **se pierde el formato** del documento original. Las tablas son reemplazadas por marcadores de posición `[[ TABLE PLACEHOLDER ]]`. |
+| ✅ `contrato_final_completo.docx` | **Resultado final: Contrato completo y formateado.**<br>Toma `contrato_sin_tablas.docx` e **inserta las tablas** desde una plantilla, reemplazando los `[[ TABLE PLACEHOLDER ]]`. Este paso **mantiene el formato original de las tablas**.<br>🚨 **PROCESO MUY SENSIBLE Y PROPENSO A FALLOS**.<br>**Requerimientos Críticos**:<br>- Requiere **Microsoft Word instalado** en el equipo.<br>- Los archivos `.docx` **deben estar cerrados** durante la ejecución.<br>- El **orden y número de tablas** en la plantilla es crucial. Cambios pueden romper el script. |
+
+
+
+
+
+
+| Nombre del Archivo   | Descripción del archivo                 | 
+|----------------------|-----------------------------------------|
+
+| Libro1.xlsx  | Es el archivo excel que se debe modificar, posee 3 hojas, la primera es de elementos de la base, la segunda y tercera poseen detalles del contrato que deben ser rellenados, el primer elemento de la cuarta fila no puede ser vacio, o sino el codigo no funciona, se recomienda colocar "1", este excel es el que sirve como fuente en el que se basarán todos los archivos posteriores |
+| plantilla_original_rendered.docx  | Es el archivo de la Base ya listo y procesado con los valores remplazados|
+| portada_melipilla_contrato.docx  | Es la portada de un contrato |
+| portada_melipilla_contrato_renderizado.docx  | Es la portada solamente con los valores remplazados |
+| contrato_automatizado_over.docx  | Toma el archivo anterior de portada, y le agrega los primeros 3 items para un contrato |
+| contrato_faltan_tablas.docx  | Toma el archivo anterior, y esa será la primera parte del documento, luego sobre eso vamos a pegar todos los items desde el tercero hasta el Vigésimo Óctavo provenientes desde plantilla contrato, Lo que hace es buscar un título, ese título y todo el contenido que posea un nivel de título inferior será copiado y pegado, notar que esto hace perder cualquier tipo de formato que posea el documento de origen. Ademas remplaza todos los lugares donde habían tablas por "[[ TABLE PLACEHOLDER ]]" |
+| contrato_automatizado_tablas.docx  | En esta parte se toma el documento anterior y luego remplaza todas los espacios donde hay [[TABLE PLACEHOLDER]] por las tablas de 'plantilla_original.docx', por lo que es importante en este sentido mencionar que habrá que modificar esas tablas para que cuadren con los cambios en las adjudiaciones, además este proceso es el más sensible y propenso a fallos, porque requiere que esté instalado word en el computador que este corriendo el código, además, si los archivos están abiertos la copia podría fallar, las tablas mantendrán todos sus formatos y propiedades originales. Notar también que las tablas son ingresadas, en el orden en el que están presentes en las bases, por lo que si se crean nuevas tablas, entonces el procedimiento podría fallar, además que como originalmente estaba pensado también realizar el procesamiento de las garantías de fiel cumplimiento, entonces será necesario insertar un documento "prototipo_tabla_rellenado.docx" (que son 2 tablas) en la carpeta.|
+
+
+
+
+
+
 ## Ejemplo de Uso
 Necesitamos llevar una licitación para la compra de examenes, por lo que vamos al compartido y creamos una nueva carpeta en Licitaciones Testing/1057480-15-LR25
 -- Se generan los Archivos en la carpeta --
