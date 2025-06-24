@@ -83,6 +83,17 @@ Esta tabla detalla el flujo de generación de documentos, explicando el propósi
 | `contrato_automatizado_tablas.docx` | En esta parte se toma el documento anterior y luego **remplaza todas los espacios donde hay [[TABLE PLACEHOLDER]] por las tablas** de 'plantilla_original.docx', por lo que es importante en este sentido mencionar que habrá que **modificar esas tablas para que cuadren** con los cambios en las adjudiaciones, además este proceso es el **más sensible y propenso a fallos**, porque **requiere que esté instalado word** en el computador que este corriendo el código, además, si los archivos **están abiertos la copia podría fallar**, las tablas **mantendrán todos sus formatos** y propiedades originales. Notar también que las tablas son ingresadas, **en el orden en el que están presentes en las bases**, por lo que si se crean nuevas tablas, entonces **el procedimiento podría fallar**, además que como originalmente estaba pensado también realizar el procesamiento de las garantías de fiel cumplimiento, entonces **será necesario insertar un documento "prototipo_tabla_rellenado.docx"** (que son 2 tablas) en la carpeta. |
 
 
+## Ejemplo de Uso
+Necesitamos llevar una licitación para la compra de examenes, por lo que vamos al compartido y creamos una nueva carpeta en Licitaciones Testing/1057480-15-LR25
+-- Se generan los Archivos en la carpeta --
+Dentro de los archivos veremos varios, sin embargo el que nos interesa se llama `Libro1.xlsx`, este archivo es el que debemos de completar, este archivo tendrá 3 hojas, para generar una base Se rellena la primera Hoja de Libro1.xlsx, y luego se escribe CONFIRMAR en D4.
+Listo, ya se debería generar la Base para la licitación.
+Luego, cuando ya se debe realizar el contrato, se rellena la segunda y tercera hoja del excel y se rellena la celda D4 de la tercera hoja.
+Listo, ya se debería generar el contrato para la licitación.
+
+
+
+
 
 | Archivo | Descripción y Aspectos Clave |
 | :--- | :--- |
@@ -114,13 +125,6 @@ Esta tabla detalla el flujo de generación de documentos, explicando el propósi
 
 
 
-## Ejemplo de Uso
-Necesitamos llevar una licitación para la compra de examenes, por lo que vamos al compartido y creamos una nueva carpeta en Licitaciones Testing/1057480-15-LR25
--- Se generan los Archivos en la carpeta --
-Dentro de los archivos veremos varios, sin embargo el que nos interesa se llama `Libro1.xlsx`, este archivo es el que debemos de completar, este archivo tendrá 3 hojas, para generar una base Se rellena la primera Hoja de Libro1.xlsx, y luego se escribe CONFIRMAR en D4.
-Listo, ya se debería generar la Base para la licitación.
-Luego, cuando ya se debe realizar el contrato, se rellena la segunda y tercera hoja del excel y se rellena la celda D4 de la tercera hoja.
-Listo, ya se debería generar el contrato para la licitación.
 
 
 ## 3. Generación de documentos Necesarios
